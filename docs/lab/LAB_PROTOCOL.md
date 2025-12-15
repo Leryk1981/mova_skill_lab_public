@@ -14,10 +14,16 @@
 - Run via `tools/validate_lab.js` or external runner to produce `skills/repo_snapshot_basic/episodes/*.json`.
 - Output is a canonical markdown/JSON repo snapshot for project memory.
 
-## SQLITE RESTORE
+## SQLITE MEMORY: INIT/IMPORT/QUERY
 
-- Use `lab/tools/import_decisions_to_sqlite.js` / `lab/tools/import_episodes_to_sqlite.js` to rebuild `lab/memory/skills_lab_memory.sqlite`.
-- Any script under `lab/tools/` that touches SQLite is **private-only**; never run in the public mirror.
+- **Canonical path (private only)**: `lab/memory/lab_memory.sqlite` (gitignored)
+- **Tool**: `tools/lab_memory.mjs`
+- **NPM commands**:
+  - `npm run lab:memory:init` — Initialize SQLite database with canonical schema (episodes, decisions tables)
+  - `npm run lab:memory:import` — Import episodes from `skills/**/episodes/**/*.json` and decisions from `lab/decisions/**/*.json`
+  - `npm run lab:memory:query -- -- --query "<text>" --limit 20` — Query memory with LIKE search across title/summary/tags/skill_id
+- **Integration**: `lab:init` automatically runs init/import/query during context restore step
+- **Public mirror**: All memory commands skip gracefully with clear SKIP messages (no SQLite file created)
 
 ## BASELINE GATES
 
@@ -49,9 +55,14 @@ For package-driven runs (e.g., repo snapshot, DPP normalize), follow each skill�
 
 - Kick off new analysis with `npm run lab:init -- --query "<focus>"` (default query is `infra`).
 - The runner writes snapshot/context/baseline logs under `lab/init_runs/<YYYY-MM-DD_HH-mm-ss>/`.
-- Repo snapshot executes the node CLI for `skill.repo_snapshot_basic` (stores artifacts in `lab/repo_snapshot_runs/<ts>`).
-- Context restore inspects `lab/memory/*.sqlite` via `sql.js` when available; skips (and reports) when missing (public mirror).
-- Baseline gates always run `npm run validate` + `npm test`. `--public` (or CI+smoke script) also runs `npm run smoke:wf_cycle`.
+- **Repo snapshot**: Executes the node CLI for `skill.repo_snapshot_basic` (stores artifacts in `lab/repo_snapshot_runs/<ts>`).
+- **Context restore**: Uses `lab_memory.mjs` to restore experience from SQLite:
+  - If `lab/memory/lab_memory.sqlite` is missing → runs `lab:memory:init`
+  - Then runs `lab:memory:import` to index current episodes/decisions
+  - Then runs `lab:memory:query` with the provided query (default: "infra", limit: 20)
+  - Writes `context_restore.json` and `context_restore.md` to `<out>/context/`
+  - In public mirror: skips with clear SKIP message (no SQLite available)
+- **Baseline gates**: Always run `npm run validate` + `npm test`. `--public` (or CI+smoke script) also runs `npm run smoke:wf_cycle`.
 
 ## HOW TO RUN A SKILL
 

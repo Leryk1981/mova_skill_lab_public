@@ -1,0 +1,4 @@
+{
+  "status": "skipped",
+  "reason": "SKIP (public mirror): SQLite memory not available."
+}

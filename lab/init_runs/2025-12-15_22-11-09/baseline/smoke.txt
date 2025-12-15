@@ -1,0 +1,5 @@
+
+> mova_skills_lab@0.1.0 smoke:wf_cycle
+> node tools/wf_cycle_smoke_ci.mjs
+
+[wf_cycle_smoke_ci] PASS: scaffold, compare, winner_pack

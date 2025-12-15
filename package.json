@@ -12,7 +12,10 @@
     "memory:import": "npm run memory:import:episodes && npm run memory:import:decisions",
     "memory:snapshot": "node lab/tools/dump_memory_snapshot.js",
     "lab:run": "node tools/lab_run.mjs",
-    "lab:init": "node tools/lab_init.mjs"
+    "lab:init": "node tools/lab_init.mjs",
+    "lab:memory:init": "node tools/lab_memory.mjs init",
+    "lab:memory:import": "node tools/lab_memory.mjs import",
+    "lab:memory:query": "node tools/lab_memory.mjs query"
   },
   "dependencies": {
     "sql.js": "^1.9.0"
