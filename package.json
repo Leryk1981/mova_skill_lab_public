@@ -2,31 +2,20 @@
   "name": "mova_skills_lab",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "validate": "node tools/validate_lab.js",
-    "test": "npm run validate && node skills/skill_ingest_run_with_skillseeker_basic/tests/run_tests.js && node skills/skill_ingest_store_episode_basic/tests/run_tests.js && node skills/skill_mova_ai_bootstrap_generate_basic/tests/run_tests.js && node lab/tools/tests/mova_ai_bootstrap_apply_profile.test.js && node skills/skill_file_cleanup_snapshot_node_basic/tests/run_tests.js && node skills/skill_file_cleanup_plan_node_basic/tests/run_tests.js",
-    "smoke:wf_cycle": "node tools/wf_cycle_smoke_ci.mjs",
-    "init:memory": "node lab/tools/init_memory_sqlite.js",
-    "memory:import:episodes": "node lab/tools/import_episodes_to_sqlite.js",
-    "memory:import:decisions": "node lab/tools/import_decisions_to_sqlite.js",
-    "memory:import": "npm run memory:import:episodes && npm run memory:import:decisions",
-    "memory:snapshot": "node lab/tools/dump_memory_snapshot.js",
-    "lab:run": "node tools/lab_run.mjs",
-    "lab:init": "node tools/lab_init.mjs",
-    "lab:memory:init": "node tools/lab_memory.mjs init",
-    "lab:memory:import": "node tools/lab_memory.mjs import",
-    "lab:memory:query": "node tools/lab_memory.mjs query"
-  },
   "dependencies": {
     "sql.js": "^1.9.0"
+  },
+  "scripts": {
+    "lab:memory:init": "node tools/lab_memory.mjs init",
+    "lab:memory:import": "node tools/lab_memory.mjs import",
+    "lab:memory:stats": "node tools/lab_memory.mjs stats",
+    "lab:memory:query": "node tools/lab_memory.mjs query",
+    "validate": "node tools/validate_lab.js",
+    "test": "npm run validate && node skills/skill_ingest_run_with_skillseeker_basic/tests/run_tests.js && node skills/skill_ingest_store_episode_basic/tests/run_tests.js && node skills/skill_mova_ai_bootstrap_generate_basic/tests/run_tests.js && node lab/tools/tests/mova_ai_bootstrap_apply_profile.test.js && node skills/skill_file_cleanup_snapshot_node_basic/tests/run_tests.js && node skills/skill_file_cleanup_plan_node_basic/tests/run_tests.js"
   },
   "devDependencies": {
     "ajv": "^8.17.0",
     "ajv-formats": "^3.0.1"
-  },
-  "packageManager": "npm@11.6.2",
-  "engines": {
-    "node": ">=22.16.0 <23",
-    "npm": ">=11.6.2 <12"
   }
 }
+
