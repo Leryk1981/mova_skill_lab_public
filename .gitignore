@@ -6,18 +6,4 @@ dist/
 tmp/
 .cursor/
 skill_seekers_development/
-spec/mova-spec-4.1.1/
 
-# Codex / node compile cache (can explode to hundreds of files)
-**/.tmp/node-compile-cache/**
-**/.tmp/**/node-compile-cache/**
-**/node-compile-cache/**
-
-# Public mirror exclusions
-lab/memory/**
-lab/experiments/**
-lab/skill_runs/**
-**/.tmp/**
-tmp/**
-**/*.sqlite
-**/node-compile-cache/**
