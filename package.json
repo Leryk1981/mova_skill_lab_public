@@ -11,7 +11,8 @@
     "memory:import:decisions": "node lab/tools/import_decisions_to_sqlite.js",
     "memory:import": "npm run memory:import:episodes && npm run memory:import:decisions",
     "memory:snapshot": "node lab/tools/dump_memory_snapshot.js",
-    "lab:run": "node tools/lab_run.mjs"
+    "lab:run": "node tools/lab_run.mjs",
+    "lab:init": "node tools/lab_init.mjs"
   },
   "dependencies": {
     "sql.js": "^1.9.0"
