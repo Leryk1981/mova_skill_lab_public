@@ -120,111 +120,81 @@ function runSnapshot(outDir) {
   return { status: "ok", output: snapshotDir };
 }
 
-function findSqliteFiles() {
-  const memoryDir = path.join(repoRoot, "lab", "memory");
-  if (!fs.existsSync(memoryDir)) return [];
-  return fs
-    .readdirSync(memoryDir)
-    .filter((name) => name.toLowerCase().endsWith(".sqlite"))
-    .map((name) => path.join(memoryDir, name));
-}
-
 async function restoreContext(outDir, query) {
   ensureDir(outDir);
-  const sqliteFiles = findSqliteFiles();
-  if (!sqliteFiles.length) {
+  const sqlitePath = path.join(repoRoot, "lab", "memory", "lab_memory.sqlite");
+  const publicMirror =
+    repoRoot.toLowerCase().includes("_public") ||
+    repoRoot.toLowerCase().endsWith("mova_skill_lab_public");
+
+  if (publicMirror) {
     const summary = {
       status: "skipped",
-      reason: "No lab/memory/*.sqlite files detected"
+      reason: "SKIP (public mirror): SQLite memory not available."
     };
     writeTextFile(path.join(outDir, "context_restore.json"), JSON.stringify(summary, null, 2));
     writeTextFile(
       path.join(outDir, "context_restore.md"),
-      "# Context Restore\n\nSKIP: no SQLite memory snapshot found."
+      "# Context Restore\n\nSKIP (public mirror): SQLite memory not available."
     );
-    log("Context restore SKIP (no sqlite)");
+    log("Context restore SKIP (public mirror)");
     return summary;
   }
 
-  let initSqlJs;
-  try {
-    initSqlJs = (await import("sql.js")).default;
-  } catch (err) {
-    const summary = {
-      status: "skipped",
-      reason: `sql.js not available (${err.message || err})`
-    };
-    writeTextFile(path.join(outDir, "context_restore.json"), JSON.stringify(summary, null, 2));
-    writeTextFile(
-      path.join(outDir, "context_restore.md"),
-      "# Context Restore\n\nSKIP: sql.js dependency missing."
-    );
-    log("Context restore SKIP (sql.js missing)");
-    return summary;
-  }
-
-  const locateFile = (fileName) =>
-    path.join(repoRoot, "node_modules", "sql.js", "dist", fileName);
-  const SQL = await initSqlJs({ locateFile });
-
-  const matches = [];
-  const queryLower = (query || "").toLowerCase();
-
-  for (const sqlitePath of sqliteFiles) {
-    const data = fs.readFileSync(sqlitePath);
-    const db = new SQL.Database(data);
-    const tablesExec = db.exec("SELECT name FROM sqlite_master WHERE type='table'");
-    const tableNames =
-      tablesExec.length && tablesExec[0].values
-        ? tablesExec[0].values.map((row) => row[0])
-        : [];
-    for (const table of tableNames) {
-      const res = db.exec(`SELECT * FROM ${table} ORDER BY rowid DESC LIMIT 25`);
-      for (const row of res) {
-        for (const values of row.values) {
-          const entry = {};
-          row.columns.forEach((col, idx) => {
-            entry[col] = values[idx];
-          });
-          const serialized = JSON.stringify(entry);
-          if (queryLower && !serialized.toLowerCase().includes(queryLower)) {
-            continue;
-          }
-          matches.push({
-            sqlite: path.relative(repoRoot, sqlitePath).replace(/\\/g, "/"),
-            table,
-            entry
-          });
-          if (matches.length >= 50) break;
-        }
-        if (matches.length >= 50) break;
-      }
-      if (matches.length >= 50) break;
+  // Step 1: Initialize SQLite if missing
+  if (!fs.existsSync(sqlitePath)) {
+    log("Initializing SQLite memory...");
+    const initInvocation = getNpmInvocation(["run", "lab:memory:init"]);
+    if (!runAndCapture("lab:memory:init", initInvocation.cmd, initInvocation.args, path.join(outDir, "memory_init.log"))) {
+      const summary = {
+        status: "skipped",
+        reason: "Failed to initialize SQLite memory"
+      };
+      writeTextFile(path.join(outDir, "context_restore.json"), JSON.stringify(summary, null, 2));
+      writeTextFile(
+        path.join(outDir, "context_restore.md"),
+        "# Context Restore\n\nSKIP: failed to initialize SQLite memory."
+      );
+      log("Context restore SKIP (init failed)");
+      return summary;
     }
-    db.close();
-    if (matches.length >= 50) break;
   }
 
-  const summary = {
-    status: "ok",
-    query,
-    matches
-  };
-  writeTextFile(path.join(outDir, "context_restore.json"), JSON.stringify(summary, null, 2));
-  const mdLines = ["# Context Restore", `Query: \`${query}\``, ""];
-  if (!matches.length) {
-    mdLines.push("No matching rows found (limited scan).");
-  } else {
-    matches.forEach((match) => {
-      mdLines.push(`- ${match.sqlite} :: ${match.table}`);
-      mdLines.push("```json");
-      mdLines.push(JSON.stringify(match.entry, null, 2));
-      mdLines.push("```");
-      mdLines.push("");
-    });
+  // Step 2: Import episodes/decisions
+  log("Importing episodes/decisions into SQLite memory...");
+  const importInvocation = getNpmInvocation(["run", "lab:memory:import"]);
+  runAndCapture("lab:memory:import", importInvocation.cmd, importInvocation.args, path.join(outDir, "memory_import.log"));
+
+  // Step 3: Query memory
+  log(`Querying SQLite memory with query: "${query || "(all)"}"`);
+  const queryArgs = ["run", "lab:memory:query", "--", "--query", query || "", "--limit", "20", "--out", outDir];
+  const queryInvocation = getNpmInvocation(queryArgs);
+  const querySuccess = runAndCapture("lab:memory:query", queryInvocation.cmd, queryInvocation.args, path.join(outDir, "memory_query.log"));
+
+  // Check if context_restore.json was created by lab_memory.mjs
+  const contextJsonPath = path.join(outDir, "context_restore.json");
+  if (fs.existsSync(contextJsonPath)) {
+    const summary = JSON.parse(fs.readFileSync(contextJsonPath, "utf8"));
+    if (summary.status === "ok") {
+      log(`Context restore PASS (${summary.rows?.length || 0} rows)`);
+    } else {
+      log(`Context restore ${summary.status} (${summary.reason || ""})`);
+    }
+    return summary;
   }
-  writeTextFile(path.join(outDir, "context_restore.md"), mdLines.join("\n"));
-  log(`Context restore ${matches.length ? "PASS" : "PASS (no hits)"}`);
+
+  // Fallback if files weren't created
+  const summary = {
+    status: querySuccess ? "ok" : "failed",
+    query: query || "(all)",
+    reason: querySuccess ? "Query completed but no output files found" : "Query command failed"
+  };
+  writeTextFile(contextJsonPath, JSON.stringify(summary, null, 2));
+  writeTextFile(
+    path.join(outDir, "context_restore.md"),
+    `# Context Restore\n\nQuery: \`${query || "(all)"}\`\n\n${summary.reason}`
+  );
+  log(`Context restore ${summary.status}`);
   return summary;
 }
 

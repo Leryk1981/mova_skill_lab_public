@@ -122,8 +122,8 @@ function main() {
     const compareOutputDir = path.join(
       repoRoot,
       "lab",
-      "experiments",
-      "WF_EX_WF_BUILD_WORKFLOW_001",
+      "examples",
+      "wf_cycle_public_fixture",
       "compare",
       "B_topdown_skill"
     );

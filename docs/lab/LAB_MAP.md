@@ -26,7 +26,7 @@
 - **Registry** — `lab/skills_registry_v1.json` enumerates skills and bindings.
 - **Entry scripts** — package scripts + `tools/*.js|mjs` (e.g., `tools/validate_lab.js`, `tools/wf_cycle_smoke_ci.mjs`, `lab/tools/import_*`).
 - **Experiments** — canonical runbooks live in `lab/experiments/**` (private only).
-- **SQLite snapshots** — `lab/memory/skills_lab_memory.sqlite` and dated JSON snapshots capture project context (never publish).
+- **SQLite memory** — Canonical memory path (private only): `lab/memory/lab_memory.sqlite` (gitignored). Dated JSON snapshots also capture project context (never publish).
 
 ## Red Flags / Sensitive Paths
 

@@ -1,0 +1,84 @@
+
+> mova_skills_lab@0.1.0 validate
+> node tools/validate_lab.js
+
+✅ lab/skills_registry_v1.json is valid
+✅ manifest for skill.mova_template (skills/mova_template/manifest.skill.json) is valid
+✅ binding binding.mova_template.local_dummy_v1 for skill.mova_template (skills/mova_template/impl/bindings/mova_template_local_dummy_binding.json) is valid
+✅ episode skills\mova_template\episodes\2025-12-03T10-00-00Z_episode_0001.json is valid
+✅ manifest for skill.context7_docs (skills/context7_docs/manifest.skill.json) is valid
+✅ binding binding.context7_docs.mcp_remote_v1 for skill.context7_docs (skills/context7_docs/impl/bindings/context7_mcp_remote_v1.json) is valid
+✅ episode skills\context7_docs\episodes\2025-12-03T12-00-00Z_episode_0001.json is valid
+✅ manifest for skill.mova_lab_operator (skills/mova_lab_operator/manifest.skill.json) is valid
+✅ manifest for skill.repo_snapshot_basic (skills/repo_snapshot_basic/manifest.skill.json) is valid
+✅ binding repo_snapshot_llm_binding_v1 for skill.repo_snapshot_basic (skills/repo_snapshot_basic/impl/bindings/repo_snapshot_llm_binding_v1.json) is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-08_dpp_after_L1_01_lab_schemas.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-08_dpp_after_L1_02_battery_passport_minimal.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-08_dpp_after_L1_03_mova_check_integration.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-08_dpp_after_L1_04_mova_check_binding.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-08_dpp_after_L1_05_mova_check_stronger_minimal.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-08_dpp_after_L1_06_battery_passport_extended.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-08_dpp_after_L1_07_dpp_lab_decisions_deferred.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-08_dpp_after_L2_01_dpp_passport_read_workflow.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-08_dpp_after_mova_check.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-08_dpp_lab_start.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-09_dpp_after_L2_02_dpp_export_envelope.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-09_dpp_after_L2_03_manufacturer_verifier_workflow.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-09_dpp_after_L3_01_dpp_passport_normalize_contracts.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-09_dpp_after_L3_02_dpp_passport_normalize_basic.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-09_dpp_after_L3_03_normalize_export_verifier_workflow.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-10_mova_skills_lab_WF_LAB_01_lab_workflow_schemas_and_envelopes.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-10_mova_skills_lab_WF_LAB_02_WF_EX_001_baseline_and_config.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-10_mova_skills_lab_WF_LAB_03_WF_EX_001_baseline_run_01.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-10_mova_skills_lab_WF_LAB_04_WF_EX_001_baseline_result_only.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-10_mova_skills_lab_WF_LAB_05_WF_EX_001_baseline_vs_codex.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-10_mova_skills_lab_WF_LAB_06_WF_EX_002_smartlink_setup.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-10_mova_skills_lab_WF_LAB_08_smartlink_mova_schemas.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-10_WF_EX_002_smartlink_codex_run_01.json is valid
+✅ episode skills\repo_snapshot_basic\episodes\episode_2025-12-12_mova_skills_lab_WF_EX_GOV_001_baseline.json is valid
+✅ manifest for skill.skill_scaffolder_basic (skills/skill_scaffolder_basic/manifest.skill.json) is valid
+✅ binding skill_scaffolder_llm_binding_v1 for skill.skill_scaffolder_basic (skills/skill_scaffolder_basic/impl/bindings/skill_scaffolder_llm_binding_v1.json) is valid
+✅ manifest for skill.file_cleanup_basic (skills/file_cleanup_basic/manifest.skill.json) is valid
+✅ binding file_cleanup_llm_binding_v1 for skill.file_cleanup_basic (skills/file_cleanup_basic/impl/bindings/file_cleanup_llm_binding_v1.json) is valid
+✅ manifest for skill.connector_scaffolder_basic (skills/connector_scaffolder_basic/manifest.skill.json) is valid
+✅ binding connector_scaffolder_llm_binding_v1 for skill.connector_scaffolder_basic (skills/connector_scaffolder_basic/impl/bindings/connector_scaffolder_llm_binding_v1.json) is valid
+✅ manifest for skill.runtime_binding_code_scaffolder_basic (skills/runtime_binding_code_scaffolder_basic/manifest.skill.json) is valid
+✅ binding runtime_binding_scaffolder_llm_binding_v1 for skill.runtime_binding_code_scaffolder_basic (skills/runtime_binding_code_scaffolder_basic/impl/bindings/runtime_binding_scaffolder_llm_binding_v1.json) is valid
+✅ manifest for skill.code_exec_task_basic (skills/code_exec_task_basic/manifest.skill.json) is valid
+✅ binding code_exec_binding_v1 for skill.code_exec_task_basic (skills/code_exec_task_basic/impl/bindings/code_exec_binding_v1.json) is valid
+✅ manifest for skill.repo_code_change_plan_basic (skills/repo_code_change_plan_basic/manifest.skill.json) is valid
+✅ binding repo_code_change_plan_llm_binding_v1 for skill.repo_code_change_plan_basic (skills/repo_code_change_plan_basic/impl/bindings/repo_code_change_plan_llm_binding_v1.json) is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-08_dpp_lab_L1_01_lab_schemas.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-08_dpp_lab_L1_02_battery_passport_minimal.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-08_dpp_lab_L1_04_mova_check_binding.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-08_dpp_lab_L1_05_mova_check_stronger_minimal.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-08_dpp_lab_L1_06_battery_passport_extended.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-08_dpp_lab_L1_07_dpp_lab_decisions_deferred.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-08_dpp_lab_L2_01_dpp_passport_read_workflow.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-09_dpp_lab_L2_02_dpp_export_envelope.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-09_dpp_lab_L2_03_manufacturer_verifier_workflow.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-09_dpp_lab_L3_01_dpp_passport_normalize_contracts.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-09_dpp_lab_L3_03_normalize_export_verifier_workflow.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-10_mova_skills_lab_WF_LAB_01_lab_workflow_schemas_and_envelopes.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-10_mova_skills_lab_WF_LAB_02_WF_EX_001_baseline_and_config.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-10_mova_skills_lab_WF_LAB_04_WF_EX_001_baseline_result_only.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-10_mova_skills_lab_WF_LAB_05_WF_EX_001_baseline_vs_codex.json is valid
+✅ episode skills\repo_code_change_plan_basic\episodes\episode_2025-12-10_mova_skills_lab_WF_LAB_06_WF_EX_002_smartlink_setup.json is valid
+✅ manifest for skill.skill_ingest_run_with_skillseeker_basic (skills/skill_ingest_run_with_skillseeker_basic/manifest.skill.json) is valid
+✅ binding skill_ingest_run_with_skillseeker_binding_v1 for skill.skill_ingest_run_with_skillseeker_basic (skills/skill_ingest_run_with_skillseeker_basic/impl/bindings/skill_ingest_run_with_skillseeker_binding_v1.json) is valid
+✅ manifest for skill.skill_ingest_store_episode_basic (skills/skill_ingest_store_episode_basic/manifest.skill.json) is valid
+✅ binding skill_ingest_store_episode_binding_v1 for skill.skill_ingest_store_episode_basic (skills/skill_ingest_store_episode_basic/impl/bindings/skill_ingest_store_episode_binding_v1.json) is valid
+✅ manifest for skill.mova_ai_bootstrap_generate_basic (skills/skill_mova_ai_bootstrap_generate_basic/manifest.skill.json) is valid
+✅ binding skill_mova_ai_bootstrap_generate_binding_v1 for skill.mova_ai_bootstrap_generate_basic (skills/skill_mova_ai_bootstrap_generate_basic/impl/bindings/skill_mova_ai_bootstrap_generate_binding_v1.json) is valid
+✅ manifest for skill.file_cleanup_snapshot_node_basic (skills/skill_file_cleanup_snapshot_node_basic/manifest.skill.json) is valid
+✅ binding skill_file_cleanup_snapshot_binding_v1 for skill.file_cleanup_snapshot_node_basic (skills/skill_file_cleanup_snapshot_node_basic/impl/bindings/skill_file_cleanup_snapshot_binding_v1.json) is valid
+✅ manifest for skill.file_cleanup_plan_node_basic (skills/skill_file_cleanup_plan_node_basic/manifest.skill.json) is valid
+✅ binding skill_file_cleanup_plan_binding_v1 for skill.file_cleanup_plan_node_basic (skills/skill_file_cleanup_plan_node_basic/skill_file_cleanup_plan_binding_v1.json) is valid
+✅ manifest for skill.wf_cycle_compute_compare_basic (skills/wf_cycle_compute_compare_basic/manifest.skill.json) is valid
+✅ binding wf_cycle_compute_compare_local_node_binding_v1 for skill.wf_cycle_compute_compare_basic (skills/wf_cycle_compute_compare_basic/impl/bindings/wf_cycle_compute_compare_local_node_binding_v1.json) is valid
+✅ manifest for skill.wf_cycle_winner_pack_basic (skills/wf_cycle_winner_pack_basic/manifest.skill.json) is valid
+✅ binding wf_cycle_winner_pack_local_node_binding_v1 for skill.wf_cycle_winner_pack_basic (skills/wf_cycle_winner_pack_basic/impl/bindings/wf_cycle_winner_pack_local_node_binding_v1.json) is valid
+✅ manifest for skill.wf_cycle_scaffold_basic (skills/wf_cycle_scaffold_basic/manifest.skill.json) is valid
+✅ binding wf_cycle_scaffold_local_node_binding_v1 for skill.wf_cycle_scaffold_basic (skills/wf_cycle_scaffold_basic/impl/bindings/wf_cycle_scaffold_local_node_binding_v1.json) is valid
+
+✅ All checked documents are valid.
