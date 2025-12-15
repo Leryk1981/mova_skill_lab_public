@@ -1,0 +1,90 @@
+[
+  {
+    "id": "skill.skill_scaffolder_basic",
+    "description": "Generates MOVA skill skeletons from structured prompts.",
+    "run_cmd": "Use skills/skill_scaffolder_basic/impl/bindings/skill_scaffolder_llm_binding_v1.json via MCP or agent.",
+    "examples": ["skills/skill_scaffolder_basic/cases/skill_scaffolder_basic_case_01.json"],
+    "outputs": ["skills/<new_skill>/"],
+    "writes_episode": false
+  },
+  {
+    "id": "skill.connector_scaffolder_basic",
+    "description": "Creates connector skill contracts and run envelopes.",
+    "run_cmd": "Execute connector_scaffolder_llm_binding_v1.json through MCP/agent.",
+    "examples": ["skills/connector_scaffolder_basic/cases/connector_scaffolder_basic_case_01.json"],
+    "outputs": ["skills/connector_*"],
+    "writes_episode": false
+  },
+  {
+    "id": "skill.runtime_binding_code_scaffolder_basic",
+    "description": "Generates runtime binding (Node) code for skills.",
+    "run_cmd": "skills/runtime_binding_code_scaffolder_basic/impl/bindings/runtime_binding_scaffolder_llm_binding_v1.json",
+    "examples": ["skills/runtime_binding_code_scaffolder_basic/cases/runtime_binding_scaffolder_case_01.json"],
+    "outputs": ["skills/runtime_binding_code_scaffolder_basic/impl/code/*"],
+    "writes_episode": false
+  },
+  {
+    "id": "skill.code_exec_task_basic",
+    "description": "Standardized CLI execution wrapper producing structured results.",
+    "run_cmd": "node skills/code_exec_task_basic/impl/bindings/code_exec_binding_v1.json --request-file <case>",
+    "examples": ["skills/code_exec_task_basic/cases/code_exec_task_basic_case_01.json"],
+    "outputs": ["skills/code_exec_task_basic/episodes/*.json"],
+    "writes_episode": true
+  },
+  {
+    "id": "skill.repo_snapshot_basic",
+    "description": "Captures repository snapshot (docs + manifests).",
+    "run_cmd": "Invoke repo_snapshot_llm_binding_v1.json or trigger via tooling.",
+    "examples": ["lab/examples/env.repo_snapshot_request_v1.mova_skills_lab.dpp_start.json"],
+    "outputs": ["skills/repo_snapshot_basic/episodes/*.json"],
+    "writes_episode": true
+  },
+  {
+    "id": "skill.repo_code_change_plan_basic",
+    "description": "Produces structured code-change plans with risks and completion criteria.",
+    "run_cmd": "Use skills/repo_code_change_plan_basic/impl/bindings/repo_code_change_plan_llm_binding_v1.json",
+    "examples": ["skills/repo_code_change_plan_basic/cases/repo_code_change_plan_basic_case_01.json"],
+    "outputs": ["skills/repo_code_change_plan_basic/episodes/*.json"],
+    "writes_episode": true
+  },
+  {
+    "id": "skill.mova_check_basic",
+    "description": "Validates MOVA workflows and envelopes (baseline vs experiment).",
+    "run_cmd": "Replay episodes or invoke mova_check profile per SKILL.md.",
+    "examples": ["skills/mova_check_basic/episodes/episode_2025-12-08_dpp_lab_L1_03_battery_passport_minimal.json"],
+    "outputs": ["skills/mova_check_basic/episodes/*.json"],
+    "writes_episode": true
+  },
+  {
+    "id": "skill.wf_cycle_scaffold_basic",
+    "description": "Creates wf_cycle experiment scaffolds (participants/options).",
+    "run_cmd": "node skills/wf_cycle_scaffold_basic/impl/bindings/node/scaffold_experiment.mjs --request-file <json>",
+    "examples": ["skills/wf_cycle_scaffold_basic/cases/case_WF_EX_WF_SCAFFOLD_SMOKE_001.json"],
+    "outputs": ["lab/experiments/WF_EX_*/<experiment_id>"],
+    "writes_episode": false
+  },
+  {
+    "id": "skill.wf_cycle_compute_compare_basic",
+    "description": "Deterministic compare for wf_cycle runs (scores, winner, delta).",
+    "run_cmd": "node skills/wf_cycle_compute_compare_basic/impl/bindings/node/compute_compare.mjs --request-file <case>",
+    "examples": ["skills/wf_cycle_compute_compare_basic/cases/case_WF_EX_WF_BUILD_WORKFLOW_001_B_topdown.json"],
+    "outputs": ["lab/experiments/WF_EX_*/compare/*"],
+    "writes_episode": false
+  },
+  {
+    "id": "skill.wf_cycle_winner_pack_basic",
+    "description": "Assembles winner packs (artifacts, replay logs, compare evidence).",
+    "run_cmd": "node skills/wf_cycle_winner_pack_basic/impl/bindings/node/build_winner_pack.mjs --request-file <case>",
+    "examples": ["skills/wf_cycle_winner_pack_basic/cases/case_WF_EX_WF_BUILD_WORKFLOW_001_pack_from_B_topdown.json"],
+    "outputs": ["lab/experiments/WF_EX_*/outputs/winner_pack*/"],
+    "writes_episode": false
+  },
+  {
+    "id": "skill.dpp_passport_normalize_basic",
+    "description": "Normalizes DPP battery passports and emits canonical JSON.",
+    "run_cmd": "node skills/dpp_passport_normalize_basic/impl/code/run_normalize.js --request-file <input>",
+    "examples": ["lab/examples/env.dpp_passport_normalize_run_v1.dpp_lab.example.json"],
+    "outputs": ["lab/examples/dpp_passport_normalize_input_example.json", "skills/dpp_passport_normalize_basic/episodes/*.json"],
+    "writes_episode": true
+  }
+]
