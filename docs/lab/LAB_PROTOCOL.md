@@ -45,6 +45,21 @@ Pattern: `env → tool → episode`.
 
 For package-driven runs (e.g., repo snapshot, DPP normalize), follow each skill’s README and case files.
 
+## HOW TO RUN A SKILL
+
+- Use the unified runner: `npm run lab:run -- --case <path>` or `npm run lab:run -- --env <path>`.
+- `--case` auto-detects skills under `skills/<skill_dir>/cases`. `--env` maps prefixes like `lab/examples/env.dpp_passport_normalize_run_v1.*.json`.
+- Optional `--skill <skill_id>` forces the mapping when both case and env overlap.
+- Node-backed skills run automatically (wf_cycle, dpp normalize). LLM/manual skills print precise binding/profile instructions and exit `PASS (manual)`.
+
+Examples:
+
+```bash
+npm run lab:run -- --case skills/wf_cycle_compute_compare_basic/cases/case_WF_EX_WF_BUILD_WORKFLOW_001_B_topdown.json
+npm run lab:run -- --env lab/examples/env.dpp_passport_normalize_run_v1.dpp_lab.example.json
+npm run lab:run -- --skill skill.repo_code_change_plan_basic --case skills/repo_code_change_plan_basic/cases/repo_code_change_plan_basic_case_01.json
+```
+
 ## COMPARE & WINNER PACK
 
 - Skills:
