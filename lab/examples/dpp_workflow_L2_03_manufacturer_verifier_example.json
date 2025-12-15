@@ -1,0 +1,28 @@
+{
+  "workflow_id": "dpp_lab_L2_03_manufacturer_verifier_example_01",
+  "meta": {
+    "domain": "dpp_lab",
+    "labels": [
+      "L2_03",
+      "manufacturer_verifier_workflow"
+    ]
+  },
+  "description": "Minimal manufacturer→export→verifier workflow over existing DPP envelopes.",
+  "steps": [
+    {
+      "step_id": "1",
+      "name": "Manufacturer reads passport (internal view)",
+      "envelope_ref": "lab/examples/env.dpp_passport_read_v1.dpp_lab.manufacturer_view_example.json"
+    },
+    {
+      "step_id": "2",
+      "name": "Manufacturer exports passport to GS1 EPCIS",
+      "envelope_ref": "lab/examples/env.dpp_export_v1.dpp_lab.gs1_epcis_example.json"
+    },
+    {
+      "step_id": "3",
+      "name": "Verifier reads passport (verifier view)",
+      "envelope_ref": "lab/examples/env.dpp_passport_read_v1.dpp_lab.verifier_view_example.json"
+    }
+  ]
+}

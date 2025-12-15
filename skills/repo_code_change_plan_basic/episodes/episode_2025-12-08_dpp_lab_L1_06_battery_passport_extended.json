@@ -1,0 +1,26 @@
+{
+  "episode_id": "episode_2025-12-08_dpp_lab_L1_06_battery_passport_extended",
+  "skill_id": "skill.repo_code_change_plan_basic",
+  "envelope_id": "env.repo_change_plan_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_vscode_main"
+  },
+  "started_at": "2025-12-08T15:30:00Z",
+  "finished_at": "2025-12-08T15:30:00Z",
+  "input": {
+    "request_ref": "lab/examples/env.repo_change_plan_run_v1.dpp_lab.L1_06_battery_passport_extended.json",
+    "run_ref": "lab/skill_runs/repo_code_change_plan.dpp_lab.L1_06_battery_passport_extended.json"
+  },
+  "output": {
+    "plan_notes": "Plan for L1_06: extended battery passport schema/example, mova_check_basic run, snapshot."
+  },
+  "meta": {
+    "domain": "dpp_lab",
+    "labels": [
+      "L1_06_battery_passport_extended",
+      "dpp_lab"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "episode_id": "episode_2025-12-09_dpp_lab_L2_03_manufacturer_verifier_workflow",
+  "skill_id": "skill.repo_code_change_plan_basic",
+  "envelope_id": "env.repo_change_plan_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_vscode_main"
+  },
+  "started_at": "2025-12-09T12:00:00Z",
+  "finished_at": "2025-12-09T12:00:00Z",
+  "input": {
+    "request_ref": "lab/examples/env.repo_change_plan_run_v1.dpp_lab.L2_03_manufacturer_verifier_workflow.json",
+    "run_ref": "lab/skill_runs/repo_code_change_plan.dpp_lab.L2_03_manufacturer_verifier_workflow.json"
+  },
+  "output": {
+    "plan_notes": "Plan for L2_03 to add manufacturer→export→verifier workflow example using existing DPP envelopes and capture snapshot."
+  },
+  "meta": {
+    "domain": "dpp_lab",
+    "labels": [
+      "dpp_lab",
+      "L2_03",
+      "manufacturer_verifier_workflow"
+    ]
+  }
+}

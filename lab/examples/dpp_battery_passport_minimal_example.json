@@ -1,0 +1,48 @@
+{
+  "$schema": "https://mova.dev/lab/schemas/ds.lab_battery_passport_minimal_v1.schema.json",
+  "passport_id": "BAT-2025-ABC123",
+  "battery_basic": {
+    "battery_id": "BAT-2025-ABC123",
+    "manufacturer_name": "Example Battery GmbH",
+    "manufacturer_country": "DE",
+    "manufacturing_date": "2025-06-30",
+    "manufacturing_location": "Berlin, DE"
+  },
+  "carbon_footprint": {
+    "value": 85.3,
+    "unit": "kg_CO2e",
+    "scope": "cradle_to_gate",
+    "method": "CFF_v1",
+    "verification_status": "third_party_verified",
+    "regulation_requirement": {
+      "regulation_id": "EU_BATTERY_REG_2023",
+      "clause_ref": "Annex_XIII.3b",
+      "data_point_id": "battery.cf.cradle_to_gate",
+      "required_level": "mandatory",
+      "verification_method": "third_party_LCA",
+      "notes": "CF must be calculated according to CFF and reported in kg CO2e."
+    }
+  },
+  "materials": {
+    "cobalt": {
+      "source": "Kamoto Mine DRC",
+      "recycled_pct": 12.5,
+      "traceability": {
+        "known_pct": 13.6,
+        "unknown_pct": 86.4,
+        "method": "mass_balance",
+        "confidence": 0.7,
+        "notes": "Traceability coverage based on current supplier declarations."
+      }
+    }
+  },
+  "data_sources": [
+    {
+      "system": "SAP",
+      "source_id": "SAP-PO-123",
+      "import_time": "2025-12-08T10:00:00Z",
+      "record_count": 42,
+      "notes": "Purchase order export for CF and materials data."
+    }
+  ]
+}

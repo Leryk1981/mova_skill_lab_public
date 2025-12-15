@@ -1,0 +1,26 @@
+{
+  "episode_id": "episode_2025-12-09_dpp_after_L2_02_dpp_export_envelope",
+  "skill_id": "skill.repo_snapshot_basic",
+  "envelope_id": "env.repo_snapshot_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_vscode_main"
+  },
+  "started_at": "2025-12-09T09:20:00Z",
+  "finished_at": "2025-12-09T09:22:00Z",
+  "input": {
+    "request_ref": "lab/examples/env.repo_snapshot_request_v1.mova_skills_lab.dpp_after_L2_02_dpp_export_envelope.json",
+    "run_ref": "lab/skill_runs/repo_snapshot_dpp_after_L2_02_dpp_export_envelope_request.json"
+  },
+  "output": {
+    "snapshot_ref": "docs/PROJECT_MEMORY/PROJECT_SNAPSHOT_2025-12-09_mova_skills_lab_dpp_after_L2_02_dpp_export_envelope.json"
+  },
+  "meta": {
+    "domain": "dpp_lab",
+    "labels": [
+      "dpp_after_L2_02_dpp_export_envelope",
+      "mova_skills_lab"
+    ]
+  }
+}

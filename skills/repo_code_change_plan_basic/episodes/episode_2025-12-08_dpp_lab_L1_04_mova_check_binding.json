@@ -1,0 +1,26 @@
+{
+  "episode_id": "episode_2025-12-08_dpp_lab_L1_04_mova_check_binding",
+  "skill_id": "skill.repo_code_change_plan_basic",
+  "envelope_id": "env.repo_change_plan_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_vscode_main"
+  },
+  "started_at": "2025-12-08T14:35:00Z",
+  "finished_at": "2025-12-08T14:35:00Z",
+  "input": {
+    "request_ref": "lab/examples/env.repo_change_plan_run_v1.dpp_lab.L1_04_mova_check_binding.json",
+    "run_ref": "lab/skill_runs/repo_code_change_plan.dpp_lab.L1_04_mova_check_binding.json"
+  },
+  "output": {
+    "plan_notes": "Planned integration of skill.mova_check_basic into registry + binding and first run for ds.lab_battery_passport_minimal_v1."
+  },
+  "meta": {
+    "domain": "dpp_lab",
+    "labels": [
+      "L1_04_mova_check_binding",
+      "dpp_lab"
+    ]
+  }
+}

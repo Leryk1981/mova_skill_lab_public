@@ -1,0 +1,22 @@
+{
+  "binding_id": "dpp_passport_normalize_node_v1",
+  "skill_id": "skill.dpp_passport_normalize_basic",
+  "runtime_type": "local_script",
+  "entrypoint": {
+    "command": "node",
+    "path": "skills/dpp_passport_normalize_basic/impl/code/run_normalize.js",
+    "notes": "Reads env.dpp_passport_normalize_run_v1 and outputs normalized passport (lab_battery_passport_extended_v1)."
+  },
+  "verbs": [
+    "transform"
+  ],
+  "meta": {
+    "environment": "node",
+    "domains": [
+      "dpp_lab"
+    ],
+    "executor_id": "codex_vscode_main"
+  },
+  "created_at": "2025-12-09T12:30:00Z",
+  "updated_at": "2025-12-09T12:30:00Z"
+}
