@@ -1,0 +1,22 @@
+{
+  "binding_id": "code_exec_binding_v1",
+  "skill_id": "skill.code_exec_task_basic",
+  "runtime_type": "local_script",
+  "entrypoint": {
+    "command": "node",
+    "path": "tools/run_code_exec.js",
+    "notes": "Runtime binding for executing CLI commands. The actual implementation should: 1) resolve working_dir to absolute path, 2) spawn process with command_argv, 3) capture stdout/stderr with timeout_ms and capture_max_kb limits, 4) return exit_code and duration_ms, 5) apply env_overrides, 6) handle allow_nonzero_exit flag."
+  },
+  "verbs": [
+    "transform"
+  ],
+  "meta": {
+    "note": "This binding executes actual CLI commands. It requires a runtime implementation (e.g., Node.js script) that spawns processes, captures output, and handles timeouts. The binding contract is: input (ds.code_exec_request_v1) → execute command → collect raw results → LLM formats summary → output (ds.code_exec_result_v1).",
+    "environment": "local",
+    "implementation_status": "stub",
+    "todo": "Implement tools/run_code_exec.js or equivalent runtime handler"
+  },
+  "created_at": "2025-12-03T21:34:00Z",
+  "updated_at": "2025-12-03T21:34:00Z"
+}
+

@@ -1,0 +1,6 @@
+{"type":"META","ts_unit":"s","ctx":"wf_cycle"}
+{"ts":0,"ctx":"codex_ide.anchor","type":"OP_START"}
+{"ts":60,"ctx":"codex_ide.anchor","type":"DEF_EDIT","change_type":"logic"}
+{"ts":120,"ctx":"codex_ide.metrics","type":"OP_START"}
+{"ts":180,"ctx":"codex_ide.metrics","type":"E_PROOF","E":0.9}
+{"ts":240,"ctx":"codex_ide.metrics","type":"METRICS_CALC","E":0.9,"V":0.85,"S":0.82,"IC":12.5,"TFR":4.1}

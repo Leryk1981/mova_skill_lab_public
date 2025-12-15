@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/core/mova/ds/ds.file_cleanup_target_v1.schema.json",
+  "title": "File Cleanup Target v1",
+  "description": "Describes a filesystem target to snapshot/clean.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mova_version",
+    "target_id",
+    "root_path",
+    "os_family"
+  ],
+  "properties": {
+    "mova_version": {
+      "type": "string",
+      "const": "4.0.0",
+      "description": "MOVA core version targeted by this schema."
+    },
+    "target_id": {
+      "type": "string",
+      "description": "Identifier of the cleanup scenario/target."
+    },
+    "root_path": {
+      "type": "string",
+      "description": "Root path to scan (absolute or repo-relative)."
+    },
+    "os_family": {
+      "type": "string",
+      "enum": [
+        "linux",
+        "macos",
+        "windows",
+        "other"
+      ],
+      "description": "OS family of the target system."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human description of the target."
+    },
+    "exclude_patterns": {
+      "type": "array",
+      "description": "Patterns/paths to always ignore (simple substring match).",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

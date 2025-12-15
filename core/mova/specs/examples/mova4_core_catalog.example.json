@@ -1,0 +1,60 @@
+{
+  "version": "4.0.0-core-draft-1",
+  "data_types": [
+    {
+      "id": "ds.smartlink_config_v1",
+      "title": "Smartlink configuration",
+      "description": "Edge routing configuration for a single smartlink.",
+      "schema_ref": "https://mova.dev/schemas/ds.smartlink_config_v1.schema.json"
+    },
+    {
+      "id": "ds.smartlink_route_decision_v1",
+      "title": "Smartlink route decision",
+      "description": "Decision produced for a single click through a smartlink.",
+      "schema_ref": "https://mova.dev/schemas/ds.smartlink_route_decision_v1.schema.json"
+    }
+  ],
+  "verbs": [
+    {
+      "id": "create",
+      "description": "Create a new record."
+    },
+    {
+      "id": "update",
+      "description": "Update an existing record."
+    },
+    {
+      "id": "route",
+      "description": "Route a request/click to one of many targets."
+    },
+    {
+      "id": "record",
+      "description": "Record an episode or observation."
+    },
+    {
+      "id": "publish",
+      "description": "Publish a catalog or configuration to executors."
+    }
+  ],
+  "envelopes": [
+    {
+      "id": "env.smartlink_route_decision_v1",
+      "verb": "route",
+      "description": "Decision for a single Smartlink click.",
+      "input_types": [
+        "ds.smartlink_config_v1"
+      ],
+      "output_types": [
+        "ds.smartlink_route_decision_v1"
+      ]
+    }
+  ],
+  "episode_types": [
+    {
+      "id": "ds.pattern_memory_episode_smartlink_v1",
+      "description": "Pattern‑memory episode for Smartlink routing.",
+      "schema_ref": "https://mova.dev/schemas/ds.pattern_memory_episode_smartlink_v1.schema.json"
+    }
+  ]
+}
+

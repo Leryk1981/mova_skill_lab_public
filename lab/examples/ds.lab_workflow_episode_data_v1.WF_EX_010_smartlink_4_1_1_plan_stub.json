@@ -1,0 +1,36 @@
+{
+  "experiment_id": "WF_EX_010_smartlink_4_1_1_baseline_vs_mova",
+  "procedure_id": "WF_EX_010_plan_v1",
+  "agent_id": "planner_codex",
+  "profile_id": "codex_vscode_main",
+  "run_index": 0,
+  "metrics_snapshot": [],
+  "ext": {
+    "phase": "plan",
+    "status": "planned",
+    "inputs": {
+      "config_ref": "lab/examples/ds.lab_workflow_experiment_config_v1.WF_EX_010_smartlink_4_1_1_baseline_vs_mova.json",
+      "plan_request_ref": "lab/examples/env.lab_workflow_experiment_plan_request_v1.WF_EX_010_smartlink_4_1_1_baseline_vs_mova.json",
+      "objects_in_scope": [
+        "ds.smartlink.rules.v1",
+        "env.smartlink.default.v1",
+        "global.smartlink.v1",
+        "meta.smartlink.v1"
+      ],
+      "plan_result_ref": "lab/examples/env.lab_workflow_experiment_plan_result_v1.WF_EX_010_smartlink_4_1_1_baseline_vs_mova.json"
+    },
+    "summary": {
+      "steps_total": 4,
+      "steps_by_object": {
+        "ds.smartlink.rules.v1": ["rules.align.fields"],
+        "env.smartlink.default.v1": ["env.align.contract"],
+        "global.smartlink.v1": ["global.catalog.align"],
+        "meta.smartlink.v1": ["meta.package.describe"]
+      },
+      "out_of_scope": [
+        "worker/src/config/tests/deploy (ігноруємо, якщо згадано)"
+      ]
+    },
+    "notes_from_operator": "Планувальник побудував план WF_EX_010 лише для 4 JSON-артефактів SmartLink (ds/env/global/meta). Будь-які кроки про worker/деплой вважаються out-of-scope і не виконуватимуться."
+  }
+}

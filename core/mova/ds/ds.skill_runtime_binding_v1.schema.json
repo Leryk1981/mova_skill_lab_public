@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.skill_runtime_binding_v1.schema.json",
+  "title": "MOVA Skill Runtime Binding v1",
+  "description": "Schema describing how a MOVA skill is bound to a concrete runtime (MCP, Cloudflare Worker, local script, etc.).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "binding_id",
+    "skill_id",
+    "runtime_type",
+    "entrypoint"
+  ],
+  "properties": {
+    "binding_id": {
+      "type": "string",
+      "description": "Identifier of this binding (unique within the lab)."
+    },
+    "skill_id": {
+      "type": "string",
+      "description": "Id of the skill that this binding belongs to (e.g. `skill.mova_template`)."
+    },
+    "runtime_type": {
+      "type": "string",
+      "description": "Type of runtime that executes the skill.",
+      "enum": [
+        "local_script",
+        "mcp",
+        "cloudflare_worker",
+        "claude_skill",
+        "gemini_agent",
+        "other"
+      ]
+    },
+    "entrypoint": {
+      "type": "object",
+      "description": "Runtime-specific entrypoint information.",
+      "additionalProperties": true,
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "Command to run (for local_script)."
+        },
+        "path": {
+          "type": "string",
+          "description": "Path to the script or config inside the repo."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL of a remote endpoint (e.g. Cloudflare Worker)."
+        },
+        "mcp_server": {
+          "type": "string",
+          "description": "Name or address of the MCP server, if applicable."
+        },
+        "mcp_tool": {
+          "type": "string",
+          "description": "Name of the MCP tool to invoke, if applicable."
+        }
+      }
+    },
+    "verbs": {
+      "type": "array",
+      "description": "List of verbs that this binding can execute for the skill (subset of the skill's verbs).",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Optional metadata about this binding (environment, notes, etc.).",
+      "additionalProperties": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this binding was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this binding was last updated."
+    }
+  }
+}
+

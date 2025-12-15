@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ds.wf_cycle_compare_result_v1.schema.json",
+  "title": "ds.wf_cycle_compare_result_v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "winner_label", "score", "paths_written", "notes"],
+  "properties": {
+    "status": { "type": "string", "enum": ["ok", "error"] },
+    "winner_label": { "type": ["string", "null"] },
+    "score": { "type": ["object", "null"] },
+    "paths_written": { "type": "array", "items": { "type": "string" } },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "metrics_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["left", "right"],
+      "properties": {
+        "left": { "$ref": "#/$defs/metricsSummaryEntry" },
+        "right": { "$ref": "#/$defs/metricsSummaryEntry" }
+      }
+    },
+    "winner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "reason"],
+      "properties": {
+        "label": { "type": ["string", "null"] },
+        "reason": { "type": "string" }
+      }
+    },
+    "notes": { "type": "string" }
+  },
+  "$defs": {
+    "metricsSummaryEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "score", "E", "V", "S", "IC", "TFR"],
+      "properties": {
+        "label": { "type": ["string", "null"] },
+        "score": { "type": ["number", "null"] },
+        "E": { "type": ["number", "null"] },
+        "V": { "type": ["number", "null"] },
+        "S": { "type": ["number", "null"] },
+        "IC": { "type": ["number", "null"] },
+        "TFR": { "type": ["number", "null"] }
+      }
+    }
+  }
+}

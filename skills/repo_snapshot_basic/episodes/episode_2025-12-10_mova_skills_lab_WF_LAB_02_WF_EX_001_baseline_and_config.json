@@ -1,0 +1,27 @@
+{
+  "episode_id": "episode_2025-12-10_repo_snapshot_WF_LAB_02_WF_EX_001_baseline_and_config",
+  "skill_id": "skill.repo_snapshot_basic",
+  "envelope_id": "env.repo_snapshot_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_cli"
+  },
+  "started_at": "2025-12-10T12:20:00Z",
+  "finished_at": "2025-12-10T12:22:00Z",
+  "input": {
+    "$ref": "lab/skill_runs/repo_snapshot_WF_LAB_02_WF_EX_001_baseline_and_config_request.json"
+  },
+  "output": {
+    "snapshot_ref": "docs/PROJECT_MEMORY/PROJECT_SNAPSHOT_2025-12-10_mova_skills_lab_WF_LAB_02_WF_EX_001_baseline_and_config.json"
+  },
+  "error": null,
+  "meta": {
+    "labels": [
+      "WF_LAB_02",
+      "WF_EX_001",
+      "lab_workflow"
+    ],
+    "note": "Snapshot captured for WF_LAB_02 baseline/config."
+  }
+}

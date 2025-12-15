@@ -1,0 +1,65 @@
+{
+  "experiment_id": "WF_EX_011_smartlink_4_1_1_observability",
+  "summary": "Codex-варіант observability (redirect event) дає чіткіший поділ core/debug і компактний payload; рекомендовано як best-so-far для smartlink.redirected.",
+  "variants": [
+    {
+      "procedure_id": "baseline_chatgpt_observability_v1",
+      "agent_id": "chatgpt",
+      "profile_id": "chatgpt_baseline_v1",
+      "runs_count": 1,
+      "metrics": [
+        { "metric_id": "readability", "value": 0.82, "unit": "score_0_1" },
+        { "metric_id": "spec_alignment", "value": 0.9, "unit": "score_0_1" },
+        { "metric_id": "analytics_sufficiency", "value": 0.84, "unit": "score_0_1" },
+        { "metric_id": "scope_isolation", "value": 0.9, "unit": "score_0_1" }
+      ],
+      "pros": [
+        "Повний payload із багатим контекстом.",
+        "Явні службові поля і debug блок."
+      ],
+      "cons": [
+        "Трохи важкувата структура; debug/raw_context менш чітко відокремлені."
+      ]
+    },
+    {
+      "procedure_id": "candidate_codex_observability_v1",
+      "agent_id": "codex",
+      "profile_id": "codex_vscode_main",
+      "runs_count": 1,
+      "metrics": [
+        { "metric_id": "readability", "value": 0.9, "unit": "score_0_1" },
+        { "metric_id": "spec_alignment", "value": 0.9, "unit": "score_0_1" },
+        { "metric_id": "analytics_sufficiency", "value": 0.9, "unit": "score_0_1" },
+        { "metric_id": "scope_isolation", "value": 0.95, "unit": "score_0_1" }
+      ],
+      "pros": [
+        "Компактний core (link/decision/routing/context/traffic) з відокремленим debug.",
+        "Однозначна прив'язка до text channel/event_type у global.",
+        "Чітко керований debug_mode в envelope."
+      ],
+      "cons": [
+        "Менше деталізації browser/os версій (може знадобитись пізніше)."
+      ]
+    }
+  ],
+  "recommended_procedure_id": "candidate_codex_observability_v1",
+  "notes": [
+    "Scope: лише observability (redirect event); worker/infra поза експериментом."
+  ],
+  "meta": {
+    "labels": [
+      "WF_EX_011",
+      "smartlink",
+      "observability",
+      "result"
+    ]
+  },
+  "ext": {
+    "files_verdict": {
+      "ds.smartlink.redirect_event.v1": "codex: better separation core/debug",
+      "env.smartlink.redirect_event.v1": "codex: debug_mode handling, compact inputs",
+      "global.smartlink.v1": "codex: minimal event/text channel footprint",
+      "meta.smartlink.v1": "codex: scoped observability package"
+    }
+  }
+}

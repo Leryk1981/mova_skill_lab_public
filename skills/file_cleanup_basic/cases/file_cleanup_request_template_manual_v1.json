@@ -1,0 +1,47 @@
+{
+  "disk_label": "D:",
+  "disk_metrics": {
+    "total_size_gb": 930,
+    "used_size_gb": 850,
+    "free_size_gb": 80
+  },
+  "disk_snapshot": "D:\\Downloads (~220 GB)\nD:\\Temp (~15 GB)\nD:\\Projects (~300 GB)\nD:\\Photos (~180 GB)\nD:\\Games (~200 GB)\nD:\\Documents (~50 GB)\nD:\\System (~43 GB)\n\nTop largest folders:\n- D:\\Projects\\project_a (~120 GB)\n- D:\\Games\\SomeGame (~90 GB)\n- D:\\Downloads\\old_installs (~80 GB)\n- D:\\Photos\\2022 (~50 GB)\n- D:\\Temp\\logs (~10 GB)\n\nFile type summary:\n- Video: ~400 GB\n- Images: ~200 GB\n- Archives: ~50 GB\n- Applications: ~150 GB\n- Other: ~50 GB",
+  "folder_summaries": [
+    {
+      "type": "largest_folders",
+      "items": [
+        { "path": "D:\\Projects\\project_a", "size_gb": 120 },
+        { "path": "D:\\Games\\SomeGame", "size_gb": 90 },
+        { "path": "D:\\Downloads\\old_installs", "size_gb": 80 }
+      ]
+    },
+    {
+      "type": "file_types",
+      "summary": {
+        "video": 400,
+        "images": 200,
+        "archives": 50,
+        "applications": 150,
+        "other": 50
+      }
+    }
+  ],
+  "user_preferences": {
+    "target_free_space_gb": 150,
+    "must_not_delete": [
+      "D:\\Projects",
+      "D:\\Photos",
+      "D:\\Documents"
+    ],
+    "risk_tolerance": "conservative",
+    "known_junk_areas": [
+      "D:\\Temp",
+      "D:\\Downloads\\old_installs",
+      "D:\\System\\logs",
+      "*.tmp",
+      "*.cache"
+    ]
+  },
+  "notes": "User wants to free up 150 GB. Projects, Photos, and Documents must be preserved. Old installers and logs are known to be safe to remove. Game caches can be deleted if needed. Focus on Downloads and Temp folders."
+}
+

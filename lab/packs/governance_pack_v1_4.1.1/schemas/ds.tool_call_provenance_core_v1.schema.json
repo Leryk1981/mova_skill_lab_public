@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.tool_call_provenance_core_v1.schema.json",
+  "title": "ds.tool_call_provenance_core_v1",
+  "description": "Governance Pack v1: Minimal provenance record for a tool/command invocation (for reproducibility and audit evidence).",
+  "allOf": [
+    {
+      "$ref": "https://mova.dev/schemas/ds.mova_schema_core_v1.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "tool_call_id": {
+          "type": "string",
+          "description": "Unique id of this tool call."
+        },
+        "tool_id": {
+          "type": "string",
+          "description": "Tool/command identifier."
+        },
+        "args_hash": {
+          "type": "string",
+          "description": "Hash of normalized arguments (to avoid storing secrets)."
+        },
+        "args_meta": {
+          "type": "object",
+          "description": "Non-sensitive argument summary.",
+          "additionalProperties": true
+        },
+        "invoked_by": {
+          "type": "string",
+          "description": "Who/what invoked the tool call (user/agent/system/etc.)."
+        },
+        "start_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "duration_ms": {
+          "type": "number"
+        },
+        "result_ref": {
+          "type": "string",
+          "description": "Reference to stored tool result (file uri, log id, etc.)."
+        },
+        "exit_code": {
+          "type": "integer"
+        },
+        "artifacts": {
+          "type": "array",
+          "description": "Artifacts produced by the tool call (patches, logs, files).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "file",
+                  "patch",
+                  "test_log",
+                  "stdout",
+                  "stderr",
+                  "report",
+                  "other"
+                ]
+              },
+              "uri": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "uri"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "tool_call_id",
+        "tool_id",
+        "start_time"
+      ]
+    }
+  ]
+}

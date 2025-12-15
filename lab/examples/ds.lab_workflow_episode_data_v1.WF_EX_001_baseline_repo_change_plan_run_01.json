@@ -1,0 +1,24 @@
+{
+  "experiment_id": "WF_EX_001_repo_change_plan_vs_agents_v1",
+  "procedure_id": "WF_EX_001_baseline_repo_change_plan_v1",
+  "agent_id": "baseline_human_plus_codex",
+  "profile_id": "operator_plus_codex_v1",
+  "run_index": 1,
+  "metrics_snapshot": [
+    {
+      "metric_id": "time_to_solution",
+      "value": 45,
+      "unit": "minutes"
+    },
+    {
+      "metric_id": "files_touched",
+      "value": 19,
+      "unit": "files"
+    },
+    {
+      "metric_id": "subjective_quality",
+      "value": 4,
+      "unit": "score_1_5"
+    }
+  ]
+}

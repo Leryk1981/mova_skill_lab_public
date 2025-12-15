@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/core/mova/ds/ds.call_request_v1.schema.json",
+  "title": "Call Request v1",
+  "description": "Request to invoke another envelope (second-order speech act).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "target_envelope_id",
+    "data"
+  ],
+  "properties": {
+    "target_envelope_id": {
+      "type": "string",
+      "description": "Full identifier of the envelope to invoke (e.g., 'env.repo_snapshot_run_v1', 'env.context7_docs_fetch_v1')."
+    },
+    "target_envelope_version": {
+      "type": "string",
+      "description": "Optional version/variant of the target envelope, if needed for disambiguation."
+    },
+    "data": {
+      "type": "object",
+      "description": "Payload for the target envelope (corresponds to the target envelope's input/data structure).",
+      "additionalProperties": true
+    },
+    "call_context": {
+      "type": "object",
+      "description": "Optional additional service fields for the call (trace id, correlation id, priority, etc., for future use).",
+      "additionalProperties": true
+    }
+  }
+}
+

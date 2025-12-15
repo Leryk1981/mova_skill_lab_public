@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/lab/schemas/ds.lab_workflow_episode_data_v1.schema.json",
+  "title": "Lab Workflow Episode Data v1",
+  "$comment": "LAB-EXPERIMENTAL. Data for a single workflow experiment run stored in episode.data.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_id",
+    "procedure_id",
+    "agent_id",
+    "profile_id",
+    "run_index",
+    "metrics_snapshot"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string",
+      "description": "Experiment identifier."
+    },
+    "procedure_id": {
+      "type": "string",
+      "description": "Procedure executed in this run."
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "Agent that executed the run."
+    },
+    "profile_id": {
+      "type": "string",
+      "description": "Profile used by the agent."
+    },
+    "run_index": {
+      "type": "integer",
+      "description": "Ordinal index of the run within the experiment."
+    },
+    "metrics_snapshot": {
+      "type": "array",
+      "description": "Metrics captured for this specific run.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "metric_id",
+          "value",
+          "unit"
+        ],
+        "properties": {
+          "metric_id": {
+            "type": "string",
+            "description": "Metric identifier."
+          },
+          "value": {
+            "type": "number",
+            "description": "Measured value."
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit of measure."
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Optional metadata for this run.",
+      "additionalProperties": true
+    },
+    "ext": {
+      "type": "object",
+      "description": "Optional extension point for domain-specific data.",
+      "additionalProperties": true
+    }
+  }
+}

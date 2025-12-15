@@ -1,0 +1,27 @@
+{
+  "id": "template_set:smartlink_lab_v1",
+  "name": "SmartLink Edge Routing Pack (Lab)",
+  "summary": "Lab pack of SmartLink routing artifacts: rules, meta, globals, and default route envelope.",
+  "version": "1.0.0-lab",
+  "artifacts": {
+    "dataSchemas": [
+      "ds.smartlink_rules_v1",
+      "ds.smartlink_meta_v1",
+      "ds.smartlink_global_v1"
+    ],
+    "envelopes": [
+      "env.smartlink_default_route_request_v1"
+    ],
+    "instances": [
+      "lab/examples/ds.smartlink_rules_v1.example.default.json",
+      "lab/examples/env.smartlink_default_route_request_v1.example.default.json"
+    ],
+    "globals": [
+      "lab/examples/ds.smartlink_global_v1.example.default.json"
+    ]
+  },
+  "tags": ["smartlink", "lab", "edge_routing"],
+  "meta": {
+    "artifact_kind": "template_set"
+  }
+}

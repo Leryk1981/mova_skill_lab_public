@@ -1,0 +1,54 @@
+{
+  "experiment_id": "WF_EX_003_smartlink_mova_vs_baseline_v1",
+  "title": "WF-EX-003: SmartLink baseline Schemas vs MOVA pack",
+  "description": "Compare the human baseline SmartLink Schemas (rules/default/global/meta) with the MOVA SmartLink pack from WF_LAB_08.",
+  "baseline_procedure_id": "WF_EX_003_baseline_smartlink_schemas",
+  "domain": "smartlink_schema_comparison",
+  "agent_profiles": [
+    {
+      "agent_id": "baseline_schemas",
+      "model_family": "human_reference",
+      "profile_id": "smartlink_baseline_schemas_v1"
+    },
+    {
+      "agent_id": "candidate_mova_pack",
+      "model_family": "codex",
+      "profile_id": "smartlink_mova_pack_v1"
+    }
+  ],
+  "metrics": [
+    {
+      "metric_id": "workflow_coverage",
+      "name": "Workflow coverage",
+      "description": "How well the schema/envelope set describes the full SmartLink workflow (config -> routing -> logging/reporting).",
+      "direction": "maximize"
+    },
+    {
+      "metric_id": "clarity_for_operator",
+      "name": "Clarity for operator",
+      "description": "How easy it is for an operator/agent to understand and configure SmartLink using the provided schemas/envelopes.",
+      "direction": "maximize"
+    },
+    {
+      "metric_id": "runtime_readiness",
+      "name": "Runtime readiness",
+      "description": "Whether fields are sufficient to wire into a real runtime (edge worker / redirector) without guessing missing parts.",
+      "direction": "maximize"
+    },
+    {
+      "metric_id": "evolution_flexibility",
+      "name": "Evolution flexibility",
+      "description": "How easily the schema/envelope set can be extended for new features (A/B, scheduling, limits, staged rollouts).",
+      "direction": "maximize"
+    }
+  ],
+  "constraints": [
+    "No changes to baseline SmartLink schemas; comparison only.",
+    "Focus on data contracts (schemas/envelopes), not runtime code.",
+    "Stay within MOVA lab layer; no core/mova edits."
+  ],
+  "meta": {
+    "labels": ["WF_EX_003", "smartlink", "schema_comparison"]
+  },
+  "ext": {}
+}

@@ -1,0 +1,28 @@
+{
+  "episode_id": "episode_2025-12-10_WF_LAB_06_WF_EX_002_smartlink_examples",
+  "skill_id": "skill.mova_check_basic",
+  "envelope_id": "env.mova_check_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_cli"
+  },
+  "started_at": "2025-12-10T14:10:00Z",
+  "finished_at": "2025-12-10T14:12:00Z",
+  "input": {
+    "$ref": "lab/examples/env.mova_check_run_v1.WF_LAB_06_WF_EX_002_smartlink_examples.json"
+  },
+  "output": {
+    "$ref": "lab/skill_runs/mova_check_basic.WF_LAB_06_WF_EX_002_smartlink_examples_result.json"
+  },
+  "error": null,
+  "meta": {
+    "labels": [
+      "lab_workflow",
+      "WF_LAB_06",
+      "WF_EX_002",
+      "smartlink"
+    ],
+    "note": "Validation for WF-EX-002 SmartLink artifacts."
+  }
+}

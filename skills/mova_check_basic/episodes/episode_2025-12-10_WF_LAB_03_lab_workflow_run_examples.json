@@ -1,0 +1,28 @@
+{
+  "episode_id": "episode_2025-12-10_WF_LAB_03_lab_workflow_run_examples",
+  "skill_id": "skill.mova_check_basic",
+  "envelope_id": "env.mova_check_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_cli"
+  },
+  "started_at": "2025-12-10T12:30:00Z",
+  "finished_at": "2025-12-10T12:32:00Z",
+  "input": {
+    "$ref": "lab/examples/env.mova_check_run_v1.WF_LAB_03_lab_workflow_run_examples.json"
+  },
+  "output": {
+    "$ref": "lab/skill_runs/mova_check_basic.WF_LAB_03_lab_workflow_run_examples_result.json"
+  },
+  "error": null,
+  "meta": {
+    "labels": [
+      "lab_workflow",
+      "WF_LAB_03",
+      "WF_EX_001",
+      "baseline_run"
+    ],
+    "note": "Validation of WF-EX-001 baseline run artifacts."
+  }
+}

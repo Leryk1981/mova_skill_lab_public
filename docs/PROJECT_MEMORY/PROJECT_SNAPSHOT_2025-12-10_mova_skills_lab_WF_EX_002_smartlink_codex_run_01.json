@@ -1,0 +1,16 @@
+{
+  "snapshot_id": "PROJECT_SNAPSHOT_2025-12-10_mova_skills_lab_WF_EX_002_smartlink_codex_run_01",
+  "project_id": "mova_skills_lab",
+  "taken_at": "2025-12-10T14:26:00Z",
+  "branch": "feature/lab-workflow-experiments-v1",
+  "summary": "Snapshot after Codex-only SmartLink candidate run 01 alongside baseline reference.",
+  "changes": [
+    "Codex-only SmartLink worker implementation, config sample, simulator, README under lab/experiments/smartlink_codex_candidate/",
+    "WF-EX-002 SmartLink procedures/config/plan artifacts recorded and validated."
+  ],
+  "tests": {
+    "command": "npm test",
+    "status": "passed"
+  },
+  "notes": "Baseline remains reference; candidate built from textual brief without reading baseline code."
+}

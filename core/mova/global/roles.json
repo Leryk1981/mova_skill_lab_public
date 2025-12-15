@@ -1,0 +1,25 @@
+{
+  "version": "4.0.0-core-draft-1",
+  "roles": [
+    {
+      "id": "human",
+      "description": "Human user interacting with the lab or skills."
+    },
+    {
+      "id": "agent",
+      "description": "LLM-based agent orchestrating skills and envelopes."
+    },
+    {
+      "id": "tool",
+      "description": "External tool or service invoked by an agent or worker."
+    },
+    {
+      "id": "worker",
+      "description": "Background worker or script that executes envelopes."
+    },
+    {
+      "id": "registry",
+      "description": "Service that stores and serves MOVA catalogs or skills."
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "mova_template_coffee_example",
+  "description": "Example case: turning a coffee-making description into a structured procedure.",
+  "envelope": {
+    "envelope_id": "env.mova_template_run_v1",
+    "verb": "transform",
+    "input": {
+      "description": "Зварити ранкову каву в турці."
+    }
+  },
+  "expected_procedure": {
+    "procedure_id": "mova_template_coffee_001",
+    "title": "Зварити ранкову каву в турці",
+    "steps": [
+      {
+        "step_id": "step_1",
+        "label": "Підготувати турку та каву",
+        "description": "Переконатися, що турка чиста, і підготувати потрібну кількість меленої кави."
+      },
+      {
+        "step_id": "step_2",
+        "label": "Налити воду",
+        "description": "Налити в турку холодну воду потрібного об'єму."
+      },
+      {
+        "step_id": "step_3",
+        "label": "Додати каву",
+        "description": "Додати мелену каву у воду та злегка перемішати."
+      },
+      {
+        "step_id": "step_4",
+        "label": "Підігрівати до підняття піни",
+        "description": "Поставити турку на невеликий вогонь і підігрівати, поки піна не почне підніматися."
+      },
+      {
+        "step_id": "step_5",
+        "label": "Зняти з вогню і подати",
+        "description": "Зняти турку з вогню до закипання, дати каві трохи відстоятись і налити в чашку."
+      }
+    ]
+  }
+}
+

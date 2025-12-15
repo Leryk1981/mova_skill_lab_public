@@ -1,0 +1,181 @@
+{
+  "id": "procedures.wf_formalization.v1",
+  "type": "procedures_bundle",
+  "version": "1.0.0",
+  "pack_id": "wf_formalization_cycle_v1::f9153e2d-5627-4d67-a20b-040b57845b3c",
+  "items": [
+    {
+      "id": "procedure.spiral.v1",
+      "type": "procedure",
+      "version": "1.0.0",
+      "pack_id": "wf_formalization_cycle_v1::f9153e2d-5627-4d67-a20b-040b57845b3c",
+      "name": "Risk-driven bidirectional spiral",
+      "nodes": [
+        {
+          "node_id": "n0",
+          "kind": "start"
+        },
+        {
+          "node_id": "n1",
+          "kind": "instruction",
+          "instr_ref": "instr.anchor0.frame.v1"
+        },
+        {
+          "node_id": "n2",
+          "kind": "gateway",
+          "gateway_type": "xor",
+          "rule": "has_red_nodes == true"
+        },
+        {
+          "node_id": "n3",
+          "kind": "instruction",
+          "instr_ref": "instr.spike.red_nodes.v1"
+        },
+        {
+          "node_id": "n4",
+          "kind": "instruction",
+          "instr_ref": "instr.measure.score.v1"
+        },
+        {
+          "node_id": "n5",
+          "kind": "gateway",
+          "gateway_type": "xor",
+          "rule": "E >= 0.8"
+        },
+        {
+          "node_id": "n6",
+          "kind": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "n0",
+          "to": "n1"
+        },
+        {
+          "from": "n1",
+          "to": "n2"
+        },
+        {
+          "from": "n2",
+          "to": "n3",
+          "condition": "has_red_nodes == true"
+        },
+        {
+          "from": "n2",
+          "to": "n4",
+          "condition": "has_red_nodes == false"
+        },
+        {
+          "from": "n3",
+          "to": "n4"
+        },
+        {
+          "from": "n4",
+          "to": "n5"
+        },
+        {
+          "from": "n5",
+          "to": "n6",
+          "condition": "E >= 0.8"
+        },
+        {
+          "from": "n5",
+          "to": "n2",
+          "condition": "E < 0.8"
+        }
+      ]
+    },
+    {
+      "id": "procedure.topdown.v1",
+      "type": "procedure",
+      "version": "1.0.0",
+      "pack_id": "wf_formalization_cycle_v1::f9153e2d-5627-4d67-a20b-040b57845b3c",
+      "name": "Top-down (requirements/spec first)",
+      "nodes": [
+        {
+          "node_id": "t0",
+          "kind": "start"
+        },
+        {
+          "node_id": "t1",
+          "kind": "instruction",
+          "instr_ref": "instr.anchor0.frame.v1"
+        },
+        {
+          "node_id": "t2",
+          "kind": "instruction",
+          "instr_ref": "instr.measure.score.v1"
+        },
+        {
+          "node_id": "t3",
+          "kind": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "t0",
+          "to": "t1"
+        },
+        {
+          "from": "t1",
+          "to": "t2"
+        },
+        {
+          "from": "t2",
+          "to": "t3"
+        }
+      ]
+    },
+    {
+      "id": "procedure.bottomup.v1",
+      "type": "procedure",
+      "version": "1.0.0",
+      "pack_id": "wf_formalization_cycle_v1::f9153e2d-5627-4d67-a20b-040b57845b3c",
+      "name": "Bottom-up (ops first)",
+      "nodes": [
+        {
+          "node_id": "b0",
+          "kind": "start"
+        },
+        {
+          "node_id": "b1",
+          "kind": "instruction",
+          "instr_ref": "instr.spike.red_nodes.v1"
+        },
+        {
+          "node_id": "b2",
+          "kind": "instruction",
+          "instr_ref": "instr.anchor0.frame.v1"
+        },
+        {
+          "node_id": "b3",
+          "kind": "instruction",
+          "instr_ref": "instr.measure.score.v1"
+        },
+        {
+          "node_id": "b4",
+          "kind": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "b0",
+          "to": "b1"
+        },
+        {
+          "from": "b1",
+          "to": "b2"
+        },
+        {
+          "from": "b2",
+          "to": "b3"
+        },
+        {
+          "from": "b3",
+          "to": "b4"
+        }
+      ]
+    }
+  ]
+}

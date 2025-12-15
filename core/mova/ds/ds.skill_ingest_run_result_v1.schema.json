@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/core/mova/ds/ds.skill_ingest_run_result_v1.schema.json",
+  "title": "Skill Seeker Ingest Run Result v1",
+  "description": "Result of a Skill Seeker ingest run with metrics, outputs, and conflicts summary.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mova_version",
+    "run_id",
+    "status"
+  ],
+  "properties": {
+    "mova_version": {
+      "type": "string",
+      "const": "4.0.0",
+      "description": "MOVA core version targeted by this schema."
+    },
+    "run_id": {
+      "type": "string",
+      "description": "Identifier of the run (matches the run config)."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "partial",
+        "failed"
+      ],
+      "description": "Outcome of the ingest run."
+    },
+    "timing": {
+      "type": "object",
+      "description": "Timing information for the run.",
+      "additionalProperties": false,
+      "properties": {
+        "started_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the run started."
+        },
+        "finished_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the run finished."
+        },
+        "duration_ms": {
+          "type": "integer",
+          "description": "Duration in milliseconds."
+        }
+      }
+    },
+    "pages_stats": {
+      "type": "object",
+      "description": "Page-level statistics for the run.",
+      "additionalProperties": false,
+      "properties": {
+        "pages_discovered": {
+          "type": "integer",
+          "description": "Number of pages discovered."
+        },
+        "pages_scraped": {
+          "type": "integer",
+          "description": "Number of pages scraped."
+        },
+        "pages_skipped": {
+          "type": "integer",
+          "description": "Number of pages skipped."
+        },
+        "llms_txt_shortcut_used": {
+          "type": "boolean",
+          "description": "Whether llms.txt fast-path was used."
+        }
+      }
+    },
+    "output_locations": {
+      "type": "object",
+      "description": "Paths to output artifacts.",
+      "additionalProperties": false,
+      "properties": {
+        "data_dir": {
+          "type": "string",
+          "description": "Path to raw data directory (*_data)."
+        },
+        "skill_dir": {
+          "type": "string",
+          "description": "Path to built skill directory."
+        },
+        "zip_path": {
+          "type": "string",
+          "description": "Path to packaged zip."
+        }
+      }
+    },
+    "skill_metadata": {
+      "type": "object",
+      "description": "Skill-level metadata derived from the run.",
+      "additionalProperties": false,
+      "properties": {
+        "skill_name": {
+          "type": "string",
+          "description": "Name of the skill produced."
+        },
+        "skill_description": {
+          "type": "string",
+          "description": "Description of the skill."
+        },
+        "categories": {
+          "type": "array",
+          "description": "Categories attached to the skill.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "conflicts_summary": {
+      "type": "object",
+      "description": "Summary of detected conflicts between docs and code.",
+      "additionalProperties": false,
+      "properties": {
+        "total_conflicts": {
+          "type": "integer",
+          "description": "Total conflicts detected."
+        },
+        "by_severity": {
+          "type": "object",
+          "description": "Breakdown of conflicts by severity.",
+          "additionalProperties": false,
+          "properties": {
+            "info": {
+              "type": "integer",
+              "description": "Informational conflicts count."
+            },
+            "warn": {
+              "type": "integer",
+              "description": "Warning-level conflicts count."
+            },
+            "error": {
+              "type": "integer",
+              "description": "Error-level conflicts count."
+            }
+          }
+        },
+        "sample_conflicts": {
+          "type": "array",
+          "description": "Sample conflict entries for quick inspection.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Identifier of the conflict or related entity."
+              },
+              "summary": {
+                "type": "string",
+                "description": "Short description of the conflict."
+              }
+            }
+          }
+        }
+      }
+    },
+    "upload_status": {
+      "type": "object",
+      "description": "Upload results for the packaged skill.",
+      "additionalProperties": false,
+      "properties": {
+        "uploaded": {
+          "type": "boolean",
+          "description": "Whether the skill was uploaded."
+        },
+        "target": {
+          "type": "string",
+          "description": "Upload target (e.g. claude_library)."
+        },
+        "upload_error": {
+          "type": "string",
+          "description": "Error message if upload failed."
+        }
+      }
+    }
+  }
+}

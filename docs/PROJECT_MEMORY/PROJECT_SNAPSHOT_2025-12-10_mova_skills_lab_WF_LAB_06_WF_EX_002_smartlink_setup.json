@@ -1,0 +1,18 @@
+{
+  "snapshot_id": "PROJECT_SNAPSHOT_2025-12-10_mova_skills_lab_WF_LAB_06_WF_EX_002_smartlink_setup",
+  "project_id": "mova_skills_lab",
+  "taken_at": "2025-12-10T14:16:00Z",
+  "branch": "feature/lab-workflow-experiments-v1",
+  "summary": "WF_LAB_06: Added WF-EX-002 SmartLink baseline and Codex-from-description candidate, config, plan envelope, validation, and snapshot.",
+  "changes": [
+    "Added SmartLink baseline procedure and Codex-from-description candidate procedure.",
+    "Created WF-EX-002 experiment config and plan envelope example.",
+    "Validated WF-EX-002 artifacts via mova_check_basic.",
+    "Captured snapshot and repo_snapshot_basic episode for WF_LAB_06."
+  ],
+  "tests": {
+    "command": "npm test",
+    "status": "passed"
+  },
+  "notes": "memory:import still unavailable; further runs/variants for SmartLink can build on this setup."
+}

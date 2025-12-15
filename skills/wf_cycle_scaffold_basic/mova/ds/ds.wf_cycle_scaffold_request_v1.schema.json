@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ds.wf_cycle_scaffold_request_v1.schema.json",
+  "title": "ds.wf_cycle_scaffold_request_v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["experiment_id", "experiment_dir"],
+  "properties": {
+    "experiment_id": { "type": "string" },
+    "experiment_dir": { "type": "string" },
+    "participants": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": ["codex_ide", "codex_cli"]
+    },
+    "template_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "wf_cycle_dir": { "type": "string", "default": "wf_formalization_cycle_v1" },
+        "runs_templates_glob": { "type": "string", "default": "runs/WF_RUN_000*_*/**/*" },
+        "artifacts_templates_glob": { "type": "string", "default": "artifacts/*.json" }
+      },
+      "default": {}
+    },
+    "inputs_seed": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["rel_path", "content"],
+            "additionalProperties": false,
+            "properties": {
+              "rel_path": { "type": "string" },
+              "content": { "type": "string" }
+            }
+          },
+          "default": []
+        }
+      },
+      "default": {}
+    },
+    "rules_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "include_ps1_guard": { "type": "boolean", "default": true }
+      },
+      "default": {}
+    },
+    "options": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "safe_mode": { "type": "boolean", "default": true },
+        "write_files": { "type": "boolean", "default": true }
+      },
+      "default": {}
+    }
+  }
+}

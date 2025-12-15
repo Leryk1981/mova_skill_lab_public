@@ -1,0 +1,35 @@
+{
+  "case_id": "code_exec_task_basic_case_01",
+  "description": "Example case for skill.code_exec_task_basic: running npm run validate in the repository root.",
+  "envelope": {
+    "envelope_id": "env.code_exec_run_v1",
+    "verb": "transform",
+    "resource": "code_exec_task",
+    "input": {
+      "working_dir": ".",
+      "command_argv": [
+        "npm",
+        "run",
+        "validate"
+      ],
+      "timeout_ms": 600000,
+      "capture_max_kb": 256,
+      "notes_for_human": "Run full schema validation for MOVA Skills Lab."
+    },
+    "meta": {
+      "language": "en"
+    }
+  },
+  "expected_output": {
+    "status": "success",
+    "exit_code": 0,
+    "duration_ms": 1234,
+    "stdout_text": "✅ lab/skills_registry_v1.json is valid\n✅ manifest for skill.mova_template (skills/mova_template/manifest.skill.json) is valid\n✅ binding binding.mova_template.local_dummy_v1 for skill.mova_template (skills/mova_template/impl/bindings/mova_template_local_dummy_binding.json) is valid\n✅ All checked documents are valid.\n",
+    "stderr_text": "",
+    "stdout_truncated": false,
+    "stderr_truncated": false,
+    "summary_md": "**Command:** npm run validate (working_dir=.)\n\n**Status:** success\n\nAll schema validation checks passed. The lab registry, skill manifests, and bindings are valid.\n\nExecution took ~1.2 seconds.",
+    "notes_for_next_step": "Validation passed successfully. The repository is in a valid state and ready for further work."
+  }
+}
+

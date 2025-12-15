@@ -1,0 +1,74 @@
+{
+  "roles": [
+    {
+      "id": "role:smartlink_admin",
+      "name": "SmartLink Administrator",
+      "description": "Can create, edit, and activate SmartLink rules.",
+      "tags": ["smartlink", "admin"],
+      "meta": {
+        "artifact_kind": "role"
+      }
+    },
+    {
+      "id": "role:marketing_owner",
+      "name": "Marketing Owner",
+      "description": "Owns marketing rules and can edit SmartLink rules within a domain.",
+      "tags": ["smartlink", "marketing"],
+      "meta": {
+        "artifact_kind": "role"
+      }
+    }
+  ],
+  "resources": [
+    {
+      "id": "res:kv_smartlink_rules",
+      "name": "KV namespace for SmartLink rules",
+      "kind": "kv_namespace",
+      "uri": "urn:mova:kv:smartlink_rules",
+      "description": "Key-value storage for SmartLink rule documents (ds.smartlink_rules_v1).",
+      "tags": ["smartlink", "kv", "rules"],
+      "meta": {
+        "artifact_kind": "resource"
+      }
+    },
+    {
+      "id": "res:worker_smartlink_edge",
+      "name": "SmartLink Edge Worker",
+      "kind": "edge_worker",
+      "uri": "urn:mova:worker:smartlink_edge",
+      "description": "Edge worker that resolves SmartLink routing and redirects.",
+      "tags": ["smartlink", "worker", "edge"],
+      "meta": {
+        "artifact_kind": "resource"
+      }
+    },
+    {
+      "id": "res:queue_smartlink_events",
+      "name": "SmartLink Events Queue",
+      "kind": "queue",
+      "uri": "urn:mova:queue:smartlink_events",
+      "description": "Queue for smartlink.redirected events or similar observability payloads.",
+      "tags": ["smartlink", "events", "analytics"],
+      "meta": {
+        "artifact_kind": "resource"
+      }
+    }
+  ],
+  "dataSchemas": [
+    {
+      "id": "ds.smartlink_rules_v1",
+      "name": "SmartLink Rules v1",
+      "schema_uri": "https://mova.dev/lab/schemas/ds.smartlink_rules_v1.schema.json",
+      "version": "1.0.0-lab",
+      "description": "Routing rules schema for a single SmartLink.",
+      "tags": ["smartlink", "rules", "edge_routing"],
+      "meta": {
+        "artifact_kind": "data_schema"
+      }
+    }
+  ],
+  "states": [],
+  "extensions": {},
+  "meta": {},
+  "ext": {}
+}

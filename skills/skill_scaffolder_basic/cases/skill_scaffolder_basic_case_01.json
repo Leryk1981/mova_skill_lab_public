@@ -1,0 +1,63 @@
+{
+  "case_id": "skill_scaffolder_basic_case_01",
+  "description": "Example case for skill.skill_scaffolder_basic: scaffolding a new repo cleanup skill.",
+  "envelope": {
+    "envelope_id": "env.skill_scaffold_run_v1",
+    "verb": "transform",
+    "resource": "note",
+    "input": {
+      "new_skill_id": "skill.repo_cleanup_basic",
+      "new_skill_dir": "repo_cleanup_basic",
+      "title": "Repository cleanup planner (basic)",
+      "short_purpose": "LLM-only skill that analyzes a repository structure and generates a cleanup plan: identifies unused files, large directories, duplicate content, and suggests what can be safely removed or archived.",
+      "skill_kind": "llm_transform",
+      "input_brief": "Repository structure dump (file tree), optional README, optional notes about cleanup goals (e.g. 'remove node_modules', 'archive old docs').",
+      "output_brief": "Structured cleanup plan with: list of files/directories to remove (with reasons), list of items to archive, list of items to keep, estimated space savings, and a checklist for the human.",
+      "include_case_example": true,
+      "include_doc_snippets": true,
+      "notes_for_prompt_profile": "Focus on safety: never suggest removing files that might be important. Always mark uncertain items as 'needs review'."
+    },
+    "meta": {
+      "language": "en"
+    }
+  },
+  "expected_output": {
+    "skill_id": "skill.repo_cleanup_basic",
+    "skill_dir": "repo_cleanup_basic",
+    "files": [
+      {
+        "path": "skills/repo_cleanup_basic/manifest.skill.json",
+        "kind": "manifest",
+        "content": "{\n  \"skill_id\": \"skill.repo_cleanup_basic\",\n  \"title\": \"Repository cleanup planner (basic)\",\n  \"description\": \"LLM-only skill that analyzes a repository structure and generates a cleanup plan...\",\n  \"mova_core_version\": \"4.0.0-core-draft-1\",\n  ...\n}",
+        "notes": "Main skill descriptor following ds.skill_descriptor_v1"
+      },
+      {
+        "path": "skills/repo_cleanup_basic/mova/ds/ds.repo_cleanup_request_v1.schema.json",
+        "kind": "schema",
+        "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"https://mova.dev/schemas/ds.repo_cleanup_request_v1.schema.json\",\n  ...\n}",
+        "notes": "Input schema for cleanup requests"
+      },
+      {
+        "path": "skills/repo_cleanup_basic/mova/ds/ds.repo_cleanup_result_v1.schema.json",
+        "kind": "schema",
+        "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"https://mova.dev/schemas/ds.repo_cleanup_result_v1.schema.json\",\n  ...\n}",
+        "notes": "Output schema for cleanup plans"
+      },
+      {
+        "path": "skills/repo_cleanup_basic/mova/env/env.repo_cleanup_run_v1.schema.json",
+        "kind": "env",
+        "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"https://mova.dev/schemas/env.repo_cleanup_run_v1.schema.json\",\n  ...\n}",
+        "notes": "Envelope for running the cleanup skill"
+      },
+      {
+        "path": "skills/repo_cleanup_basic/impl/prompts/repo_cleanup_profile.md",
+        "kind": "prompt_profile",
+        "content": "# Repository Cleanup LLM profile\n\nYou are a helper that creates a **repository cleanup plan**...\n\n...",
+        "notes": "LLM prompt profile for the cleanup skill"
+      }
+    ],
+    "registry_snippet": "{\n  \"skill_id\": \"skill.repo_cleanup_basic\",\n  \"manifest_path\": \"skills/repo_cleanup_basic/manifest.skill.json\",\n  \"state\": \"draft\",\n  \"bindings\": [\n    {\n      \"binding_id\": \"repo_cleanup_llm_binding_v1\",\n      \"runtime_type\": \"other\",\n      \"binding_path\": \"skills/repo_cleanup_basic/impl/bindings/repo_cleanup_llm_binding_v1.json\"\n    }\n  ]\n}",
+    "docs_snippet": "- `skill.repo_cleanup_basic` – Repository cleanup planner (basic): LLM-only skill that analyzes a repository structure and generates a cleanup plan."
+  }
+}
+

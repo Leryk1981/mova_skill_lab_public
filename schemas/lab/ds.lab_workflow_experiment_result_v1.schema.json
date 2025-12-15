@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/lab/schemas/ds.lab_workflow_experiment_result_v1.schema.json",
+  "title": "Lab Workflow Experiment Result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_id",
+    "summary",
+    "variants",
+    "recommended_procedure_id"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string",
+      "description": "Identifier of the experiment config this result belongs to."
+    },
+    "summary": {
+      "type": "string",
+      "description": "High-level textual summary of findings."
+    },
+    "variants": {
+      "type": "array",
+      "description": "Results per procedure/agent variant.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "procedure_id",
+          "agent_id",
+          "profile_id",
+          "runs_count",
+          "metrics",
+          "pros",
+          "cons"
+        ],
+        "properties": {
+          "procedure_id": {
+            "type": "string",
+            "description": "Variant procedure identifier."
+          },
+          "agent_id": {
+            "type": "string",
+            "description": "Agent that produced/executed this variant."
+          },
+          "profile_id": {
+            "type": "string",
+            "description": "Profile used by the agent."
+          },
+          "runs_count": {
+            "type": "integer",
+            "description": "How many runs/episodes were executed for this variant."
+          },
+          "metrics": {
+            "type": "array",
+            "description": "Measured metrics aggregated for the variant.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "metric_id",
+                "value",
+                "unit"
+              ],
+              "properties": {
+                "metric_id": {
+                  "type": "string",
+                  "description": "Identifier of the metric."
+                },
+                "value": {
+                  "type": "number",
+                  "description": "Aggregated value."
+                },
+                "unit": {
+                  "type": "string",
+                  "description": "Unit of measure for the metric."
+                }
+              }
+            }
+          },
+          "pros": {
+            "type": "array",
+            "description": "Strengths observed for this variant.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cons": {
+            "type": "array",
+            "description": "Weaknesses observed for this variant.",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "recommended_procedure_id": {
+      "type": "string",
+      "description": "Procedure id recommended after evaluation (may be merged)."
+    },
+    "notes": {
+      "type": "array",
+      "description": "Optional general notes for the experiment.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Optional metadata for the experiment result.",
+      "additionalProperties": true
+    },
+    "ext": {
+      "type": "object",
+      "description": "Optional extension point for domain-specific details.",
+      "additionalProperties": true
+    }
+  }
+}

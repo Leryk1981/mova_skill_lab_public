@@ -1,0 +1,151 @@
+{
+  "case_id": "repo_code_change_plan_basic_case_01",
+  "description": "Example case for skill.repo_code_change_plan_basic: planning a new connector skill for FakeTasks API.",
+  "envelope": {
+    "envelope_id": "env.repo_change_plan_run_v1",
+    "verb": "transform",
+    "resource": "code_change_plan",
+    "input": {
+      "repo_snapshot_md": "# 1. Repository overview\n\nMOVA Skills Lab – monorepo for developing LLM skills using MOVA 4.0.0 core.\n\n# 2. Directory structure\n\n```\nmova_skills_lab/\n├── core/mova/          # Red core (schemas, envelopes)\n├── skills/             # Yellow layer (skills)\n│   ├── connector_scaffolder_basic/\n│   ├── runtime_binding_code_scaffolder_basic/\n│   └── code_exec_task_basic/\n├── lab/                # Lab registry\n├── tools/              # Validation scripts\n└── docs/               # Documentation\n```\n\n# 3. Key components\n\n- Skills follow MOVA patterns: manifest, ds/env schemas, prompt profiles, bindings\n- Connector scaffolding pipeline: connector_scaffolder → runtime_binding_scaffolder → code_exec\n- Validation via `npm run validate`\n\n# 4. Build, run and test\n\n- `npm run validate` – validate all schemas\n- Skills are LLM-only or use local_script/MCP bindings",
+      "goal_summary": "Add a new connector skill for FakeTasks API using the new connector scaffolding pipeline. The connector should support creating, listing, and updating tasks. It should integrate with the existing Skills Lab infrastructure (connector_scaffolder, runtime_binding_code_scaffolder, code_exec).",
+      "change_kind_hint": "new_connector",
+      "must_not_touch": [
+        "core/mova/**"
+      ],
+      "preferred_areas": [
+        "skills/connectors_*"
+      ],
+      "constraints_md": "Maintain compatibility with existing MOVA 4.0.0 core. Follow the same patterns as other connector skills."
+    },
+    "meta": {
+      "language": "en"
+    }
+  },
+  "expected_output": {
+    "high_level_overview_md": "We will add a new MOVA connector skill for FakeTasks API. This involves: 1) Creating the connector skill structure using the scaffolding pipeline, 2) Generating runtime binding code, 3) Adding tests and documentation, 4) Registering the skill in the lab registry. The changes will be concentrated in `skills/connectors_fake_tasks/` and related registry/docs updates.",
+    "steps": [
+      {
+        "step_id": "S1",
+        "title": "Create connector skill skeleton using connector_scaffolder",
+        "summary_md": "Use `skill.connector_scaffolder_basic` to generate the MOVA connector structure for FakeTasks API. This will create: data schemas (ds.fake_tasks_*_request_v1, ds.fake_tasks_*_result_v1), envelope (env.fake_tasks_*_run_v1), manifest, prompt profile, and runtime binding stub. The connector should support three operations: create_task, list_tasks, update_task.",
+        "change_kind": "create_file",
+        "target_files": [
+          {
+            "path": "skills/connectors_fake_tasks/manifest.skill.json",
+            "role": "primary",
+            "notes": "new file - skill manifest"
+          },
+          {
+            "path": "skills/connectors_fake_tasks/mova/ds/ds.fake_tasks_create_request_v1.schema.json",
+            "role": "primary",
+            "notes": "new file - request schema for create_task"
+          },
+          {
+            "path": "skills/connectors_fake_tasks/mova/ds/ds.fake_tasks_create_result_v1.schema.json",
+            "role": "primary",
+            "notes": "new file - result schema for create_task"
+          },
+          {
+            "path": "skills/connectors_fake_tasks/mova/env/env.fake_tasks_create_run_v1.schema.json",
+            "role": "primary",
+            "notes": "new file - envelope for create_task"
+          },
+          {
+            "path": "skills/connectors_fake_tasks/impl/prompts/fake_tasks_profile.md",
+            "role": "primary",
+            "notes": "new file - prompt profile for the connector"
+          },
+          {
+            "path": "skills/connectors_fake_tasks/impl/bindings/fake_tasks_binding_stub_v1.json",
+            "role": "primary",
+            "notes": "new file - runtime binding stub"
+          }
+        ],
+        "dependencies": [],
+        "risk_level": "low",
+        "risk_notes_md": "Low risk: creating new files in a dedicated directory. No impact on existing code.",
+        "done_criteria_md": "Connector skill skeleton is generated and `npm run validate` passes for all new schemas."
+      },
+      {
+        "step_id": "S2",
+        "title": "Generate runtime binding code using runtime_binding_code_scaffolder",
+        "summary_md": "Use `skill.runtime_binding_code_scaffolder_basic` to generate the actual code skeleton for the FakeTasks connector. This will create TypeScript code with functions for each envelope (create_task, list_tasks, update_task) that make HTTP calls to the FakeTasks API.",
+        "change_kind": "create_file",
+        "target_files": [
+          {
+            "path": "src/skills/connectors_fake_tasks/index.ts",
+            "role": "primary",
+            "notes": "new file - runtime code with HTTP client functions"
+          },
+          {
+            "path": "skills/connectors_fake_tasks/impl/bindings/fake_tasks_http_binding_v1.json",
+            "role": "primary",
+            "notes": "update - replace stub with actual binding pointing to code"
+          }
+        ],
+        "dependencies": ["S1"],
+        "risk_level": "low",
+        "risk_notes_md": "Low risk: generating code skeleton. Actual API calls will need to be implemented later.",
+        "done_criteria_md": "Code skeleton is generated with functions for all three operations. Binding JSON is updated to reference the code file."
+      },
+      {
+        "step_id": "S3",
+        "title": "Add test cases and documentation",
+        "summary_md": "Create example case files and update documentation. Add a case file demonstrating the create_task operation. Update SKILL.md with usage instructions. Add README files for directory structure.",
+        "change_kind": "create_file",
+        "target_files": [
+          {
+            "path": "skills/connectors_fake_tasks/cases/fake_tasks_create_case_01.json",
+            "role": "primary",
+            "notes": "new file - example case for create_task"
+          },
+          {
+            "path": "skills/connectors_fake_tasks/SKILL.md",
+            "role": "secondary",
+            "notes": "new file - skill documentation"
+          },
+          {
+            "path": "skills/connectors_fake_tasks/mova/README.md",
+            "role": "secondary",
+            "notes": "new file - directory structure docs"
+          }
+        ],
+        "dependencies": ["S1", "S2"],
+        "risk_level": "low",
+        "risk_notes_md": "Low risk: adding documentation and examples.",
+        "done_criteria_md": "Case file and documentation are created. Case file validates against schemas."
+      },
+      {
+        "step_id": "S4",
+        "title": "Register skill in lab registry and update overview docs",
+        "summary_md": "Add the new connector skill to `lab/skills_registry_v1.json` and update `docs/10_SKILLS_OVERVIEW.md` with a description of the new skill.",
+        "change_kind": "modify_file",
+        "target_files": [
+          {
+            "path": "lab/skills_registry_v1.json",
+            "role": "primary",
+            "notes": "update - add skill.connectors.fake_tasks_v1 entry"
+          },
+          {
+            "path": "docs/10_SKILLS_OVERVIEW.md",
+            "role": "secondary",
+            "notes": "update - add description of the new connector skill"
+          }
+        ],
+        "dependencies": ["S1", "S2", "S3"],
+        "risk_level": "low",
+        "risk_notes_md": "Low risk: updating registry and docs. Ensure JSON is valid.",
+        "done_criteria_md": "Registry entry is added and `npm run validate` passes. Documentation is updated."
+      }
+    ],
+    "global_risks_md": "Overall low risk: adding a new connector skill in a dedicated directory. No changes to core MOVA schemas or existing skills. The scaffolding pipeline ensures consistency with other connectors.",
+    "checklist_for_human": [
+      "Execute steps S1–S4 in dependency order",
+      "After S1: Run `npm run validate` to ensure schemas are valid",
+      "After S2: Review generated code and implement actual API call logic",
+      "After S4: Run full validation and test the connector with sample requests",
+      "Before committing: Ensure all files follow MOVA patterns and documentation is complete"
+    ]
+  }
+}
+

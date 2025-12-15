@@ -1,0 +1,31 @@
+{
+  "skill_id": "skill.mova_ai_bootstrap_generate_basic",
+  "title": "MOVA AI bootstrap pack (basic)",
+  "description": "Генерує статичний MOVA AI bootstrap-пакет для заданої моделі/середовища (без виклику LLM). Вхід: env.mova_ai_bootstrap_generate_v1, вихід: ds.mova_ai_bootstrap_pack_v1.",
+  "mova_core_version": "4.0.0-core-draft-1",
+  "uses_ds": [
+    "ds.mova_ai_bootstrap_target_v1",
+    "ds.mova_ai_bootstrap_pack_v1"
+  ],
+  "uses_env": [
+    "env.mova_ai_bootstrap_generate_v1"
+  ],
+  "tags": [
+    "bootstrap",
+    "mova",
+    "guidance"
+  ],
+  "state": "draft",
+  "resources": [
+    "note"
+  ],
+  "verbs": [
+    "transform"
+  ],
+  "episode_policy": {
+    "mode": "none",
+    "notes": "Не викликає зовнішні моделі і не пише епізоди."
+  },
+  "created_at": "2025-12-05T00:00:00Z",
+  "updated_at": "2025-12-05T00:00:00Z"
+}

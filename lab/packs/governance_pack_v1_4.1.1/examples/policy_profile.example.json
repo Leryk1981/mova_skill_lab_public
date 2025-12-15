@@ -1,0 +1,79 @@
+{
+  "schema_id": "ds.policy_profile_core_v1",
+  "schema_version": "1.0.0",
+  "policy_profile_id": "mova_security_default_v1",
+  "security_model_version": "1.0.0",
+  "name": "MOVA default governance policy (example)",
+  "description": "Baseline policy profile for supervised execution with allowlisted tooling.",
+  "mode": "supervised",
+  "scope": [
+    {
+      "type": "repo",
+      "value": "github:mova-spec"
+    },
+    {
+      "type": "path",
+      "value": "schemas/**"
+    }
+  ],
+  "allowed_actions": [
+    {
+      "tool_id": "git.status",
+      "action_type": "log"
+    },
+    {
+      "tool_id": "git.diff",
+      "action_type": "log"
+    },
+    {
+      "tool_id": "git.add",
+      "action_type": "log",
+      "constraints": {
+        "paths": [
+          "docs/**",
+          "schemas/**"
+        ]
+      }
+    },
+    {
+      "tool_id": "git.commit",
+      "action_type": "log"
+    },
+    {
+      "tool_id": "git.push",
+      "action_type": "log"
+    }
+  ],
+  "denied_actions": [
+    {
+      "tool_id": "rm",
+      "reason": "Destructive commands are denied in default policy."
+    }
+  ],
+  "confirmation_rules": [
+    {
+      "tool_id": "git.add",
+      "condition": "staging changes",
+      "required_level": "user"
+    },
+    {
+      "tool_id": "git.commit",
+      "condition": "creating a commit",
+      "required_level": "user"
+    },
+    {
+      "tool_id": "git.push",
+      "condition": "pushing to origin",
+      "required_level": "owner"
+    }
+  ],
+  "limits": {
+    "max_runtime_seconds": 900,
+    "max_tool_calls": 50
+  },
+  "meta": {
+    "title": "Default governance policy profile",
+    "lang": "en",
+    "description": "Example policy profile aligned with MOVA 4.1.1 Governance Pack v1."
+  }
+}

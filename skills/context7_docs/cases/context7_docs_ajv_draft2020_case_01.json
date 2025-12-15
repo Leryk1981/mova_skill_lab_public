@@ -1,0 +1,52 @@
+{
+  "case_id": "context7_docs_ajv_draft2020_case_01",
+  "description": "Fetch docs for using Ajv with JSON Schema draft-2020-12.",
+  "envelope": {
+    "envelope_id": "env.context7_docs_fetch_v1.ajv_draft2020_case_01",
+    "skill_id": "skill.context7_docs",
+    "verb": "transform",
+    "resource": "catalog",
+    "input": {
+      "request_id": "req.context7_docs.ajv_draft2020_case_01",
+      "library": "ajv",
+      "topic": "draft-2020-12",
+      "question": "How to validate JSON Schema draft-2020-12 with Ajv?",
+      "preferred_language": "en",
+      "notes": "Using Ajv v8 with draft-2020-12 schemas in Node.js.",
+      "tags": ["ajv", "json-schema", "draft-2020-12"]
+    }
+  },
+  "expected_output": {
+    "bundle_id": "bundle.context7_docs.ajv_draft2020_case_01",
+    "request_id": "req.context7_docs.ajv_draft2020_case_01",
+    "library": "ajv",
+    "items": [
+      {
+        "item_id": "item.ajv2020.basic_setup",
+        "title": "Using Ajv with draft-2020-12",
+        "snippet": "const Ajv2020 = require(\"ajv/dist/2020\");\nconst ajv = new Ajv2020();\nconst validate = ajv.compile(schema2020);\nconst valid = validate(data);",
+        "summary": "Basic example of using Ajv 2020-12 API via ajv/dist/2020.",
+        "source": "official-docs",
+        "url": "https://ajv.js.org/guide/schema-language.html#draft-2020-12",
+        "version": "8.x",
+        "score": 0.95,
+        "tags": ["setup", "draft-2020-12", "node"]
+      },
+      {
+        "item_id": "item.ajv2020.$schema_hint",
+        "title": "Declaring draft-2020-12 in $schema",
+        "snippet": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"type\": \"object\",\n  \"properties\": { \"foo\": { \"type\": \"string\" } }\n}",
+        "summary": "Example of a schema explicitly marked as draft-2020-12.",
+        "source": "official-docs",
+        "url": "https://json-schema.org/draft/2020-12/json-schema-core.html",
+        "version": "2020-12",
+        "score": 0.9,
+        "tags": ["schema", "$schema"]
+      }
+    ],
+    "meta": {
+      "note": "Illustrative expected output for testing the envelope and bundle structure."
+    }
+  }
+}
+

@@ -1,0 +1,22 @@
+{
+  "skill_id": "skill.wf_cycle_scaffold_basic",
+  "title": "WF cycle scaffold (basic)",
+  "description": "Bootstrap a wf_cycle experiment scaffold (rules, inputs, attempts) with A/B/C templates in one deterministic run.",
+  "mova_core_version": "4.0.0-core-draft-1",
+  "uses_ds": [
+    "ds.episode_v1",
+    "ds.wf_cycle_scaffold_request_v1",
+    "ds.wf_cycle_scaffold_result_v1"
+  ],
+  "uses_env": [],
+  "tags": ["infra", "workflow", "wf_cycle", "scaffold"],
+  "state": "draft",
+  "resources": ["wf_cycle_scaffold"],
+  "verbs": ["transform"],
+  "episode_policy": {
+    "mode": "none",
+    "notes": "Local scaffold; must not write to lab/memory/**"
+  },
+  "created_at": "2025-12-14T00:00:00Z",
+  "updated_at": "2025-12-14T00:00:00Z"
+}

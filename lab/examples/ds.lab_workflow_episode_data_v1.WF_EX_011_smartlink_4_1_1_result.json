@@ -1,0 +1,42 @@
+{
+  "experiment_id": "WF_EX_011_smartlink_4_1_1_observability",
+  "procedure_id": "WF_EX_011_run_v1",
+  "agent_id": "analysis_codex",
+  "profile_id": "codex_vscode_main",
+  "run_index": 2,
+  "metrics_snapshot": [
+    { "metric_id": "readability", "value": 0.9, "unit": "score_0_1" },
+    { "metric_id": "spec_alignment", "value": 0.9, "unit": "score_0_1" },
+    { "metric_id": "analytics_sufficiency", "value": 0.9, "unit": "score_0_1" },
+    { "metric_id": "scope_isolation", "value": 0.95, "unit": "score_0_1" }
+  ],
+  "ext": {
+    "phase": "run",
+    "status": "completed",
+    "inputs": {
+      "config_ref": "lab/examples/ds.lab_workflow_experiment_config_v1.WF_EX_011_smartlink_4_1_1_observability.json",
+      "plan_result_ref": "lab/examples/env.lab_workflow_experiment_plan_result_v1.WF_EX_011_smartlink_4_1_1_observability.json",
+      "apply_ref": "lab/examples/ds.lab_workflow_episode_data_v1.WF_EX_011_smartlink_4_1_1_apply_codex.json",
+      "result_ref": "lab/examples/ds.lab_workflow_experiment_result_v1.WF_EX_011_smartlink_4_1_1_observability.json",
+      "baseline_refs": [
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/ds.smartlink_redirect_event_v1.schema.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/envelopes/env.smartlink_redirect_event_v1.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/global.smartlink_v1.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/meta.smartlink_v1.json"
+      ],
+      "candidate_refs": [
+        "lab/experiments/smartlink_4_1_1_candidate_ex011_codex/schemas/ds.smartlink_redirect_event_v1.schema.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex011_codex/envelopes/env.smartlink_redirect_event_v1.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex011_codex/schemas/global.smartlink_v1.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex011_codex/schemas/meta.smartlink_v1.json"
+      ]
+    },
+    "verdict_per_file": {
+      "ds.smartlink.redirect_event.v1": "codex better separation core/debug",
+      "env.smartlink.redirect_event.v1": "codex clearer inputs/debug_mode",
+      "global.smartlink.v1": "codex minimal and focused",
+      "meta.smartlink.v1": "codex scoped observability package"
+    },
+    "notes_from_operator": "WF_EX_011 run: Codex-candidate observability рекомендовано як best-so-far; ChatGPT baseline лишається референсом. Worker/infra поза scope."
+  }
+}

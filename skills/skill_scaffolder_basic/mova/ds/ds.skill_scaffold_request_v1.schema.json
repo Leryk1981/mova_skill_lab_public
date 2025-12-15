@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.skill_scaffold_request_v1.schema.json",
+  "title": "Skill Scaffold Request v1",
+  "description": "High-level request for creating a new MOVA skill scaffold.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "new_skill_id",
+    "new_skill_dir",
+    "title",
+    "short_purpose",
+    "skill_kind"
+  ],
+  "properties": {
+    "new_skill_id": {
+      "type": "string",
+      "pattern": "^skill\\.",
+      "description": "Stable identifier of the new skill, must start with 'skill.' (e.g. 'skill.repo_cleanup_basic')."
+    },
+    "new_skill_dir": {
+      "type": "string",
+      "description": "Name of the subdirectory in skills/ for the new skill (e.g. 'repo_cleanup_basic')."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title of the new skill."
+    },
+    "short_purpose": {
+      "type": "string",
+      "description": "Short description of what the skill does (one paragraph)."
+    },
+    "skill_kind": {
+      "type": "string",
+      "enum": ["llm_transform", "connector"],
+      "description": "Kind of skill to scaffold. 'llm_transform' = pure LLM transform skill (no external APIs). 'connector' = skill that wraps an external API/tool; in this case input_brief/output_brief/notes are expected to contain a pre-processed summary of the API docs (e.g. from skill.context7_docs)."
+    },
+    "input_brief": {
+      "type": "string",
+      "description": "Textual description of what data the new skill should accept (in natural language)."
+    },
+    "output_brief": {
+      "type": "string",
+      "description": "Textual description of what the new skill should return (in natural language)."
+    },
+    "include_case_example": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to generate an example case file."
+    },
+    "include_doc_snippets": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to generate text snippets for docs/registry."
+    },
+    "notes_for_prompt_profile": {
+      "type": "string",
+      "description": "Additional preferences regarding the style/behavior of the new skill's prompt profile."
+    }
+  }
+}
+

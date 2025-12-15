@@ -1,0 +1,43 @@
+{
+  "experiment_id": "WF_EX_011_smartlink_4_1_1_observability",
+  "procedure_id": "WF_EX_011_apply_codex_v1",
+  "agent_id": "operator_codex",
+  "profile_id": "codex_vscode_main",
+  "run_index": 1,
+  "metrics_snapshot": [],
+  "ext": {
+    "phase": "apply_plan",
+    "status": "completed",
+    "inputs": {
+      "config_ref": "lab/examples/ds.lab_workflow_experiment_config_v1.WF_EX_011_smartlink_4_1_1_observability.json",
+      "plan_result_ref": "lab/examples/env.lab_workflow_experiment_plan_result_v1.WF_EX_011_smartlink_4_1_1_observability.json",
+      "baseline_refs": [
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/ds.smartlink_redirect_event_v1.schema.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/envelopes/env.smartlink_redirect_event_v1.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/global.smartlink_v1.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/meta.smartlink_v1.json"
+      ],
+      "candidate_refs": [
+        "lab/experiments/smartlink_4_1_1_candidate_ex011_codex/schemas/ds.smartlink_redirect_event_v1.schema.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex011_codex/envelopes/env.smartlink_redirect_event_v1.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex011_codex/schemas/global.smartlink_v1.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex011_codex/schemas/meta.smartlink_v1.json"
+      ]
+    },
+    "changes_summary": {
+      "ds.smartlink.redirect_event.v1": [
+        "Codex: core розділено на link/decision/routing/context; маркетинг зведено у traffic; debug опційний."
+      ],
+      "env.smartlink.redirect_event.v1": [
+        "Codex: inputs context+decision+debug_mode, опційне додавання debug блока."
+      ],
+      "global.smartlink.v1": [
+        "Codex: мінімальна глобальна модель events/text_channels, лише smartlink.redirected."
+      ],
+      "meta.smartlink.v1": [
+        "Codex: пакет observability, посилання на власні ds/env/global, scope лише redirect event."
+      ]
+    },
+    "notes_from_operator": "Codex варіант observability застосований окремо від ChatGPT baseline; core SmartLink з WF_EX_010 не змінювався."
+  }
+}

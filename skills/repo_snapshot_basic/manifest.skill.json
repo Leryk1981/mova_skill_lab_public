@@ -1,0 +1,33 @@
+{
+  "skill_id": "skill.repo_snapshot_basic",
+  "title": "Repository snapshot (basic)",
+  "description": "LLM-only skill that accepts a repository structure dump, README, and notes, and returns a standardized markdown snapshot, condensed memory summary, and human checklist. No external HTTP requests or web search.",
+  "mova_core_version": "4.0.0-core-draft-1",
+  "uses_ds": [
+    "ds.episode_v1",
+    "ds.repo_snapshot_request_v1",
+    "ds.repo_snapshot_result_v1"
+  ],
+  "uses_env": [
+    "env.repo_snapshot_run_v1"
+  ],
+  "tags": [
+    "repo",
+    "snapshot",
+    "context"
+  ],
+  "state": "draft",
+  "resources": [
+    "note"
+  ],
+  "verbs": [
+    "transform"
+  ],
+  "episode_policy": {
+    "mode": "none",
+    "notes": "LLM-only skill; episodes are not recorded by default, only structure is maintained."
+  },
+  "created_at": "2025-12-03T15:30:00Z",
+  "updated_at": "2025-12-03T15:30:00Z"
+}
+

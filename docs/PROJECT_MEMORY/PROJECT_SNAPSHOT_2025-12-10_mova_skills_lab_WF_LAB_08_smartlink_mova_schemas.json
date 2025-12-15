@@ -1,0 +1,17 @@
+{
+  "snapshot_id": "PROJECT_SNAPSHOT_2025-12-10_mova_skills_lab_WF_LAB_08_smartlink_mova_schemas",
+  "project_id": "mova_skills_lab",
+  "taken_at": "2025-12-10T15:40:00Z",
+  "branch": "feature/lab-workflow-experiments-v1",
+  "summary": "Snapshot after adding SmartLink MOVA pack (schemas, envelope, examples) and validation artifacts for WF_LAB_08.",
+  "changes": [
+    "Introduced SmartLink lab schemas for rules, meta, and global registry with aligned examples.",
+    "Added SmartLink default route request envelope and example.",
+    "Validated SmartLink MOVA pack via skill.mova_check_basic; prepared snapshot artifacts."
+  ],
+  "tests": {
+    "command": "npm test",
+    "status": "pending_after_snapshot"
+  },
+  "notes": "Focused on MOVA-layer definitions only; no worker/runtime changes in this step."
+}

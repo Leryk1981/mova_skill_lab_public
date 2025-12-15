@@ -1,0 +1,34 @@
+{
+  "skill_id": "skill.file_cleanup_basic",
+  "title": "File cleanup planner (basic)",
+  "description": "LLM-only skill that analyzes a snapshot of a single disk or partition and generates a safe, structured cleanup plan. Identifies obvious junk, heavy folders, and proposes step-by-step actions to reclaim space without risking important data.",
+  "mova_core_version": "4.0.0-core-draft-1",
+  "uses_ds": [
+    "ds.episode_v1",
+    "ds.file_cleanup_request_v1",
+    "ds.file_cleanup_result_v1"
+  ],
+  "uses_env": [
+    "env.file_cleanup_run_v1"
+  ],
+  "tags": [
+    "file",
+    "cleanup",
+    "disk",
+    "storage"
+  ],
+  "state": "draft",
+  "resources": [
+    "note"
+  ],
+  "verbs": [
+    "transform"
+  ],
+  "episode_policy": {
+    "mode": "none",
+    "notes": "LLM-only skill; episodes are not recorded by default, only structure is maintained."
+  },
+  "created_at": "2025-12-03T20:00:00Z",
+  "updated_at": "2025-12-03T20:00:00Z"
+}
+

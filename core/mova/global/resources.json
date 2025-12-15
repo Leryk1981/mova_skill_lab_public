@@ -1,0 +1,33 @@
+{
+  "version": "4.0.0-core-draft-1",
+  "resources": [
+    {
+      "id": "skill",
+      "description": "A MOVA skill defined in the lab."
+    },
+    {
+      "id": "procedure",
+      "description": "A structured procedure with ordered steps."
+    },
+    {
+      "id": "episode",
+      "description": "An execution record of an envelope."
+    },
+    {
+      "id": "envelope",
+      "description": "A MOVA envelope describing an action over data."
+    },
+    {
+      "id": "catalog",
+      "description": "A MOVA core catalog or skill catalog."
+    },
+    {
+      "id": "file",
+      "description": "A file or blob on disk or in storage."
+    },
+    {
+      "id": "note",
+      "description": "A note or document (e.g. in a PKM system)."
+    }
+  ]
+}

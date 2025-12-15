@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.skill_scaffold_result_v1.schema.json",
+  "title": "Skill Scaffold Result v1",
+  "description": "Plan of files for a new MOVA skill, returned by the scaffolder.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "skill_id",
+    "skill_dir",
+    "files"
+  ],
+  "properties": {
+    "skill_id": {
+      "type": "string",
+      "description": "Identifier of the new skill (must equal new_skill_id from the request)."
+    },
+    "skill_dir": {
+      "type": "string",
+      "description": "Directory name for the new skill (must equal new_skill_dir from the request)."
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "description": "List of files to create for the new skill.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "kind",
+          "content"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path relative to repository root (e.g. 'skills/repo_cleanup_basic/manifest.skill.json')."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "manifest",
+              "schema",
+              "env",
+              "prompt_profile",
+              "runtime_binding",
+              "case",
+              "doc",
+              "readme",
+              "other"
+            ],
+            "description": "Type of file being generated."
+          },
+          "content": {
+            "type": "string",
+            "description": "Full content of the file."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short explanation of what this file does."
+          }
+        }
+      }
+    },
+    "registry_snippet": {
+      "type": "string",
+      "description": "JSON fragment for lab/skills_registry_v1.json (if include_doc_snippets is true)."
+    },
+    "docs_snippet": {
+      "type": "string",
+      "description": "Markdown fragment for docs/10_SKILLS_OVERVIEW.md (if include_doc_snippets is true)."
+    }
+  }
+}
+

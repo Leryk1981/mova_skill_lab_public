@@ -1,0 +1,18 @@
+{
+  "snapshot_id": "PROJECT_SNAPSHOT_2025-12-10_mova_skills_lab_WF_LAB_04_WF_EX_001_baseline_result_only",
+  "project_id": "mova_skills_lab",
+  "taken_at": "2025-12-10T13:18:00Z",
+  "branch": "feature/lab-workflow-experiments-v1",
+  "summary": "WF_LAB_04: Added baseline run metrics, baseline-only experiment result, aggregate envelope example; validated via mova_check_basic; captured snapshot.",
+  "changes": [
+    "Enriched WF-EX-001 baseline episode data with metrics.",
+    "Created baseline-only experiment result instance.",
+    "Added aggregate request envelope example for WF-EX-001.",
+    "Validated WF_LAB_04 artifacts with mova_check_basic and recorded snapshot."
+  ],
+  "tests": {
+    "command": "npm test",
+    "status": "passed"
+  },
+  "notes": "memory:import still unavailable; metrics are reference values for baseline; compare against future variants later."
+}

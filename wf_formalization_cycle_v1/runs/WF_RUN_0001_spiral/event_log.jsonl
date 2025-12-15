@@ -1,0 +1,10 @@
+{"type":"META","ts_unit":"s"}
+{"ts":10,"type":"OP_START","ctx":"runs","op_id":"op.example.capture_inputs.v1"}
+{"ts":20,"type":"OP_DONE","ctx":"runs","op_id":"op.example.capture_inputs.v1","result":"PASS","evidence":"runs/WF_RUN_0001_spiral/artifacts_snapshot/README.md"}
+{"ts":21,"type":"GATE","ctx":"runs","id":"inputs_pass","value":true}
+{"ts":30,"type":"DEF_EDIT","ctx":"artifacts","layer":"artifacts","id":"procedure.spiral.v1","change_type":"structural"}
+{"ts":40,"type":"DEF_EDIT","ctx":"artifacts","layer":"artifacts","id":"instructions.catalog.v1","change_type":"edit"}
+{"ts":50,"type":"E_PROOF","ctx":"artifacts","E":0.5,"note":"Example: linkage reached E>=0.5."}
+{"ts":60,"type":"OP_START","ctx":"runs","op_id":"op.example.calc_metrics.v1"}
+{"ts":65,"type":"OP_DONE","ctx":"runs","op_id":"op.example.calc_metrics.v1","result":"PASS","evidence":"runs/WF_RUN_0001_spiral/metrics.json"}
+{"ts":70,"type":"METRICS_CALC","ctx":"runs","E":0.5,"V":0.5,"S":0.8,"IC":60,"TFR":5,"note":"Example only; overwrite in real runs."}

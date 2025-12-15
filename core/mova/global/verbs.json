@@ -1,0 +1,42 @@
+{
+  "version": "4.0.0-core-draft-1",
+  "verbs": [
+    {
+      "id": "create",
+      "description": "Create a new resource."
+    },
+    {
+      "id": "update",
+      "description": "Update an existing resource."
+    },
+    {
+      "id": "publish",
+      "description": "Publish a catalog, skill, or other definition."
+    },
+    {
+      "id": "record",
+      "description": "Record an episode or result."
+    },
+    {
+      "id": "route",
+      "description": "Route a request or event to an appropriate target."
+    },
+    {
+      "id": "transform",
+      "description": "Transform input data into another structured form (used by skill.mova_template)."
+    },
+    {
+      "id": "scan",
+      "description": "Inspect or scan a resource such as files or disk (reserved for future file-related skills)."
+    },
+    {
+      "id": "run",
+      "description": "Run a skill via the control plane."
+    },
+    {
+      "id": "call",
+      "description": "Call another envelope (second-order speech act)."
+    }
+  ]
+}
+

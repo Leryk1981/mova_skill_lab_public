@@ -1,0 +1,219 @@
+{
+  "registry_id": "skills_registry_v1",
+  "mova_core_version": "4.0.0-core-draft-1",
+  "skills": [
+    {
+      "skill_id": "skill.mova_template",
+      "manifest_path": "skills/mova_template/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "binding.mova_template.local_dummy_v1",
+          "runtime_type": "local_script",
+          "binding_path": "skills/mova_template/impl/bindings/mova_template_local_dummy_binding.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.context7_docs",
+      "manifest_path": "skills/context7_docs/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "binding.context7_docs.mcp_remote_v1",
+          "runtime_type": "mcp",
+          "binding_path": "skills/context7_docs/impl/bindings/context7_mcp_remote_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.mova_lab_operator",
+      "manifest_path": "skills/mova_lab_operator/manifest.skill.json",
+      "state": "draft",
+      "bindings": []
+    },
+    {
+      "skill_id": "skill.repo_snapshot_basic",
+      "manifest_path": "skills/repo_snapshot_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "repo_snapshot_llm_binding_v1",
+          "runtime_type": "other",
+          "binding_path": "skills/repo_snapshot_basic/impl/bindings/repo_snapshot_llm_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.skill_scaffolder_basic",
+      "manifest_path": "skills/skill_scaffolder_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "skill_scaffolder_llm_binding_v1",
+          "runtime_type": "other",
+          "binding_path": "skills/skill_scaffolder_basic/impl/bindings/skill_scaffolder_llm_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.file_cleanup_basic",
+      "manifest_path": "skills/file_cleanup_basic/manifest.skill.json",
+      "state": "archived",
+      "bindings": [
+        {
+          "binding_id": "file_cleanup_llm_binding_v1",
+          "runtime_type": "other",
+          "binding_path": "skills/file_cleanup_basic/impl/bindings/file_cleanup_llm_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.connector_scaffolder_basic",
+      "manifest_path": "skills/connector_scaffolder_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "connector_scaffolder_llm_binding_v1",
+          "runtime_type": "other",
+          "binding_path": "skills/connector_scaffolder_basic/impl/bindings/connector_scaffolder_llm_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.runtime_binding_code_scaffolder_basic",
+      "manifest_path": "skills/runtime_binding_code_scaffolder_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "runtime_binding_scaffolder_llm_binding_v1",
+          "runtime_type": "other",
+          "binding_path": "skills/runtime_binding_code_scaffolder_basic/impl/bindings/runtime_binding_scaffolder_llm_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.code_exec_task_basic",
+      "manifest_path": "skills/code_exec_task_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "code_exec_binding_v1",
+          "runtime_type": "local_script",
+          "binding_path": "skills/code_exec_task_basic/impl/bindings/code_exec_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.repo_code_change_plan_basic",
+      "manifest_path": "skills/repo_code_change_plan_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "repo_code_change_plan_llm_binding_v1",
+          "runtime_type": "other",
+          "binding_path": "skills/repo_code_change_plan_basic/impl/bindings/repo_code_change_plan_llm_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.skill_ingest_run_with_skillseeker_basic",
+      "manifest_path": "skills/skill_ingest_run_with_skillseeker_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "skill_ingest_run_with_skillseeker_binding_v1",
+          "runtime_type": "local_script",
+          "binding_path": "skills/skill_ingest_run_with_skillseeker_basic/impl/bindings/skill_ingest_run_with_skillseeker_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.skill_ingest_store_episode_basic",
+      "manifest_path": "skills/skill_ingest_store_episode_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "skill_ingest_store_episode_binding_v1",
+          "runtime_type": "local_script",
+          "binding_path": "skills/skill_ingest_store_episode_basic/impl/bindings/skill_ingest_store_episode_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.mova_ai_bootstrap_generate_basic",
+      "manifest_path": "skills/skill_mova_ai_bootstrap_generate_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "skill_mova_ai_bootstrap_generate_binding_v1",
+          "runtime_type": "local_script",
+          "binding_path": "skills/skill_mova_ai_bootstrap_generate_basic/impl/bindings/skill_mova_ai_bootstrap_generate_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.file_cleanup_snapshot_node_basic",
+      "manifest_path": "skills/skill_file_cleanup_snapshot_node_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "skill_file_cleanup_snapshot_binding_v1",
+          "runtime_type": "local_script",
+          "binding_path": "skills/skill_file_cleanup_snapshot_node_basic/impl/bindings/skill_file_cleanup_snapshot_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.file_cleanup_plan_node_basic",
+      "manifest_path": "skills/skill_file_cleanup_plan_node_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "skill_file_cleanup_plan_binding_v1",
+          "runtime_type": "local_script",
+          "binding_path": "skills/skill_file_cleanup_plan_node_basic/skill_file_cleanup_plan_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.wf_cycle_compute_compare_basic",
+      "manifest_path": "skills/wf_cycle_compute_compare_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "wf_cycle_compute_compare_local_node_binding_v1",
+          "runtime_type": "local_script",
+          "binding_path": "skills/wf_cycle_compute_compare_basic/impl/bindings/wf_cycle_compute_compare_local_node_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.wf_cycle_winner_pack_basic",
+      "manifest_path": "skills/wf_cycle_winner_pack_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "wf_cycle_winner_pack_local_node_binding_v1",
+          "runtime_type": "local_script",
+          "binding_path": "skills/wf_cycle_winner_pack_basic/impl/bindings/wf_cycle_winner_pack_local_node_binding_v1.json"
+        }
+      ]
+    },
+    {
+      "skill_id": "skill.wf_cycle_scaffold_basic",
+      "manifest_path": "skills/wf_cycle_scaffold_basic/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "wf_cycle_scaffold_local_node_binding_v1",
+          "runtime_type": "local_script",
+          "binding_path": "skills/wf_cycle_scaffold_basic/impl/bindings/wf_cycle_scaffold_local_node_binding_v1.json"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "note": "Initial skills registry for MOVA Skills Lab. More skills and bindings will be added over time."
+  }
+}

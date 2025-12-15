@@ -1,0 +1,26 @@
+{
+  "envelope_id": "env.policy_check_response_v1",
+  "verb": "get",
+  "roles": {
+    "policy_engine": "governance:local",
+    "producer": "ide:vscode"
+  },
+  "decision": "allow",
+  "policy_profile_id": "mova_security_default_v1",
+  "security_model_version": "1.0.0",
+  "evaluated_actions": [
+    {
+      "tool_call_id": "tc_001",
+      "decision": "require_confirmation",
+      "reason": "Pushing to origin requires owner confirmation.",
+      "recommended_actions": [
+        "alert",
+        "log"
+      ]
+    }
+  ],
+  "security_event_episode_ref": "sec_event:run_2025-12-12_001",
+  "meta": {
+    "correlation_id": "run_2025-12-12_001"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "experiment_id": "WF_EX_001_repo_change_plan_vs_agents_v1",
+  "summary": "Baseline vs codex_only result for WF-EX-001: repo_change_plan workflow. One run per variant.",
+  "variants": [
+    {
+      "procedure_id": "WF_EX_001_baseline_repo_change_plan_v1",
+      "agent_id": "baseline_human_plus_codex",
+      "profile_id": "operator_plus_codex_v1",
+      "runs_count": 1,
+      "metrics": [
+        {
+          "metric_id": "time_to_solution",
+          "value": 45,
+          "unit": "minutes"
+        },
+        {
+          "metric_id": "files_touched",
+          "value": 19,
+          "unit": "files"
+        },
+        {
+          "metric_id": "subjective_quality",
+          "value": 4,
+          "unit": "score_1_5"
+        }
+      ],
+      "pros": [
+        "Reference workflow used in day-to-day work",
+        "High predictability and operator control"
+      ],
+      "cons": [
+        "Relatively high time_to_solution",
+        "Strong dependence on human operator attention"
+      ]
+    },
+    {
+      "procedure_id": "WF_EX_001_candidate_codex_only_repo_change_plan_v1",
+      "agent_id": "codex_only",
+      "profile_id": "codex_vscode_main",
+      "runs_count": 1,
+      "metrics": [
+        {
+          "metric_id": "time_to_solution",
+          "value": 35,
+          "unit": "minutes"
+        },
+        {
+          "metric_id": "files_touched",
+          "value": 18,
+          "unit": "files"
+        },
+        {
+          "metric_id": "subjective_quality",
+          "value": 4,
+          "unit": "score_1_5"
+        }
+      ],
+      "pros": [
+        "Less operator involvement during execution",
+        "Slightly lower time_to_solution and files_touched"
+      ],
+      "cons": [
+        "Higher dependence on Codex correctness",
+        "Requires strong trust in automated changes"
+      ]
+    }
+  ],
+  "recommended_procedure_id": "WF_EX_001_baseline_repo_change_plan_v1",
+  "notes": [
+    "This is the first comparison between baseline and codex_only variants.",
+    "Metrics suggest codex_only may reduce time_to_solution with similar quality; more runs are needed for a confident recommendation."
+  ],
+  "meta": {},
+  "ext": {}
+}

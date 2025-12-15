@@ -1,0 +1,14 @@
+{
+  "experiment_id": "WF_EX_WF_SCAFFOLD_SMOKE_001",
+  "experiment_dir": "lab/experiments/WF_EX_WF_SCAFFOLD_SMOKE_001",
+  "participants": ["codex_ide", "codex_cli"],
+  "inputs_seed": {
+    "files": [
+      {
+        "rel_path": "workflow_target.md",
+        "content": "Workflow Target\n================\n- snapshot repo (read-only)\n- restore context (SQLite)\n- generate change plan\n- apply patch (check only)\n- validate (npm run validate / npm test)\n- capture event_log + metrics\n\nReplace this placeholder with real description before running A/B/C."
+      }
+    ]
+  },
+  "options": { "safe_mode": true, "write_files": true }
+}

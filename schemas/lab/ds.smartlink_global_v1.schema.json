@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/lab/schemas/ds.smartlink_global_v1.schema.json",
+  "title": "SmartLink Global v1",
+  "description": "Global roles, resources, and schema registry for SmartLink experiments.",
+  "$comment": "LAB-EXPERIMENTAL. SmartLink global registry schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "meta": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": ["id", "name"]
+      }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "kind": { "type": "string" },
+          "uri": { "type": "string" },
+          "description": { "type": "string" },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "meta": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": ["id", "name", "kind"]
+      }
+    },
+    "dataSchemas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "schema_uri": { "type": "string" },
+          "version": { "type": "string" },
+          "description": { "type": "string" },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "meta": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": ["id", "schema_uri"]
+      }
+    },
+    "states": {
+      "type": "array",
+      "description": "Optional states or workflows.",
+      "items": { "type": "object" }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Optional extensions.",
+      "additionalProperties": true
+    },
+    "meta": {
+      "type": "object",
+      "description": "Optional technical metadata.",
+      "additionalProperties": true
+    },
+    "ext": {
+      "type": "object",
+      "description": "Optional extension block.",
+      "additionalProperties": true
+    }
+  }
+}

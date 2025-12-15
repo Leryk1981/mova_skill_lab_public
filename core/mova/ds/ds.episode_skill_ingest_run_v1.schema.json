@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/core/mova/ds/ds.episode_skill_ingest_run_v1.schema.json",
+  "title": "Episode: Skill Seeker Ingest Run v1",
+  "description": "Episode record for a Skill Seeker ingest run, linking request envelope, configs, result, and metrics.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mova_version",
+    "episode_id",
+    "envelope_id",
+    "run_result"
+  ],
+  "properties": {
+    "mova_version": {
+      "type": "string",
+      "const": "4.0.0",
+      "description": "MOVA core version targeted by this schema."
+    },
+    "episode_id": {
+      "type": "string",
+      "description": "Stable identifier of this episode."
+    },
+    "envelope_id": {
+      "type": "string",
+      "description": "Identifier of the initiating envelope (env.*)."
+    },
+    "source_config": {
+      "$ref": "https://mova.dev/schemas/core/mova/ds/ds.skill_ingest_source_config_v1.schema.json",
+      "description": "Inline source configuration used for this run."
+    },
+    "run_config": {
+      "$ref": "https://mova.dev/schemas/core/mova/ds/ds.skill_ingest_run_config_v1.schema.json",
+      "description": "Inline run configuration used for this run."
+    },
+    "run_result": {
+      "$ref": "https://mova.dev/schemas/core/mova/ds/ds.skill_ingest_run_result_v1.schema.json",
+      "description": "Result object for the executed run."
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Computed metrics for quick reporting.",
+      "additionalProperties": false,
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "description": "Whether the run completed successfully."
+        },
+        "conflicts_per_100_pages": {
+          "type": "number",
+          "description": "Conflict density normalized per 100 pages."
+        },
+        "upload_success": {
+          "type": "boolean",
+          "description": "Whether upload completed successfully."
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "description": "Contextual information about where/how the run executed.",
+      "additionalProperties": false,
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "description": "Project identifier."
+        },
+        "repo": {
+          "type": "string",
+          "description": "Repository reference if applicable."
+        },
+        "tool_version": {
+          "type": "string",
+          "description": "Skill Seeker version used."
+        },
+        "executor": {
+          "type": "string",
+          "description": "Executor environment (e.g. local, CI, IDE-agent)."
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-form notes or comments for this episode."
+    }
+  }
+}

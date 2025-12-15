@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.file_cleanup_result_v1.schema.json",
+  "title": "File Cleanup Result v1",
+  "description": "Structured cleanup plan produced by the file cleanup skill.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "overview_md",
+    "actions",
+    "checklist_md"
+  ],
+  "properties": {
+    "overview_md": {
+      "type": "string",
+      "description": "Human-readable markdown overview: what the disk looks like now and what we aim to achieve."
+    },
+    "actions": {
+      "type": "array",
+      "description": "Structured list of recommended cleanup actions, grouped by category.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action_id",
+          "category",
+          "action_type",
+          "target_path",
+          "reason"
+        ],
+        "properties": {
+          "action_id": {
+            "type": "string",
+            "description": "Unique identifier for this action within the plan."
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "safe_deletion",
+              "optional_deletion",
+              "archive",
+              "move",
+              "inspect_manually"
+            ],
+            "description": "Category of the action: safe_deletion (almost certainly safe junk), optional_deletion (may be safe but needs review), archive (should be archived), move (should be moved), inspect_manually (needs human inspection)."
+          },
+          "action_type": {
+            "type": "string",
+            "enum": ["delete", "archive", "move", "inspect"],
+            "description": "Type of action to perform."
+          },
+          "target_path": {
+            "type": "string",
+            "description": "Target path or pattern for this action (e.g., 'D:\\Temp\\old_cache', '*.tmp')."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Short explanation of why this action is recommended."
+          },
+          "estimated_impact_gb": {
+            "type": "number",
+            "description": "Estimated space that will be freed or affected (in GB), if known."
+          },
+          "risk_level": {
+            "type": "string",
+            "enum": ["low", "medium", "high"],
+            "description": "Risk level of this action: low (almost certainly safe), medium (needs review), high (risky, inspect carefully)."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes or warnings about this action."
+          }
+        }
+      }
+    },
+    "checklist_md": {
+      "type": "string",
+      "description": "Markdown checklist for the human with step-by-step instructions on how to execute the plan safely."
+    },
+    "summary": {
+      "type": "object",
+      "description": "Optional aggregated summary of the cleanup plan.",
+      "properties": {
+        "total_estimated_space_gb": {
+          "type": "number",
+          "description": "Total estimated space that can be freed (in GB)."
+        },
+        "safe_actions_count": {
+          "type": "integer",
+          "description": "Number of safe deletion actions."
+        },
+        "optional_actions_count": {
+          "type": "integer",
+          "description": "Number of optional actions that need review."
+        },
+        "risk_categories": {
+          "type": "array",
+          "description": "List of risk categories present in the plan.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
+

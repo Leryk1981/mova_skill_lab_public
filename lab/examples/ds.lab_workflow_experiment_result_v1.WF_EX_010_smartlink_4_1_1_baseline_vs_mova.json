@@ -1,0 +1,76 @@
+{
+  "experiment_id": "WF_EX_010_smartlink_4_1_1_baseline_vs_mova",
+  "summary": "Candidate SmartLink 4.1.1 (rules/env/global/meta) узгоджено зі spec 4.1.1 та зберігає логіку baseline; рекомендовано як best-so-far у межах 4 JSON.",
+  "variants": [
+    {
+      "procedure_id": "baseline_smartlink_v1",
+      "agent_id": "human_reference",
+      "profile_id": "smartlink_baseline_v1",
+      "runs_count": 1,
+      "metrics": [
+        {
+          "metric_id": "spec_alignment",
+          "value": 0.6,
+          "unit": "score_0_1"
+        },
+        {
+          "metric_id": "functional_parity",
+          "value": 1.0,
+          "unit": "score_0_1"
+        }
+      ],
+      "pros": [
+        "Стабільна логіка правил і envelope.",
+        "Перевірені каталоги/ресурси."
+      ],
+      "cons": [
+        "MOVA 4.0.x формати; відсутні 4.1.1 text-channel узгодження."
+      ]
+    },
+    {
+      "procedure_id": "candidate_smartlink_4_1_1_v1",
+      "agent_id": "codex",
+      "profile_id": "codex_vscode_main",
+      "runs_count": 1,
+      "metrics": [
+        {
+          "metric_id": "spec_alignment",
+          "value": 0.9,
+          "unit": "score_0_1"
+        },
+        {
+          "metric_id": "functional_parity",
+          "value": 1.0,
+          "unit": "score_0_1"
+        }
+      ],
+      "pros": [
+        "Вирівняно під MOVA 4.1.1 (mova_version, text channel smartlink.redirected, spec_alignment).",
+        "Збережено логіку rules/env baseline; явні references на global/meta."
+      ],
+      "cons": [
+        "Потрібна подальша деталізація payload/validation для smartlink.redirected (TODO)."
+      ]
+    }
+  ],
+  "recommended_procedure_id": "candidate_smartlink_4_1_1_v1",
+  "notes": [
+    "Scope обмежений rules/env/global/meta; worker/src/config/tests/deploy поза експериментом."
+  ],
+  "meta": {
+    "labels": [
+      "WF_EX_010",
+      "smartlink",
+      "mova_4_1_1",
+      "result"
+    ]
+  },
+  "ext": {
+    "files_verdict": {
+      "ds.smartlink.rules.v1": "equal but normalized to spec",
+      "env.smartlink.default.v1": "strictly better (4.1.1 alignment)",
+      "global.smartlink.v1": "equal but normalized to spec",
+      "meta.smartlink.v1": "strictly better (explicit scope/policy)"
+    }
+  }
+}

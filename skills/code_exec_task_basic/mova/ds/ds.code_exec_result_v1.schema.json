@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.code_exec_result_v1.schema.json",
+  "title": "Code Execution Result v1",
+  "description": "Result of executing a CLI command with exit code, logs, duration, and a human-readable summary.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "exit_code",
+    "stdout_text",
+    "stderr_text",
+    "summary_md"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "error",
+        "timeout",
+        "failed_to_start"
+      ],
+      "description": "Overall status: 'success' (exit_code == 0 within timeout), 'error' (exit_code != 0), 'timeout' (interrupted by timeout), 'failed_to_start' (could not start the process)."
+    },
+    "exit_code": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Process exit code (null if process did not start or was killed before getting the code)."
+    },
+    "duration_ms": {
+      "type": "integer",
+      "description": "How many milliseconds the command actually executed (as seen by the runtime).",
+      "minimum": 0
+    },
+    "stdout_text": {
+      "type": "string",
+      "description": "Text from stdout (may be truncated if it exceeded capture_max_kb)."
+    },
+    "stderr_text": {
+      "type": "string",
+      "description": "Text from stderr (may be truncated if it exceeded capture_max_kb)."
+    },
+    "stdout_truncated": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether stdout was truncated due to capture_max_kb limit."
+    },
+    "stderr_truncated": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether stderr was truncated due to capture_max_kb limit."
+    },
+    "summary_md": {
+      "type": "string",
+      "description": "Short markdown summary: what was executed (command + working dir), how it ended (success/error/timeout), and if there are errors, the top/typical ones without duplicating the entire log."
+    },
+    "notes_for_next_step": {
+      "type": "string",
+      "description": "What to do next logically, e.g. 'fix test errors above and rerun the command', 'result is ok, can proceed to deploy'."
+    }
+  }
+}
+

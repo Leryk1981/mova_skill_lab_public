@@ -1,0 +1,20 @@
+{
+  "binding_id": "wf_cycle_scaffold_local_node_binding_v1",
+  "skill_id": "skill.wf_cycle_scaffold_basic",
+  "runtime_type": "local_script",
+  "entrypoint": {
+    "command": "node",
+    "path": "skills/wf_cycle_scaffold_basic/impl/bindings/node/scaffold_experiment.mjs",
+    "notes": "Deterministic scaffold builder for wf_cycle experiments (A/B/C). Reads ds.wf_cycle_scaffold_request_v1."
+  },
+  "verbs": [
+    "transform"
+  ],
+  "meta": {
+    "environment": "local",
+    "implementation_status": "implemented",
+    "notes": "Creates experiment directories, copies wf_cycle templates, and logs actions. Never writes lab/memory/**."
+  },
+  "created_at": "2025-12-14T00:00:00Z",
+  "updated_at": "2025-12-14T00:00:00Z"
+}

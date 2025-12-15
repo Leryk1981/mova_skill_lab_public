@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/lab/schemas/ds.lab_workflow_procedure_v1.schema.json",
+  "title": "Lab Workflow Procedure v1",
+  "$comment": "LAB-EXPERIMENTAL. Workflow procedure schema for lab experiments.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "procedure_id",
+    "title",
+    "description",
+    "domain",
+    "version",
+    "origin_type",
+    "origin_ref",
+    "steps"
+  ],
+  "properties": {
+    "procedure_id": {
+      "type": "string",
+      "description": "Unique identifier of the workflow procedure."
+    },
+    "title": {
+      "type": "string",
+      "description": "Short name of the procedure."
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the procedure purpose."
+    },
+    "domain": {
+      "type": "string",
+      "description": "Domain of the procedure (e.g., repo_change_plan, file_cleanup)."
+    },
+    "version": {
+      "type": "string",
+      "description": "Version of this procedure definition."
+    },
+    "origin_type": {
+      "type": "string",
+      "enum": ["baseline", "candidate", "merged"],
+      "description": "Origin of the procedure variant."
+    },
+    "origin_ref": {
+      "type": "string",
+      "description": "Reference describing where the procedure came from."
+    },
+    "steps": {
+      "type": "array",
+      "description": "Ordered steps of the workflow.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step_id",
+          "name",
+          "description",
+          "actor_role",
+          "inputs",
+          "outputs",
+          "tools"
+        ],
+        "properties": {
+          "step_id": {
+            "type": "string",
+            "description": "Identifier of the step within the procedure."
+          },
+          "name": {
+            "type": "string",
+            "description": "Short title of the step."
+          },
+          "description": {
+            "type": "string",
+            "description": "What happens in this step."
+          },
+          "actor_role": {
+            "type": "string",
+            "description": "Role executing the step (human/agent/tool)."
+          },
+          "inputs": {
+            "type": "array",
+            "description": "Logical inputs consumed by this step.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "outputs": {
+            "type": "array",
+            "description": "Expected outputs produced by this step.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tools": {
+            "type": "array",
+            "description": "Tools/skills/envelopes used in this step.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "description": "Optional metadata for this step.",
+            "additionalProperties": true
+          },
+          "ext": {
+            "type": "object",
+            "description": "Optional extensions for domain-specific data.",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Optional metadata for the procedure.",
+      "additionalProperties": true
+    },
+    "ext": {
+      "type": "object",
+      "description": "Optional extensions for domain-specific details.",
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "episode_id": "episode_2025-12-12_mova_skills_lab_WF_EX_GOV_001_baseline",
+  "skill_id": "skill.repo_snapshot_basic",
+  "envelope_id": "env.repo_snapshot_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_cli"
+  },
+  "started_at": "2025-12-12T09:25:00Z",
+  "finished_at": "2025-12-12T09:30:00Z",
+  "input": {
+    "$ref": "lab/skill_runs/repo_snapshot_WF_EX_GOV_001_baseline_request.json"
+  },
+  "output": {
+    "snapshot_ref": "docs/PROJECT_MEMORY/PROJECT_SNAPSHOT_2025-12-12_mova_skills_lab_WF_EX_GOV_001_baseline.json",
+    "result_ref": "lab/skill_runs/repo_snapshot_WF_EX_GOV_001_baseline_result.json"
+  },
+  "error": null,
+  "meta": {
+    "labels": [
+      "wf_ex_gov_001",
+      "baseline",
+      "repo_snapshot"
+    ],
+    "note": "Baseline snapshot before governance pack overlay/import work."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "skill_id": "skill.wf_cycle_winner_pack_basic",
+  "title": "WF cycle winner pack (basic)",
+  "description": "Assemble a canonical wf_cycle winner_pack from compare artifacts (deterministic copy, replay check).",
+  "mova_core_version": "4.0.0-core-draft-1",
+  "uses_ds": [
+    "ds.episode_v1",
+    "ds.wf_cycle_winner_pack_request_v1",
+    "ds.wf_cycle_winner_pack_result_v1"
+  ],
+  "uses_env": [],
+  "tags": ["infra", "workflow", "wf_cycle", "winner_pack"],
+  "state": "draft",
+  "resources": ["wf_cycle_winner_pack"],
+  "verbs": ["transform"],
+  "episode_policy": {
+    "mode": "none",
+    "notes": "Local deterministic process only; must not touch lab/memory/**."
+  },
+  "created_at": "2025-12-14T00:00:00Z",
+  "updated_at": "2025-12-14T00:00:00Z"
+}

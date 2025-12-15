@@ -1,0 +1,39 @@
+{
+  "skill_id": "skill.mova_lab_operator",
+  "title": "MOVA Lab Operator",
+  "description": "Helps IDE agents navigate and operate the MOVA Skills Lab: read the registry, plan skill runs and manage episodes.",
+  "mova_core_version": "4.0.0-core-draft-1",
+  "uses_ds": [
+    "ds.skill_descriptor_v1",
+    "ds.skill_registry_v1",
+    "ds.skill_runtime_binding_v1",
+    "ds.episode_v1",
+    "ds.episode_policy_v1",
+    "ds.skill_run_request_v1"
+  ],
+  "uses_env": [
+    "env.skill_run_v1"
+  ],
+  "tags": [
+    "meta",
+    "lab",
+    "control-plane"
+  ],
+  "state": "draft",
+  "resources": [
+    "skill",
+    "procedure",
+    "episode"
+  ],
+  "verbs": [
+    "run",
+    "transform"
+  ],
+  "episode_policy": {
+    "mode": "none",
+    "notes": "Meta-skill for operating the lab; episodes are usually not recorded."
+  },
+  "created_at": "2025-12-03T14:00:00Z",
+  "updated_at": "2025-12-03T14:00:00Z"
+}
+

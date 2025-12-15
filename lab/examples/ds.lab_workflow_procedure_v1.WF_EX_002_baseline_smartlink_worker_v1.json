@@ -1,0 +1,67 @@
+{
+  "procedure_id": "WF_EX_002_baseline_smartlink_worker_v1",
+  "title": "WF-EX-002 baseline: SmartLink edge worker (current implementation)",
+  "description": "MOVA SmartLink 4.0 baseline: Cloudflare Worker routing clicks based on configuration, with logging and metrics. Represents current human+Codex implementation.",
+  "domain": "smartlink_edge_routing",
+  "version": "1.0.0",
+  "origin_type": "baseline",
+  "origin_ref": "smartlink-4.0/main",
+  "steps": [
+    {
+      "step_id": "step_01_collect_requirements",
+      "name": "Collect SmartLink requirements",
+      "description": "Document traffic types, success criteria for redirects, UTM handling, fallback rules, and error cases.",
+      "actor_role": "human_operator",
+      "inputs": ["business_requirements"],
+      "outputs": ["smartlink_requirements_doc"],
+      "tools": []
+    },
+    {
+      "step_id": "step_02_design_config_and_schema",
+      "name": "Design SmartLink config and schema",
+      "description": "Define configuration format (JSON/table) for destinations, rules, and validation schema.",
+      "actor_role": "agent_codex",
+      "inputs": ["smartlink_requirements_doc"],
+      "outputs": ["smartlink_config_format", "smartlink_schema"],
+      "tools": ["editor"]
+    },
+    {
+      "step_id": "step_03_implement_worker_routing_logic",
+      "name": "Implement Cloudflare Worker routing logic",
+      "description": "Implement Worker that loads config, selects destination per rules, and performs redirect.",
+      "actor_role": "agent_codex",
+      "inputs": ["smartlink_config_format", "smartlink_schema"],
+      "outputs": ["smartlink_worker_code"],
+      "tools": ["editor", "git"]
+    },
+    {
+      "step_id": "step_04_add_tracking_and_logging",
+      "name": "Add tracking and logging",
+      "description": "Add event logging, basic metrics counters, and error tracking around redirects.",
+      "actor_role": "agent_codex",
+      "inputs": ["smartlink_worker_code"],
+      "outputs": ["instrumented_worker_code"],
+      "tools": ["editor", "git"]
+    },
+    {
+      "step_id": "step_05_test_and_verify",
+      "name": "Test and verify SmartLink",
+      "description": "Run manual/automated tests for varied click scenarios, ensure redirects and logging behave correctly.",
+      "actor_role": "agent_codex",
+      "inputs": ["instrumented_worker_code"],
+      "outputs": ["test_results"],
+      "tools": ["npm test"]
+    },
+    {
+      "step_id": "step_06_deploy_to_cloudflare",
+      "name": "Deploy to Cloudflare",
+      "description": "Deploy Worker and verify on staging/production; monitor initial metrics.",
+      "actor_role": "human_operator",
+      "inputs": ["instrumented_worker_code", "test_results"],
+      "outputs": ["deployed_worker", "deployment_notes"],
+      "tools": []
+    }
+  ],
+  "meta": {},
+  "ext": {}
+}

@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/core/mova/ds/ds.skill_ingest_source_config_v1.schema.json",
+  "title": "Skill Seeker Ingest Source Config v1",
+  "description": "Describes where Skill Seeker pulls content from to build skills (docs, GitHub, PDFs, unified).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mova_version",
+    "config_id",
+    "name",
+    "sources"
+  ],
+  "properties": {
+    "mova_version": {
+      "type": "string",
+      "const": "4.0.0",
+      "description": "MOVA core version targeted by this schema."
+    },
+    "config_id": {
+      "type": "string",
+      "description": "Identifier of this source configuration."
+    },
+    "name": {
+      "type": "string",
+      "description": "Short name of the ingest job / skill package."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human description of the ingest intent."
+    },
+    "sources": {
+      "type": "array",
+      "description": "List of sources to ingest (documentation, GitHub, PDF, unified).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "docs",
+              "github",
+              "pdf",
+              "unified"
+            ],
+            "description": "Type of source being ingested."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Base URL for documentation or unified configs."
+          },
+          "repo": {
+            "type": "string",
+            "description": "GitHub repository identifier (e.g. owner/name)."
+          },
+          "pdf_path": {
+            "type": "string",
+            "description": "Local path or URI to a PDF."
+          },
+          "include_patterns": {
+            "type": "array",
+            "description": "Patterns to include when crawling.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "exclude_patterns": {
+            "type": "array",
+            "description": "Patterns to exclude when crawling.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "max_pages": {
+            "type": "integer",
+            "description": "Maximum pages to crawl or ingest."
+          },
+          "crawl_depth": {
+            "type": "integer",
+            "description": "Optional crawl depth limit."
+          },
+          "rate_limits": {
+            "type": "object",
+            "description": "Rate limiting hints (e.g. requests per minute).",
+            "additionalProperties": true,
+            "properties": {
+              "requests_per_minute": {
+                "type": "integer",
+                "description": "Allowed requests per minute for this source."
+              }
+            }
+          },
+          "categories": {
+            "type": "array",
+            "description": "Logical categories or topics for this source.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "router_strategy": {
+            "description": "Strategy for splitting into sub-skills (string or custom object).",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "additionalProperties": true
+              }
+            ]
+          },
+          "merge_strategy": {
+            "description": "Strategy for merging docs/github/pdf into one base.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "additionalProperties": true
+              }
+            ]
+          }
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "description": "Top-level categories across all sources.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ds.wf_cycle_scaffold_result_v1.schema.json",
+  "title": "ds.wf_cycle_scaffold_result_v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "experiment_dir", "paths_written", "paths_skipped", "warnings", "notes"],
+  "properties": {
+    "status": { "type": "string", "enum": ["ok", "error"] },
+    "experiment_dir": { "type": "string" },
+    "paths_written": { "type": "array", "items": { "type": "string" } },
+    "paths_skipped": { "type": "array", "items": { "type": "string" } },
+    "warnings": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "notes": { "type": "string" }
+  }
+}

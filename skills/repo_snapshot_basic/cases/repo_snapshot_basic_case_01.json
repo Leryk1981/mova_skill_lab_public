@@ -1,0 +1,27 @@
+{
+  "case_id": "repo_snapshot_basic_case_01",
+  "description": "Example case for skill.repo_snapshot_basic: creating a snapshot for a simple example project.",
+  "envelope": {
+    "envelope_id": "env.repo_snapshot_run_v1",
+    "verb": "transform",
+    "resource": "note",
+    "input": {
+      "repo_name": "example_project",
+      "repo_kind": "other",
+      "preferred_language": "en",
+      "raw_repo_tree": "example_project/\n├── src/\n│   ├── main.py\n│   └── utils.py\n├── tests/\n│   └── test_main.py\n├── README.md\n├── requirements.txt\n└── .gitignore",
+      "raw_readme": "# Example Project\n\nA simple Python project demonstrating basic functionality.\n\n## Installation\n\n```bash\npip install -r requirements.txt\n```\n\n## Usage\n\n```bash\npython src/main.py\n```",
+      "raw_notes_from_user": "This is a demo project for testing the snapshot skill. Focus on the structure and main components.",
+      "snapshot_purpose": "initial_context_for_llm"
+    },
+    "meta": {
+      "language": "en"
+    }
+  },
+  "expected_output": {
+    "project_snapshot_md": "# Example Project\n\n## Repository Name and Purpose\n\nExample Project is a simple Python project demonstrating basic functionality.\n\n## Directory Structure\n\n```\nexample_project/\n├── src/\n│   ├── main.py\n│   └── utils.py\n├── tests/\n│   └── test_main.py\n├── README.md\n├── requirements.txt\n└── .gitignore\n```\n\nMain directories:\n- `src/` - source code\n- `tests/` - test files\n\n## Key Modules / Packages\n\n- `src/main.py` - main entry point\n- `src/utils.py` - utility functions\n- `tests/test_main.py` - tests for main module\n\n## Build, Test, Run\n\n- Installation: `pip install -r requirements.txt`\n- Run: `python src/main.py`\n\n## Documentation and Supporting Files\n\n- `README.md` - project documentation\n- `requirements.txt` - Python dependencies\n- `.gitignore` - Git ignore rules\n\n## Current State\n\nProject is in initial state with basic structure.\n\n## Possible Next Steps\n\n- Add more tests\n- Expand functionality\n- Add CI/CD configuration",
+    "global_memory_md": "- **Example Project**: Simple Python project with basic structure\n- **Main components**: `src/main.py` (entry point), `src/utils.py` (utilities), `tests/test_main.py` (tests)\n- **Current focus**: Initial setup and basic functionality demonstration",
+    "checklist_for_human": "1. Save `project_snapshot_md` to `docs/PROJECT_SNAPSHOT_2025-12-03_example_project.md`\n2. Copy `global_memory_md` content to the global memory of a new chat session\n3. Review and adjust snapshot if needed before next session"
+  }
+}
+

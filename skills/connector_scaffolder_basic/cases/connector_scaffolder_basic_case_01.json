@@ -1,0 +1,122 @@
+{
+  "case_id": "connector_scaffolder_basic_case_01",
+  "description": "Example case for skill.connector_scaffolder_basic: scaffolding a connector for FakeTasks API.",
+  "envelope": {
+    "envelope_id": "env.connector_scaffold_run_v1",
+    "verb": "transform",
+    "resource": "skill",
+    "input": {
+      "connector_id": "skill.connectors.faketasks_v1",
+      "connector_dir": "connectors_faketasks",
+      "title": "FakeTasks API Connector",
+      "vendor": "faketasks",
+      "service": "tasks_api",
+      "description": "Connector for the FakeTasks API that allows creating, listing, and managing tasks. Provides structured access to task operations with proper error handling and authentication.",
+      "operations": [
+        {
+          "operation_id": "create_task",
+          "summary": "Create a new task with title, description, and optional due date.",
+          "notes": "Requires authentication. Returns created task object."
+        },
+        {
+          "operation_id": "list_tasks",
+          "summary": "List all tasks with optional filtering by status.",
+          "notes": "Supports pagination. Returns array of task objects."
+        },
+        {
+          "operation_id": "update_task",
+          "summary": "Update an existing task by ID.",
+          "notes": "Idempotent. Partial updates supported."
+        }
+      ],
+      "source_docs": {
+        "bundle_id": "bundle_faketasks_001",
+        "library": "faketasks/api",
+        "items": [
+          {
+            "item_id": "item_001",
+            "title": "Create Task Endpoint",
+            "snippet": "POST /api/v1/tasks\nContent-Type: application/json\nAuthorization: Bearer {token}\n\n{\n  \"title\": \"Task title\",\n  \"description\": \"Task description\",\n  \"due_date\": \"2025-12-31\"\n}",
+            "source": "official-docs",
+            "url": "https://api.faketasks.com/docs#create-task"
+          },
+          {
+            "item_id": "item_002",
+            "title": "List Tasks Endpoint",
+            "snippet": "GET /api/v1/tasks?status=open&page=1&limit=50\nAuthorization: Bearer {token}",
+            "source": "official-docs",
+            "url": "https://api.faketasks.com/docs#list-tasks"
+          },
+          {
+            "item_id": "item_003",
+            "title": "Update Task Endpoint",
+            "snippet": "PATCH /api/v1/tasks/{task_id}\nContent-Type: application/json\nAuthorization: Bearer {token}\n\n{\n  \"title\": \"Updated title\",\n  \"status\": \"completed\"\n}",
+            "source": "official-docs",
+            "url": "https://api.faketasks.com/docs#update-task"
+          }
+        ]
+      },
+      "runtime_hint": "http_direct",
+      "notes_for_connector_profile": "Handle authentication via Bearer token. All endpoints require authentication. Rate limit: 100 requests per minute."
+    },
+    "meta": {
+      "language": "en"
+    }
+  },
+  "expected_output": {
+    "connector_id": "skill.connectors.faketasks_v1",
+    "connector_dir": "connectors_faketasks",
+    "files": [
+      {
+        "relative_path": "skills/connectors_faketasks/manifest.skill.json",
+        "kind": "manifest",
+        "content": "{\n  \"skill_id\": \"skill.connectors.faketasks_v1\",\n  \"title\": \"FakeTasks API Connector\",\n  \"description\": \"Connector for the FakeTasks API...\",\n  \"mova_core_version\": \"4.0.0-core-draft-1\",\n  ...\n}",
+        "notes": "Main skill descriptor following ds.skill_descriptor_v1"
+      },
+      {
+        "relative_path": "skills/connectors_faketasks/mova/ds/ds.faketasks_task_request_v1.schema.json",
+        "kind": "ds_schema",
+        "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"https://mova.dev/schemas/ds.faketasks_task_request_v1.schema.json\",\n  ...\n}",
+        "notes": "Request schema for task operations"
+      },
+      {
+        "relative_path": "skills/connectors_faketasks/mova/ds/ds.faketasks_task_result_v1.schema.json",
+        "kind": "ds_schema",
+        "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"https://mova.dev/schemas/ds.faketasks_task_result_v1.schema.json\",\n  ...\n}",
+        "notes": "Result schema for task operations"
+      },
+      {
+        "relative_path": "skills/connectors_faketasks/mova/env/env.faketasks_run_v1.schema.json",
+        "kind": "env_schema",
+        "content": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"$id\": \"https://mova.dev/schemas/env.faketasks_run_v1.schema.json\",\n  ...\n}",
+        "notes": "Envelope for running FakeTasks operations"
+      },
+      {
+        "relative_path": "skills/connectors_faketasks/impl/prompts/faketasks_profile.md",
+        "kind": "prompt_profile",
+        "content": "# FakeTasks API Connector LLM profile\n\nYou are a helper that calls the FakeTasks API...\n\n...",
+        "notes": "LLM prompt profile for the connector"
+      },
+      {
+        "relative_path": "skills/connectors_faketasks/impl/bindings/faketasks_http_binding_v1.json",
+        "kind": "binding",
+        "content": "{\n  \"binding_id\": \"faketasks_http_binding_v1\",\n  \"skill_id\": \"skill.connectors.faketasks_v1\",\n  \"runtime_type\": \"other\",\n  \"entrypoint\": {\n    \"base_url\": \"https://api.faketasks.com\",\n    \"auth_type\": \"bearer_token\",\n    \"notes\": \"TODO: Implement HTTP client\"\n  },\n  ...\n}",
+        "notes": "HTTP binding stub - review and implement HTTP client manually"
+      }
+    ],
+    "registry_snippet": {
+      "skill_id": "skill.connectors.faketasks_v1",
+      "manifest_path": "skills/connectors_faketasks/manifest.skill.json",
+      "state": "draft",
+      "bindings": [
+        {
+          "binding_id": "faketasks_http_binding_v1",
+          "runtime_type": "other",
+          "binding_path": "skills/connectors_faketasks/impl/bindings/faketasks_http_binding_v1.json"
+        }
+      ]
+    },
+    "docs_snippet": "- `skill.connectors.faketasks_v1` – FakeTasks API Connector: Connector for the FakeTasks API that allows creating, listing, and managing tasks."
+  }
+}
+

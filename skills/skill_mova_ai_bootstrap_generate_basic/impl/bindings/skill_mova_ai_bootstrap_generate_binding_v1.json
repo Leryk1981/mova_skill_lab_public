@@ -1,0 +1,18 @@
+{
+  "binding_id": "skill_mova_ai_bootstrap_generate_binding_v1",
+  "skill_id": "skill.mova_ai_bootstrap_generate_basic",
+  "runtime_type": "local_script",
+  "entrypoint": {
+    "command": "node",
+    "path": "skills/skill_mova_ai_bootstrap_generate_basic/impl/code/generate_bootstrap.js",
+    "notes": "Генерує ds.mova_ai_bootstrap_pack_v1 зі статичного ресурсного JSON без зовнішніх викликів."
+  },
+  "verbs": [
+    "transform"
+  ],
+  "meta": {
+    "note": "Використовує статичний ресурс impl/resources/mova_ai_bootstrap_instructions_en.json; підтримка мов наразі тільки en."
+  },
+  "created_at": "2025-12-05T00:00:00Z",
+  "updated_at": "2025-12-05T00:00:00Z"
+}

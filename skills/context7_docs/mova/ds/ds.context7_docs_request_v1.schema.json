@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/skills/context7_docs/ds.context7_docs_request_v1.schema.json",
+  "title": "Context7 Docs Request v1",
+  "description": "Structured request for fetching documentation and examples from Context7.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "library"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "description": "Client-generated id for this request."
+    },
+    "library": {
+      "type": "string",
+      "description": "Target library or framework id, e.g. 'ajv', 'cloudflare/workers'."
+    },
+    "topic": {
+      "type": "string",
+      "description": "Optional topic or feature within the library (e.g. 'draft-2020-12', 'KV basics')."
+    },
+    "question": {
+      "type": "string",
+      "description": "Optional natural-language question to guide the query."
+    },
+    "preferred_language": {
+      "type": "string",
+      "description": "Preferred language for explanations/snippets (e.g. 'en', 'de', 'uk')."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional context for the agent about the project or constraints."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Optional tags for later aggregation, e.g. ['cloudflare', 'workers', 'kv'].",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
+

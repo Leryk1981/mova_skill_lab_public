@@ -1,0 +1,18 @@
+{
+  "snapshot_id": "PROJECT_SNAPSHOT_2025-12-10_mova_skills_lab_WF_LAB_05_WF_EX_001_baseline_vs_codex",
+  "project_id": "mova_skills_lab",
+  "taken_at": "2025-12-10T13:56:00Z",
+  "branch": "feature/lab-workflow-experiments-v1",
+  "summary": "WF_LAB_05: Added Codex-only candidate workflow artifacts, run data, comparison result vs baseline, validated, and captured snapshot.",
+  "changes": [
+    "Added codex_only candidate procedure for WF-EX-001 and run envelope/data with metrics.",
+    "Created baseline vs codex experiment result instance.",
+    "Validated new artifacts via mova_check_basic (WF_LAB_05).",
+    "Captured snapshot and repo_snapshot_basic episode for WF_LAB_05."
+  ],
+  "tests": {
+    "command": "npm test",
+    "status": "passed"
+  },
+  "notes": "Baseline remains recommended pending more runs; memory:import still unavailable."
+}

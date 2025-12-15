@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.repo_snapshot_request_v1.schema.json",
+  "title": "Repository Snapshot Request v1",
+  "description": "Raw repository data that an agent has available for creating a standardized snapshot.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo_name",
+    "raw_repo_tree"
+  ],
+  "properties": {
+    "repo_name": {
+      "type": "string",
+      "description": "Name of the repository (e.g., 'mova_workbench', 'my_project')."
+    },
+    "repo_kind": {
+      "type": "string",
+      "description": "Type or category of the repository.",
+      "enum": [
+        "mova_lab",
+        "mova_project",
+        "extension",
+        "pwa",
+        "other"
+      ]
+    },
+    "preferred_language": {
+      "type": "string",
+      "description": "Preferred language for the snapshot output.",
+      "enum": [
+        "uk",
+        "en",
+        "de",
+        "ru"
+      ]
+    },
+    "raw_repo_tree": {
+      "type": "string",
+      "description": "Text dump of the repository structure (e.g., output from 'tree', 'find', or IDE inspector)."
+    },
+    "raw_readme": {
+      "type": "string",
+      "description": "Content of README or main description file, if the agent extracted it."
+    },
+    "raw_notes_from_user": {
+      "type": "string",
+      "description": "Additional notes from the user about the repository or snapshot purpose."
+    },
+    "snapshot_purpose": {
+      "type": "string",
+      "description": "Brief explanation of why this snapshot is being created (e.g., 'initial_context_for_llm', 'status_update', etc.)."
+    }
+  }
+}
+

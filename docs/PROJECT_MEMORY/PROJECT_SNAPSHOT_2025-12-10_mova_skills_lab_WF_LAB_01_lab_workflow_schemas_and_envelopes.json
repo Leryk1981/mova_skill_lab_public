@@ -1,0 +1,18 @@
+{
+  "snapshot_id": "PROJECT_SNAPSHOT_2025-12-10_mova_skills_lab_WF_LAB_01_lab_workflow_schemas_and_envelopes",
+  "project_id": "mova_skills_lab",
+  "taken_at": "2025-12-10T09:45:00Z",
+  "branch": "feature/lab-workflow-experiments-v1",
+  "summary": "Lab workflow experiments scaffolding added (lab_workflow_* schemas/envelopes), planning artifacts prepared for WF_LAB_01, MOVA core left untouched.",
+  "changes": [
+    "Added lab schema directory with lab_workflow_procedure/config/result/episode_data v1 JSON Schemas.",
+    "Added lab envelope directory with lab_workflow experiment plan/generate/run/aggregate request schemas composed with MOVA 4.0.0 envelope fields.",
+    "Recorded planning and snapshot requests for WF_LAB_01 (skill run requests + planned episodes).",
+    "Updated package.json to include memory:snapshot script and restored memory tools/docs from stash."
+  ],
+  "tests": {
+    "command": "npm test",
+    "status": "passed"
+  },
+  "notes": "Memory import scripts (import_episodes/import_decisions) are referenced in package.json but source files are not present in lab/tools; memory:import currently fails. Latest SQLite snapshot available at lab/memory/SQLITE_MEMORY_SNAPSHOT_20251210_092946.json."
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.mova_template_procedure_v1.schema.json",
+  "title": "MOVA Template Procedure v1",
+  "description": "Structured representation of a simple human procedure for the mova_template skill.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "procedure_id",
+    "title",
+    "steps"
+  ],
+  "properties": {
+    "procedure_id": {
+      "type": "string",
+      "description": "Stable identifier of this procedure (unique within the skill)."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title of the procedure."
+    },
+    "steps": {
+      "type": "array",
+      "description": "Ordered list of steps that make up the procedure.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step_id",
+          "label"
+        ],
+        "properties": {
+          "step_id": {
+            "type": "string",
+            "description": "Identifier of the step (unique within the procedure)."
+          },
+          "label": {
+            "type": "string",
+            "description": "Short name of the step."
+          },
+          "description": {
+            "type": "string",
+            "description": "Optional longer description or notes for this step."
+          }
+        }
+      }
+    }
+  }
+}
+

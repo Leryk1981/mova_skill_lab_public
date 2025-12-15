@@ -1,0 +1,41 @@
+{
+  "episode_id": "episode_2025-12-10_repo_snapshot_WF_LAB_01_lab_workflow_schemas_and_envelopes",
+  "skill_id": "skill.repo_snapshot_basic",
+  "envelope_id": "env.repo_snapshot_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_cli"
+  },
+  "started_at": "2025-12-10T12:10:00Z",
+  "finished_at": "2025-12-10T12:12:00Z",
+  "input": {
+    "envelope_id": "env.repo_snapshot_run_v1",
+    "verb": "transform",
+    "resource": "note",
+    "input": {
+      "repo_name": "mova_skills_lab",
+      "repo_kind": "mova_lab",
+      "preferred_language": "en",
+      "snapshot_purpose": "WF_LAB_01_lab_workflow_schemas_and_envelopes",
+      "raw_notes_from_user": "Capture repo state after introducing lab workflow schemas/envelopes and WF_LAB_01 planning artifacts. Branch: feature/lab-workflow-experiments-v1. MOVA core untouched."
+    },
+    "meta": {
+      "root_path": "D:\\\\Projects_Clean\\\\mova_skills_lab",
+      "labels": [
+        "mova_skills_lab",
+        "WF_LAB_01",
+        "lab_workflow"
+      ],
+      "domain": "lab_workflow"
+    }
+  },
+  "output": {
+    "snapshot_ref": "docs/PROJECT_MEMORY/PROJECT_SNAPSHOT_2025-12-10_mova_skills_lab_WF_LAB_01_lab_workflow_schemas_and_envelopes.json"
+  },
+  "error": null,
+  "meta": {
+    "note": "Snapshot captured for WF_LAB_01 lab workflow schemas and envelopes.",
+    "recorded_by": "codex-cli"
+  }
+}

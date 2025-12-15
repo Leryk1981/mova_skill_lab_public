@@ -1,0 +1,7 @@
+MOVA 4.0.0 Checklist for chatgpt_main
+
+- Whenever you are asked to output MOVA JSON (ds.*, env.*, episode, registry entries), you must follow these rules: (1) Always include mova_version and keep it exactly "4.0.0" unless explicitly instructed otherwise. (2) Obey the relevant JSON Schema: do not add extra properties when additionalProperties is false
+- provide all required fields
+- use correct types and enums. (3) Do not rename or repurpose existing fields. (4) If you are unsure whether a field exists in the schema, say so and ask or propose a separate draft text instead of guessing. (5) When returning complex JSON, prefer a single top-level object matching a known ds.* or env.* type.
+- Never treat MOVA as a generic chat taxonomy. Never invent new verbs, states, or resource families without being explicitly asked to extend the standard. Never change the meaning of core fields (mova_version, envelope_type, ds.* names, episode ids). Never mix execution logic into MOVA core: code, worker routing, and side-effects belong outside
+- MOVA only describes the data and the contracts. Always prefer explicitness over magic. When you need to introduce a new pattern, first describe it in natural language and only then propose ds./env. drafts.

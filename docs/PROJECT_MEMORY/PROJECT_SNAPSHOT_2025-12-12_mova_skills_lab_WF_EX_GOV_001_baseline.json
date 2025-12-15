@@ -1,0 +1,17 @@
+{
+  "snapshot_id": "PROJECT_SNAPSHOT_2025-12-12_mova_skills_lab_WF_EX_GOV_001_baseline",
+  "project_id": "mova_skills_lab",
+  "taken_at": "2025-12-12T09:30:00Z",
+  "branch": "feature/lab-workflow-experiments-v1",
+  "summary": "Baseline before WF-EX-GOV-001 governance pack import; repository at HEAD 52a55e5 with governance pack folder staged as untracked overlay candidate.",
+  "changes": [
+    "Captured baseline snapshot for governance pack experiment WF-EX-GOV-001.",
+    "Recorded untracked governance pack folder mova_governance_pack_v1_4.1.1/ prior to overlay planning.",
+    "No modifications to core; skills and lab infrastructure unchanged from HEAD 52a55e5."
+  ],
+  "tests": {
+    "command": "npm test",
+    "status": "not_run"
+  },
+  "notes": "Snapshot intentionally preserves current clean tracked state; governance artifacts to be added under lab/ in upcoming overlay plan."
+}

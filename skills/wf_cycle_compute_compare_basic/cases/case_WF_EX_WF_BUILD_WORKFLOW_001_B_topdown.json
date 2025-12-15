@@ -1,0 +1,23 @@
+{
+  "experiment_id": "WF_EX_WF_BUILD_WORKFLOW_001",
+  "compare_id": "B_topdown",
+  "left": {
+    "label": "codex_ide",
+    "run_dir": "lab/examples/wf_cycle_public_fixture/attempts/codex_ide/wf_cycle/runs/B_topdown",
+    "artifacts_dir": "lab/examples/wf_cycle_public_fixture/attempts/codex_ide/wf_cycle/artifacts",
+    "binding_map_path": "lab/examples/wf_cycle_public_fixture/attempts/codex_ide/wf_cycle/bindings/repo_change_plan_binding_map.md"
+  },
+  "right": {
+    "label": "codex_cli",
+    "run_dir": "lab/examples/wf_cycle_public_fixture/attempts/codex_cli/wf_cycle/runs/B_topdown",
+    "artifacts_dir": "lab/examples/wf_cycle_public_fixture/attempts/codex_cli/wf_cycle/artifacts",
+    "binding_map_path": "lab/examples/wf_cycle_public_fixture/attempts/codex_cli/wf_cycle/bindings/repo_change_plan_binding_map.md"
+  },
+  "output_compare_dir": "lab/examples/wf_cycle_public_fixture/compare/B_topdown_skill",
+  "tools": {},
+  "options": {
+    "write_files": true,
+    "fail_on_metrics_mismatch": true,
+    "delta_mode": "basic"
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/lab/schemas/ds.smartlink_rules_v1.schema.json",
+  "title": "SmartLink Rules v1",
+  "description": "Declarative routing rules for a single smartlink (link_id) used in SmartLink edge routing experiments.",
+  "$comment": "LAB-EXPERIMENTAL. SmartLink routing rules schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "link_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_\\-:.]+$",
+      "description": "Technical identifier of the smartlink (slug/key used in URLs or storage)."
+    },
+    "purpose": {
+      "type": "string",
+      "description": "Human-readable description of the smartlink goal."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "active", "archived"],
+      "description": "Lifecycle status of this smartlink."
+    },
+    "context_shape": {
+      "type": "array",
+      "description": "List of context fields that this rule set relies on (for UI/validation).",
+      "items": {
+        "type": "string",
+        "enum": ["country", "lang", "device", "utm.source", "utm.campaign", "utm.medium", "utm.term", "utm.content"]
+      },
+      "uniqueItems": true
+    },
+    "rules": {
+      "type": "array",
+      "description": "Ordered list of rules. First matching rule wins unless weights are applied.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Internal rule identifier for editing/logging."
+          },
+          "label": {
+            "type": "string",
+            "description": "Label for analytics/ops."
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Explicit priority. Lower value evaluated earlier."
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Whether the rule is active.",
+            "default": true
+          },
+          "start_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO timestamp when the rule becomes active (inclusive)."
+          },
+          "end_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO timestamp when the rule stops being active."
+          },
+          "weight": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Weight used when multiple rules match (A/B split)."
+          },
+          "when": {
+            "type": "object",
+            "description": "Context conditions for this rule.",
+            "properties": {
+              "country": {
+                "description": "Country codes applicable for this rule.",
+                "oneOf": [
+                  { "type": "string" },
+                  {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                  }
+                ]
+              },
+              "lang": {
+                "description": "Languages applicable for this rule.",
+                "oneOf": [
+                  { "type": "string" },
+                  {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                  }
+                ]
+              },
+              "device": {
+                "description": "Device types (mobile/desktop/etc.).",
+                "oneOf": [
+                  { "type": "string" },
+                  {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                  }
+                ]
+              },
+              "utm": {
+                "type": "object",
+                "description": "Filters based on UTM parameters.",
+                "properties": {
+                  "source": {
+                    "oneOf": [
+                      { "type": "string" },
+                      {
+                        "type": "array",
+                        "items": { "type": "string" },
+                        "minItems": 1
+                      }
+                    ]
+                  },
+                  "campaign": {
+                    "oneOf": [
+                      { "type": "string" },
+                      {
+                        "type": "array",
+                        "items": { "type": "string" },
+                        "minItems": 1
+                      }
+                    ]
+                  },
+                  "medium": {
+                    "oneOf": [
+                      { "type": "string" },
+                      {
+                        "type": "array",
+                        "items": { "type": "string" },
+                        "minItems": 1
+                      }
+                    ]
+                  },
+                  "term": {
+                    "oneOf": [
+                      { "type": "string" },
+                      {
+                        "type": "array",
+                        "items": { "type": "string" },
+                        "minItems": 1
+                      }
+                    ]
+                  },
+                  "content": {
+                    "oneOf": [
+                      { "type": "string" },
+                      {
+                        "type": "array",
+                        "items": { "type": "string" },
+                        "minItems": 1
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          },
+          "target": {
+            "type": "string",
+            "description": "Logical target identifier or final URL."
+          }
+        },
+        "required": ["when", "target"]
+      },
+      "minItems": 0
+    },
+    "fallback_target": {
+      "type": "string",
+      "description": "Target identifier or URL used when no rules matched."
+    },
+    "meta": {
+      "type": "object",
+      "description": "Versioning/audit metadata.",
+      "additionalProperties": false,
+      "properties": {
+        "version": { "type": "integer", "minimum": 1 },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "created_by": { "type": "string" },
+        "updated_by": { "type": "string" }
+      }
+    },
+    "ext": {
+      "type": "object",
+      "description": "Optional extension data.",
+      "additionalProperties": true
+    }
+  },
+  "required": ["link_id", "status", "rules", "fallback_target"]
+}

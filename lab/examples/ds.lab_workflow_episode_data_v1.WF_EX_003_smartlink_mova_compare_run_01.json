@@ -1,0 +1,84 @@
+{
+  "experiment_id": "WF_EX_003_smartlink_mova_vs_baseline_v1",
+  "procedure_id": "WF_EX_003_schema_comparison_v1",
+  "agent_id": "analysis_codex",
+  "profile_id": "codex_vscode_main",
+  "run_index": 1,
+  "metrics_snapshot": [
+    {
+      "metric_id": "workflow_coverage",
+      "value": 0.75,
+      "unit": "score_0_1"
+    },
+    {
+      "metric_id": "clarity_for_operator",
+      "value": 0.8,
+      "unit": "score_0_1"
+    },
+    {
+      "metric_id": "runtime_readiness",
+      "value": 0.6,
+      "unit": "score_0_1"
+    },
+    {
+      "metric_id": "evolution_flexibility",
+      "value": 0.7,
+      "unit": "score_0_1"
+    }
+  ],
+  "ext": {
+    "variants": {
+      "baseline": {
+        "features": [
+          "Rules specify ordered matching with priority/weight, start/end windows, enabled flag, explicit when filters on country/lang/device/utm.*",
+          "Default env describes request context (headers, query, debug), normalization step, evaluation plugin, redirect plugin, observability event",
+          "Global includes roles (admin/marketing), KV resource, edge worker, queue, data schema registry",
+          "Meta lists artifacts as a template set reference"
+        ]
+      },
+      "candidate_mova": {
+        "features": [
+          "Rules schema mirrors context filters, ordered rules, priority/weight, fallback_target, meta/ext; context_shape documents expected fields",
+          "Default route envelope accepts smartlink_id, optional rules_ref, normalized context (country/lang/device/utm/referrer/ip/debug)",
+          "Global/meta schemas capture roles/resources/schema registry and pack artifacts in MOVA format",
+          "Examples included for rules/global/meta and envelope"
+        ]
+      }
+    },
+    "analysis": {
+      "coverage": {
+        "config_coverage": "partial",
+        "routing_semantics": "Baseline has explicit normalize/evaluate/redirect/observability chain; MOVA rules cover matching and fallback but omit redirect/observability hooks.",
+        "metrics_hooks": "Baseline mentions event smartlink.redirected; MOVA pack lacks click-event schema or envelope for logging/metrics."
+      },
+      "strengths_baseline": [
+        "End-to-end intent (load rules -> normalize -> evaluate -> redirect -> emit event) is captured in default env plan.",
+        "Resources and roles aligned to operational stack (KV, worker, queue)."
+      ],
+      "weaknesses_baseline": [
+        "Tied to specific plugins/stack; less modular for alternative runtimes.",
+        "No explicit schema-level validation for click events beyond intent description."
+      ],
+      "strengths_candidate": [
+        "Clean LAB schema separation (rules/meta/global/envelope) with explicit context fields and fallback_target.",
+        "Pack is runtime-agnostic and easier to extend in lab without stack coupling."
+      ],
+      "weaknesses_candidate": [
+        "No explicit logging/metrics event schema; observability path unspecified.",
+        "No representation of normalization/decision steps found in baseline env plan.",
+        "Envelope lacks routing outcome structure (only request side) and no notion of rule weights aggregation."
+      ],
+      "gaps_in_candidate": [
+        "Add a click/redirect event schema (ds.smartlink_click_event_v1) for observability.",
+        "Add an envelope or fields describing normalization/evaluation output (selected rule/branch, chosen target).",
+        "Consider explicit support for start/end windows and debug return shape in the routing envelope.",
+        "Add guidance on resource bindings (KV/queue/worker) in meta/global to mirror baseline ops needs."
+      ],
+      "improvement_suggestions": [
+        "Extend env.smartlink_default_route_request_v1 to optionally return decision/target structure for debug/test flows.",
+        "Add ds.smartlink_click_event_v1 and optionally env.smartlink_click_event_emit_v1 to formalize observability.",
+        "Document normalization expectations (country/lang/device/utm parsing) as part of rules/meta or a separate helper schema."
+      ]
+    }
+  }
+}

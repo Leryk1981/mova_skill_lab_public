@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/core/mova/ds/ds.mova_ai_bootstrap_pack_v1.schema.json",
+  "title": "MOVA AI Bootstrap Pack v1",
+  "description": "Bootstrap pack for a target model/environment: MOVA summary, roles, rules, recipes, and examples.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mova_version",
+    "pack_id",
+    "target",
+    "created_at",
+    "instructions"
+  ],
+  "properties": {
+    "mova_version": {
+      "type": "string",
+      "const": "4.0.0",
+      "description": "MOVA core version targeted by this schema."
+    },
+    "pack_id": {
+      "type": "string",
+      "description": "Identifier of this bootstrap pack."
+    },
+    "target": {
+      "$ref": "https://mova.dev/schemas/core/mova/ds/ds.mova_ai_bootstrap_target_v1.schema.json",
+      "description": "Target model/environment descriptor."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp of the pack."
+    },
+    "instructions": {
+      "type": "object",
+      "description": "Core instructions for the model about MOVA.",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "mova_core",
+        "mova_layers",
+        "ai_role",
+        "json_rules"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "Short summary for the model."
+        },
+        "mova_core": {
+          "type": "string",
+          "description": "Concise description of MOVA 4.0.0 as constitution."
+        },
+        "mova_layers": {
+          "type": "string",
+          "description": "Explanation of red/yellow/green layers."
+        },
+        "ai_role": {
+          "type": "string",
+          "description": "How the model should behave (safety, no invention of verbs/envelopes)."
+        },
+        "json_rules": {
+          "type": "string",
+          "description": "Rules for JSON output and schema compliance."
+        }
+      }
+    },
+    "workflow_recipes": {
+      "type": "array",
+      "description": "Practical recipes for typical MOVA tasks.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "description",
+          "steps"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Recipe name."
+          },
+          "description": {
+            "type": "string",
+            "description": "What the recipe achieves."
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Human steps to follow."
+          },
+          "constraints": {
+            "type": "string",
+            "description": "Always/never rules relevant to this recipe."
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "string",
+      "description": "Global constraints section (never do / always do)."
+    },
+    "examples": {
+      "type": "array",
+      "description": "Dialogue/task examples for the model.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "user_prompt",
+          "model_action"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Example title."
+          },
+          "user_prompt": {
+            "type": "string",
+            "description": "User prompt text."
+          },
+          "model_action": {
+            "type": "string",
+            "description": "What the model should do in MOVA terms."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ds.wf_cycle_winner_pack_request_v1.schema.json",
+  "title": "ds.wf_cycle_winner_pack_request_v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_id",
+    "compare_id",
+    "compare_dir",
+    "attempts_root",
+    "output_dir"
+  ],
+  "properties": {
+    "experiment_id": { "type": "string" },
+    "compare_id": { "type": "string" },
+    "compare_dir": { "type": "string" },
+    "attempts_root": { "type": "string" },
+    "output_dir": { "type": "string" },
+    "winner": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["from_compare", "explicit"],
+          "default": "from_compare"
+        },
+        "label": { "type": "string" },
+        "run_id": { "type": "string" }
+      },
+      "default": {}
+    },
+    "include": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rules": { "type": "boolean", "default": true },
+        "compare": { "type": "boolean", "default": true },
+        "abc_summary_path": { "type": ["string", "null"], "default": null },
+        "runs_dir": {
+          "type": "string",
+          "enum": ["winner_only", "winner_plus_compare_inputs"],
+          "default": "winner_only"
+        }
+      },
+      "default": {}
+    },
+    "options": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ensure_artifacts_snapshot": { "type": "boolean", "default": true },
+        "replay_check": { "type": "boolean", "default": true },
+        "write_files": { "type": "boolean", "default": true }
+      },
+      "default": {}
+    },
+    "tools": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "compute_metrics_script": { "type": "string" }
+      },
+      "default": {}
+    }
+  }
+}

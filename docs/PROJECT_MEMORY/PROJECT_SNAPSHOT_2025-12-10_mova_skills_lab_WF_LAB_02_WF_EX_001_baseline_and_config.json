@@ -1,0 +1,18 @@
+{
+  "snapshot_id": "PROJECT_SNAPSHOT_2025-12-10_mova_skills_lab_WF_LAB_02_WF_EX_001_baseline_and_config",
+  "project_id": "mova_skills_lab",
+  "taken_at": "2025-12-10T10:26:00Z",
+  "branch": "feature/lab-workflow-experiments-v1",
+  "summary": "WF_LAB_02: Added WF-EX-001 baseline procedure, experiment config, plan envelope example; validated via mova_check_basic; prepared snapshot artifacts.",
+  "changes": [
+    "Authored WF-EX-001 baseline repo_change_plan procedure (lab/examples/ds.lab_workflow_procedure_v1.WF_EX_001_baseline_repo_change_plan.json).",
+    "Created WF-EX-001 experiment config and plan envelope example under lab/examples/.",
+    "Added mova_check_basic env/run/result/episode to validate the new lab workflow artifacts.",
+    "Prepared WF_LAB_02 repo snapshot env/run and planned episode."
+  ],
+  "tests": {
+    "command": "npm test",
+    "status": "passed"
+  },
+  "notes": "memory:import remains unavailable due to missing import scripts; rely on snapshots and episodes."
+}

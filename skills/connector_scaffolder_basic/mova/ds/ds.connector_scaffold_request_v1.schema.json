@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.connector_scaffold_request_v1.schema.json",
+  "title": "Connector Scaffold Request v1",
+  "description": "Request for generating a MOVA connector skill scaffold based on API description and documentation bundle.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "connector_id",
+    "connector_dir",
+    "title",
+    "vendor",
+    "service",
+    "description",
+    "operations",
+    "source_docs"
+  ],
+  "properties": {
+    "connector_id": {
+      "type": "string",
+      "pattern": "^skill\\.",
+      "description": "Full identifier of the future connector skill, e.g. 'skill.connectors.cloudflare_queues_v1', 'skill.connectors.stripe_webhooks_v1'."
+    },
+    "connector_dir": {
+      "type": "string",
+      "description": "Relative directory name for the new connector in skills/, e.g. 'connectors_cloudflare_queues', 'connectors_stripe_webhooks'."
+    },
+    "title": {
+      "type": "string",
+      "description": "Short human-readable title of the connector (in English)."
+    },
+    "vendor": {
+      "type": "string",
+      "description": "Vendor name, e.g. 'cloudflare', 'stripe', 'openai'."
+    },
+    "service": {
+      "type": "string",
+      "description": "Service name, e.g. 'queues', 'workers_kv', 'events_api'."
+    },
+    "description": {
+      "type": "string",
+      "description": "2-4 sentences describing what the connector should do from a developer's perspective (what problems it solves)."
+    },
+    "operations": {
+      "type": "array",
+      "minItems": 1,
+      "description": "List of operations that the connector should cover.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operation_id",
+          "summary"
+        ],
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "description": "Internal identifier of the operation, e.g. 'create_queue', 'list_queues'."
+          },
+          "summary": {
+            "type": "string",
+            "description": "Short description of what this operation does."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional clarifications, e.g. 'idempotent', 'high-volume', 'requires auth'."
+          }
+        }
+      }
+    },
+    "source_docs": {
+      "type": "object",
+      "description": "Opaque bundle with normalized API documentation (endpoints, examples, constraints). Typically obtained from skill.context7_docs or similar procedure. The scaffolder does not validate the internal structure of this object.",
+      "additionalProperties": true
+    },
+    "runtime_hint": {
+      "type": "string",
+      "enum": ["http_direct", "mcp_tool", "cloudflare_worker", "other"],
+      "description": "Optional hint for generating the binding file. Only used as guidance for binding generation."
+    },
+    "notes_for_connector_profile": {
+      "type": "string",
+      "description": "Additional requirements to consider in the future connector's prompt profile."
+    }
+  }
+}
+

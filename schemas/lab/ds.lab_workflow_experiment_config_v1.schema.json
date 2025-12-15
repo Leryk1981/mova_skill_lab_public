@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/lab/schemas/ds.lab_workflow_experiment_config_v1.schema.json",
+  "title": "Lab Workflow Experiment Config v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_id",
+    "title",
+    "description",
+    "baseline_procedure_id",
+    "domain",
+    "agent_profiles",
+    "metrics"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string",
+      "description": "Identifier of the workflow experiment."
+    },
+    "title": {
+      "type": "string",
+      "description": "Short title of the experiment."
+    },
+    "description": {
+      "type": "string",
+      "description": "Purpose and context of the experiment."
+    },
+    "baseline_procedure_id": {
+      "type": "string",
+      "description": "Reference to the baseline procedure to evolve from."
+    },
+    "domain": {
+      "type": "string",
+      "description": "Domain for this experiment (e.g., dpp_lab, repo_change_plan)."
+    },
+    "agent_profiles": {
+      "type": "array",
+      "description": "Agent/model profiles competing in the experiment.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "agent_id",
+          "model_family",
+          "profile_id"
+        ],
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "description": "Agent identifier."
+          },
+          "model_family": {
+            "type": "string",
+            "description": "Model family (e.g., gpt, gemini, qwen)."
+          },
+          "profile_id": {
+            "type": "string",
+            "description": "Profile identifier for the agent/model."
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "description": "Metrics used to evaluate variants.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "metric_id",
+          "name",
+          "description",
+          "direction"
+        ],
+        "properties": {
+          "metric_id": {
+            "type": "string",
+            "description": "Metric identifier."
+          },
+          "name": {
+            "type": "string",
+            "description": "Metric display name."
+          },
+          "description": {
+            "type": "string",
+            "description": "What this metric captures."
+          },
+          "direction": {
+            "type": "string",
+            "enum": ["maximize", "minimize"],
+            "description": "Optimization direction for the metric."
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "description": "Global constraints that must be respected across variants.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "test_data_ref": {
+      "type": "string",
+      "description": "Reference to test dataset/cases for running variants."
+    },
+    "meta": {
+      "type": "object",
+      "description": "Optional metadata for the experiment config.",
+      "additionalProperties": true
+    },
+    "ext": {
+      "type": "object",
+      "description": "Optional extension point for domain-specific fields.",
+      "additionalProperties": true
+    }
+  }
+}

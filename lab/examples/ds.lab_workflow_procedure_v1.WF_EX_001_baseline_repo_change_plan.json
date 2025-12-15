@@ -1,0 +1,79 @@
+{
+  "procedure_id": "WF_EX_001_baseline_repo_change_plan_v1",
+  "title": "WF-EX-001 baseline: repo_change_plan workflow (human+Codex)",
+  "description": "Baseline workflow for planning and applying repository changes: operator defines task, Codex generates change plan, applies edits, runs tests, and captures snapshot.",
+  "domain": "repo_change_plan_workflow",
+  "version": "1.0.0",
+  "origin_type": "baseline",
+  "origin_ref": "feature/lab-workflow-experiments-v1:WF_LAB_02",
+  "steps": [
+    {
+      "step_id": "step_01_define_task",
+      "name": "Define task in operator chat",
+      "description": "Human operator writes a clear task/goal to be solved in the current repository.",
+      "actor_role": "human_operator",
+      "inputs": ["high_level_goal"],
+      "outputs": ["task_description_for_codex"],
+      "tools": [],
+      "meta": {},
+      "ext": {}
+    },
+    {
+      "step_id": "step_02_repo_change_plan",
+      "name": "Generate repo change plan via skill.repo_code_change_plan_basic",
+      "description": "Codex agent generates env+run for repo change plan, with constraints (no core/mova changes) and target lab areas.",
+      "actor_role": "agent_codex",
+      "inputs": ["task_description_for_codex"],
+      "outputs": ["repo_change_plan_env_and_run_files"],
+      "tools": ["skill.repo_code_change_plan_basic"],
+      "meta": {},
+      "ext": {}
+    },
+    {
+      "step_id": "step_03_apply_changes",
+      "name": "Apply code and data changes according to plan",
+      "description": "Codex agent edits repository files following the plan steps, staying in lab green layer.",
+      "actor_role": "agent_codex",
+      "inputs": ["repo_change_plan_env_and_run_files"],
+      "outputs": ["updated_repo_files"],
+      "tools": ["editor", "git"],
+      "meta": {},
+      "ext": {}
+    },
+    {
+      "step_id": "step_04_run_tests",
+      "name": "Run npm test / validators",
+      "description": "Execute npm test to validate schemas, manifests, and bindings.",
+      "actor_role": "agent_codex",
+      "inputs": ["updated_repo_files"],
+      "outputs": ["test_results"],
+      "tools": ["npm test"],
+      "meta": {},
+      "ext": {}
+    },
+    {
+      "step_id": "step_05_repo_snapshot",
+      "name": "Take repo snapshot via skill.repo_snapshot_basic",
+      "description": "Capture repository snapshot to record state after changes.",
+      "actor_role": "agent_codex",
+      "inputs": ["updated_repo_files", "test_results"],
+      "outputs": ["repo_snapshot_env_and_run_files", "project_snapshot_doc"],
+      "tools": ["skill.repo_snapshot_basic"],
+      "meta": {},
+      "ext": {}
+    },
+    {
+      "step_id": "step_06_review",
+      "name": "Operator review and sign-off",
+      "description": "Human operator reviews changes, test results, and snapshot before merge.",
+      "actor_role": "human_operator",
+      "inputs": ["project_snapshot_doc", "test_results"],
+      "outputs": ["operator_signoff"],
+      "tools": [],
+      "meta": {},
+      "ext": {}
+    }
+  ],
+  "meta": {},
+  "ext": {}
+}

@@ -1,0 +1,48 @@
+{
+  "experiment_id": "WF_EX_010_smartlink_4_1_1_baseline_vs_mova",
+  "procedure_id": "WF_EX_010_run_v1",
+  "agent_id": "analysis_codex",
+  "profile_id": "codex_vscode_main",
+  "run_index": 2,
+  "metrics_snapshot": [
+    {
+      "metric_id": "spec_alignment",
+      "value": 0.9,
+      "unit": "score_0_1"
+    },
+    {
+      "metric_id": "functional_parity",
+      "value": 1.0,
+      "unit": "score_0_1"
+    }
+  ],
+  "ext": {
+    "phase": "run",
+    "status": "completed",
+    "inputs": {
+      "config_ref": "lab/examples/ds.lab_workflow_experiment_config_v1.WF_EX_010_smartlink_4_1_1_baseline_vs_mova.json",
+      "plan_result_ref": "lab/examples/env.lab_workflow_experiment_plan_result_v1.WF_EX_010_smartlink_4_1_1_baseline_vs_mova.json",
+      "apply_ref": "lab/examples/ds.lab_workflow_episode_data_v1.WF_EX_010_smartlink_4_1_1_apply.json",
+      "result_ref": "lab/examples/ds.lab_workflow_experiment_result_v1.WF_EX_010_smartlink_4_1_1_baseline_vs_mova.json",
+      "baseline_refs": [
+        "lab/experiments/smartlink_baseline/mova_smartlink/schemas/ds.smartlink_rules_v1.schema.json",
+        "lab/experiments/smartlink_baseline/mova_smartlink/schemas/env.smartlink_default_v1.json",
+        "lab/experiments/smartlink_baseline/mova_smartlink/schemas/global.smartlink_v1.json",
+        "lab/experiments/smartlink_baseline/mova_smartlink/schemas/meta.smartlink_v1.json"
+      ],
+      "candidate_refs": [
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/ds.smartlink_rules_v1.schema.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/envelopes/env.smartlink_default_v1.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/global.smartlink_v1.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/meta.smartlink_v1.json"
+      ]
+    },
+    "verdict_per_file": {
+      "ds.smartlink.rules.v1": "equal but normalized to spec",
+      "env.smartlink.default.v1": "strictly better",
+      "global.smartlink.v1": "equal but normalized to spec",
+      "meta.smartlink.v1": "strictly better"
+    },
+    "notes_from_operator": "WF_EX_010 run завершено: candidate SmartLink 4.1.1 зберігає функціональну логіку baseline та узгоджений зі spec 4.1.1. Worker/infra залишаються out-of-scope."
+  }
+}

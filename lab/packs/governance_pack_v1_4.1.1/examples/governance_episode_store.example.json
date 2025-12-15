@@ -1,0 +1,45 @@
+{
+  "envelope_id": "env.governance_episode_store_v1",
+  "verb": "record",
+  "roles": {
+    "producer": "governance:local",
+    "episode_store": "security_store:local"
+  },
+  "episodes": [
+    {
+      "schema_id": "ds.security_event_episode_core_v1",
+      "schema_version": "1.0.0",
+      "episode_type": "security_event",
+      "episode_id": "sec_event:run_2025-12-12_001",
+      "security_model_version": "1.0.0",
+      "security_event_type": "other",
+      "severity": "medium",
+      "category": "governance",
+      "summary": "Policy check required confirmation for git.push",
+      "recommended_actions": [
+        {
+          "action_type": "alert",
+          "reason": "Owner confirmation required before push."
+        }
+      ],
+      "actions_taken": [
+        {
+          "action_type": "log",
+          "reason": "Logged policy decision."
+        }
+      ],
+      "meta": {
+        "title": "Governance policy check",
+        "lang": "en"
+      },
+      "ext": {
+        "evidence_tool_calls": [
+          "tc_001"
+        ]
+      }
+    }
+  ],
+  "meta": {
+    "correlation_id": "run_2025-12-12_001"
+  }
+}

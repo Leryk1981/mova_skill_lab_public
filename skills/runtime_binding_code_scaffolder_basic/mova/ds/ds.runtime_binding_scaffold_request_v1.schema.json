@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.runtime_binding_scaffold_request_v1.schema.json",
+  "title": "Runtime Binding Scaffold Request v1",
+  "description": "Request for generating code skeleton and binding files that connect MOVA skill envelopes to real execution runtime.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "skill_id",
+    "skill_dir",
+    "runtime_kind",
+    "language",
+    "code_entry_path",
+    "envelopes"
+  ],
+  "properties": {
+    "skill_id": {
+      "type": "string",
+      "description": "Identifier of the target skill, e.g. 'skill.connectors.cloudflare_queues_v1'."
+    },
+    "skill_dir": {
+      "type": "string",
+      "description": "Directory name of the target skill under skills/, e.g. 'connectors_cloudflare_queues'."
+    },
+    "runtime_kind": {
+      "type": "string",
+      "enum": ["node_script", "cloudflare_worker", "cli_command", "other"],
+      "description": "Target runtime kind: 'node_script' (Node/TS module for MCP/CLI), 'cloudflare_worker' (Cloudflare Worker), 'cli_command' (CLI wrapper), 'other' (general case)."
+    },
+    "language": {
+      "type": "string",
+      "enum": ["ts", "js"],
+      "description": "Target programming language: 'ts' (TypeScript) or 'js' (JavaScript)."
+    },
+    "code_entry_path": {
+      "type": "string",
+      "description": "Relative path to the future code entry file from repo root, e.g. 'src/skills/connectors_cloudflare_queues/index.ts' or 'skills/connectors_cloudflare_queues/impl/code/runtime.ts'."
+    },
+    "envelopes": {
+      "type": "array",
+      "minItems": 1,
+      "description": "List of envelopes that need to be implemented.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "envelope_id",
+          "summary"
+        ],
+        "properties": {
+          "envelope_id": {
+            "type": "string",
+            "description": "Full identifier of the envelope, e.g. 'env.cloudflare_queue_create_run_v1'."
+          },
+          "summary": {
+            "type": "string",
+            "description": "Short human-readable summary of what this envelope does."
+          },
+          "input_hint": {
+            "type": "string",
+            "description": "Optional textual description of input data structure."
+          },
+          "output_hint": {
+            "type": "string",
+            "description": "Optional textual description of output data structure."
+          }
+        }
+      }
+    },
+    "binding_stub": {
+      "type": "object",
+      "description": "Optional pre-generated runtime binding draft object (e.g. from skill.connector_scaffolder_basic) that describes HTTP endpoints, auth, etc. Used to inform code generation.",
+      "additionalProperties": true
+    },
+    "notes_for_code": {
+      "type": "string",
+      "description": "Optional preferences for code style/structure, e.g. 'use async/await + fetch', 'wrap errors into custom Error classes', 'do not log secrets'."
+    }
+  }
+}
+

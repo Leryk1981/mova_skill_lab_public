@@ -1,0 +1,33 @@
+{
+  "skill_id": "skill.skill_scaffolder_basic",
+  "title": "MOVA Skill scaffolder (basic)",
+  "description": "LLM-only skill that takes a textual description of a new skill and generates a complete minimal file plan for a new MOVA skill (schemas, envelope, manifest, prompt profile, runtime binding, docs, cases).",
+  "mova_core_version": "4.0.0-core-draft-1",
+  "uses_ds": [
+    "ds.episode_v1",
+    "ds.skill_scaffold_request_v1",
+    "ds.skill_scaffold_result_v1"
+  ],
+  "uses_env": [
+    "env.skill_scaffold_run_v1"
+  ],
+  "tags": [
+    "meta",
+    "scaffolding",
+    "skills"
+  ],
+  "state": "draft",
+  "resources": [
+    "note"
+  ],
+  "verbs": [
+    "transform"
+  ],
+  "episode_policy": {
+    "mode": "none",
+    "notes": "Meta-skill for scaffolding; episodes are not recorded by default."
+  },
+  "created_at": "2025-12-03T19:45:00Z",
+  "updated_at": "2025-12-03T19:45:00Z"
+}
+

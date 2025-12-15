@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.repo_change_plan_request_v1.schema.json",
+  "title": "Repository Code Change Plan Request v1",
+  "description": "Request to generate a structured plan for code changes in a repository based on a snapshot and goal description.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo_snapshot_md",
+    "goal_summary"
+  ],
+  "properties": {
+    "repo_snapshot_md": {
+      "type": "string",
+      "description": "Markdown snapshot of the repository (directory structure, packages, brief descriptions) – typically the result from skill.repo_snapshot_basic."
+    },
+    "goal_summary": {
+      "type": "string",
+      "description": "3–10 lines of human-readable description of the goal, e.g. 'Add a new MOVA connector skill for Cloudflare KV, wired through the existing Skills Lab infra (connector_scaffolder, runtime binding, code_exec).'"
+    },
+    "change_kind_hint": {
+      "type": "string",
+      "enum": [
+        "new_connector",
+        "update_existing_skill",
+        "infra_change",
+        "docs_only",
+        "tests_and_ci",
+        "other"
+      ],
+      "description": "Optional hint about the kind of change: 'new_connector', 'update_existing_skill', 'infra_change', 'docs_only', 'tests_and_ci', 'other'."
+    },
+    "must_not_touch": {
+      "type": "array",
+      "description": "List of paths/globs that must NOT be modified (e.g., 'core/mova/**', 'docs/PROJECT_MEMORY/**').",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preferred_areas": {
+      "type": "array",
+      "description": "If provided, paths/directories where changes should be concentrated (e.g., 'skills/connectors_*', 'tools/**').",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints_md": {
+      "type": "string",
+      "description": "Additional constraints in human-readable format, e.g. 'do not change public API ds/env', 'maintain compatibility with version 1.2.0 Workbench'."
+    },
+    "initial_files_of_interest": {
+      "type": "array",
+      "description": "If the developer already knows some important files, they can be suggested here.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path relative to repository root."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Optional reason why this file is of interest."
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,67 @@
+{
+  "procedure_id": "WF_EX_001_candidate_codex_only_repo_change_plan_v1",
+  "title": "WF-EX-001 candidate: repo_change_plan workflow (codex_only)",
+  "description": "Codex-only variant of repo_change_plan workflow: operator provides high-level goal, Codex plans, applies changes, tests, and snapshots with minimal human steps.",
+  "domain": "repo_change_plan_workflow",
+  "version": "1.0.0",
+  "origin_type": "candidate",
+  "origin_ref": "feature/lab-workflow-experiments-v1:WF_LAB_05",
+  "steps": [
+    {
+      "step_id": "step_01_define_goal",
+      "name": "Define high-level goal in operator chat",
+      "description": "Human operator describes desired repo change in one message.",
+      "actor_role": "human_operator",
+      "inputs": ["high_level_goal"],
+      "outputs": ["codex_prompt_initial"],
+      "tools": []
+    },
+    {
+      "step_id": "step_02_codex_expand_and_plan",
+      "name": "Codex expands goal and generates repo_change_plan",
+      "description": "Codex uses skill.repo_code_change_plan_basic to produce a concrete plan from the high-level goal.",
+      "actor_role": "agent_codex",
+      "inputs": ["codex_prompt_initial"],
+      "outputs": ["repo_change_plan_env_and_run_files"],
+      "tools": ["skill.repo_code_change_plan_basic"]
+    },
+    {
+      "step_id": "step_03_codex_apply_changes",
+      "name": "Apply code and data changes according to plan (codex_only)",
+      "description": "Codex executes plan steps, editing repository files without additional operator intervention.",
+      "actor_role": "agent_codex",
+      "inputs": ["repo_change_plan_env_and_run_files"],
+      "outputs": ["modified_repo_state"],
+      "tools": ["editor", "git"]
+    },
+    {
+      "step_id": "step_04_codex_run_tests",
+      "name": "Run tests and validators",
+      "description": "Codex runs npm test / validators to verify changes.",
+      "actor_role": "agent_codex",
+      "inputs": ["modified_repo_state"],
+      "outputs": ["test_results"],
+      "tools": ["npm test"]
+    },
+    {
+      "step_id": "step_05_snapshot",
+      "name": "Take repo snapshot via skill.repo_snapshot_basic",
+      "description": "Codex captures repository snapshot after tests.",
+      "actor_role": "agent_codex",
+      "inputs": ["modified_repo_state", "test_results"],
+      "outputs": ["snapshot_artifacts"],
+      "tools": ["skill.repo_snapshot_basic"]
+    },
+    {
+      "step_id": "step_06_operator_review",
+      "name": "Operator quick review of diff and tests",
+      "description": "Human operator reviews snapshot artifacts and test results.",
+      "actor_role": "human_operator",
+      "inputs": ["snapshot_artifacts", "test_results"],
+      "outputs": ["operator_feedback"],
+      "tools": []
+    }
+  ],
+  "meta": {},
+  "ext": {}
+}

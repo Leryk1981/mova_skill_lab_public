@@ -1,0 +1,21 @@
+{
+  "experiment_id": "WF_EX_WF_BUILD_WORKFLOW_001",
+  "compare_id": "B_topdown",
+  "compare_dir": "lab/examples/wf_cycle_public_fixture/compare/B_topdown_skill",
+  "attempts_root": "lab/examples/wf_cycle_public_fixture/attempts",
+  "output_dir": "lab/examples/wf_cycle_public_fixture/outputs/winner_pack_skill",
+  "winner": {
+    "mode": "from_compare"
+  },
+  "include": {
+    "rules": true,
+    "compare": true,
+    "abc_summary_path": "lab/examples/wf_cycle_public_fixture/compare/ABC_summary.md",
+    "runs_dir": "winner_only"
+  },
+  "options": {
+    "ensure_artifacts_snapshot": true,
+    "replay_check": true,
+    "write_files": true
+  }
+}

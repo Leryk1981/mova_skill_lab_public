@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ds.wf_cycle_winner_pack_result_v1.schema.json",
+  "title": "ds.wf_cycle_winner_pack_result_v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "winner_label", "winner_run_dir", "output_dir", "paths_written", "warnings", "notes"],
+  "properties": {
+    "status": { "type": "string", "enum": ["ok", "error"] },
+    "winner_label": { "type": ["string", "null"] },
+    "winner_run_dir": { "type": ["string", "null"] },
+    "output_dir": { "type": "string" },
+    "paths_written": { "type": "array", "items": { "type": "string" } },
+    "warnings": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "notes": { "type": "string" },
+    "replay_check_passed": { "type": "boolean" }
+  }
+}

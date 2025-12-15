@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/skills/context7_docs/ds.context7_docs_bundle_v1.schema.json",
+  "title": "Context7 Docs Bundle v1",
+  "description": "Structured bundle of documentation items returned from Context7.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "bundle_id",
+    "request_id",
+    "library",
+    "items"
+  ],
+  "properties": {
+    "bundle_id": {
+      "type": "string",
+      "description": "Identifier of this bundle (can be derived from request_id and timestamp)."
+    },
+    "request_id": {
+      "type": "string",
+      "description": "Id of the originating ds.context7_docs_request_v1."
+    },
+    "library": {
+      "type": "string",
+      "description": "Library or framework id for which docs were fetched."
+    },
+    "items": {
+      "type": "array",
+      "description": "List of documentation items and examples.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "item_id",
+          "title",
+          "snippet",
+          "source",
+          "url"
+        ],
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "description": "Local identifier of this item within the bundle."
+          },
+          "title": {
+            "type": "string",
+            "description": "Short human-readable title."
+          },
+          "snippet": {
+            "type": "string",
+            "description": "Key code or text snippet from the documentation."
+          },
+          "summary": {
+            "type": "string",
+            "description": "Short explanation of what this item is about."
+          },
+          "source": {
+            "type": "string",
+            "description": "Source type, e.g. 'official-docs', 'github', 'blog'."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Link to the original documentation or example."
+          },
+          "version": {
+            "type": "string",
+            "description": "Optional library version this item refers to."
+          },
+          "score": {
+            "type": "number",
+            "description": "Optional relevance score as provided by Context7 or the agent."
+          },
+          "tags": {
+            "type": "array",
+            "description": "Optional tags for later aggregation/filtering.",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Optional metadata such as timing, tool name, or notes.",
+      "additionalProperties": true
+    }
+  }
+}
+

@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/core/mova/ds/ds.skill_ingest_run_config_v1.schema.json",
+  "title": "Skill Seeker Ingest Run Config v1",
+  "description": "Describes how to execute the Skill Seeker ingest pipeline (mode, async, enhancement, outputs).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mova_version",
+    "run_id",
+    "mode"
+  ],
+  "properties": {
+    "mova_version": {
+      "type": "string",
+      "const": "4.0.0",
+      "description": "MOVA core version targeted by this schema."
+    },
+    "run_id": {
+      "type": "string",
+      "description": "Identifier of this ingest run configuration."
+    },
+    "source_config_ref": {
+      "type": "string",
+      "description": "Reference to a source config (e.g. config_id)."
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "estimate",
+        "scrape",
+        "scrape+enhance",
+        "scrape+package",
+        "full"
+      ],
+      "description": "Execution mode for the ingest pipeline."
+    },
+    "execution_flags": {
+      "type": "object",
+      "description": "Execution toggles for scraping and concurrency.",
+      "additionalProperties": false,
+      "properties": {
+        "async_enabled": {
+          "type": "boolean",
+          "description": "Enable async/parallel scraping."
+        },
+        "workers": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of workers for async/parallel modes."
+        },
+        "skip_scrape": {
+          "type": "boolean",
+          "description": "Reuse existing scraped data instead of fetching."
+        },
+        "resume_checkpoint": {
+          "type": "boolean",
+          "description": "Resume from saved checkpoint when available."
+        }
+      }
+    },
+    "enhancement": {
+      "type": "object",
+      "description": "AI enhancement settings.",
+      "additionalProperties": false,
+      "properties": {
+        "enhance_local": {
+          "type": "boolean",
+          "description": "Use local enhancement (e.g. Claude Code Max)."
+        },
+        "enhance_via_api": {
+          "type": "boolean",
+          "description": "Use API-based enhancement."
+        },
+        "api_provider": {
+          "type": "string",
+          "description": "API provider used for enhancement (e.g. anthropic)."
+        }
+      }
+    },
+    "output_naming": {
+      "type": "object",
+      "description": "Naming and path conventions for output artifacts.",
+      "additionalProperties": false,
+      "properties": {
+        "output_name": {
+          "type": "string",
+          "description": "Logical name used for output/<name>."
+        },
+        "output_dir": {
+          "type": "string",
+          "description": "Base directory for outputs."
+        }
+      }
+    },
+    "env_requirements": {
+      "type": "object",
+      "description": "Environment credential requirements for this run.",
+      "additionalProperties": false,
+      "properties": {
+        "needs_ANTHROPIC_API_KEY": {
+          "type": "boolean",
+          "description": "Whether an Anthropic API key is required."
+        },
+        "needs_GITHUB_TOKEN": {
+          "type": "boolean",
+          "description": "Whether a GitHub token is required for this run."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{"type":"META","ts_unit":"s"}
+{"ts":10,"type":"OP_START","ctx":"runs","op_id":"op.example.topdown.phase1.v1"}
+{"ts":20,"type":"OP_DONE","ctx":"runs","op_id":"op.example.topdown.phase1.v1","result":"PASS"}
+{"ts":21,"type":"GATE","ctx":"runs","id":"phase1_pass","value":true}
+{"ts":30,"type":"DEF_EDIT","ctx":"artifacts","layer":"artifacts","id":"procedure.topdown.v1","change_type":"structural"}
+{"ts":40,"type":"DEF_EDIT","ctx":"artifacts","layer":"artifacts","id":"instructions.catalog.v1","change_type":"structural"}
+{"ts":50,"type":"DEF_EDIT","ctx":"artifacts","layer":"artifacts","id":"operations.catalog.v1","change_type":"structural"}
+{"ts":60,"type":"E_PROOF","ctx":"artifacts","E":1.0,"note":"Example: top-down linkage complete (E>=0.5)."}
+{"ts":70,"type":"OP_START","ctx":"runs","op_id":"op.example.calc_metrics.v1"}
+{"ts":75,"type":"OP_DONE","ctx":"runs","op_id":"op.example.calc_metrics.v1","result":"PASS","evidence":"runs/WF_RUN_0002_topdown/metrics.json"}
+{"ts":80,"type":"METRICS_CALC","ctx":"runs","E":1,"V":1,"S":0.7,"IC":30,"TFR":2,"note":"Example only; overwrite in real runs."}

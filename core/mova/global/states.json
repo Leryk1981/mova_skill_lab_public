@@ -1,0 +1,33 @@
+{
+  "version": "4.0.0-core-draft-1",
+  "states": [
+    {
+      "id": "draft",
+      "description": "Defined but not ready for normal use."
+    },
+    {
+      "id": "planned",
+      "description": "Planned but not started yet."
+    },
+    {
+      "id": "running",
+      "description": "Currently executing."
+    },
+    {
+      "id": "succeeded",
+      "description": "Finished successfully."
+    },
+    {
+      "id": "failed",
+      "description": "Finished with an error."
+    },
+    {
+      "id": "cancelled",
+      "description": "Explicitly cancelled before completion."
+    },
+    {
+      "id": "archived",
+      "description": "No longer active but kept for history."
+    }
+  ]
+}

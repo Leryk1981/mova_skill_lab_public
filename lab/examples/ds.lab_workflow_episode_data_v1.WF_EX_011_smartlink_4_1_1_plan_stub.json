@@ -1,0 +1,24 @@
+{
+  "experiment_id": "WF_EX_011_smartlink_4_1_1_observability",
+  "procedure_id": "WF_EX_011_plan_v1",
+  "agent_id": "planner_codex",
+  "profile_id": "codex_vscode_main",
+  "run_index": 0,
+  "metrics_snapshot": [],
+  "ext": {
+    "phase": "plan",
+    "status": "planned",
+    "objects_in_scope": [
+      "ds.smartlink.redirect_event.v1",
+      "env.smartlink.redirect_event.v1",
+      "global.smartlink.v1 (events/text_channels only)",
+      "meta.smartlink.v1 (observability section)"
+    ],
+    "variants": {
+      "baseline": "chatgpt (candidate_ex010)",
+      "candidate": "codex (candidate_ex011_codex)"
+    },
+    "plan_result_ref": "lab/examples/env.lab_workflow_experiment_plan_result_v1.WF_EX_011_smartlink_4_1_1_observability.json",
+    "notes_from_operator": "Закриваємо борг smartlink.redirected: подія + envelope + мінімальні доповнення global/meta. Дві гіпотези: ChatGPT baseline (ex010) і Codex candidate (ex011_codex). Plan_result сформовано вручну на основі двох варіантів."
+  }
+}

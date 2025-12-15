@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/core/mova/ds/ds.mova_ai_bootstrap_target_v1.schema.json",
+  "title": "MOVA AI Bootstrap Target v1",
+  "description": "Target model/environment description for generating a MOVA AI bootstrap pack.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mova_version",
+    "target_id",
+    "model_family",
+    "channel"
+  ],
+  "properties": {
+    "mova_version": {
+      "type": "string",
+      "const": "4.0.0",
+      "description": "MOVA core version targeted by this schema."
+    },
+    "target_id": {
+      "type": "string",
+      "description": "Identifier of the target model/environment (e.g., chatgpt_main, codex_in_vscode)."
+    },
+    "model_family": {
+      "type": "string",
+      "description": "Model family and variant (e.g., openai:gpt-4.1, anthropic:claude-3.5, google:gemini-1.5, local:codex)."
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "chat",
+        "ide_agent",
+        "cli",
+        "service_worker"
+      ],
+      "description": "Interaction channel for the model."
+    },
+    "role": {
+      "type": "string",
+      "description": "Human-readable role (e.g., architect, executor, reviewer, coach)."
+    },
+    "host_product": {
+      "type": "string",
+      "description": "Host product or surface (e.g., VS Code / MOVA Workbench, ChatGPT, Claude Code)."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional notes about the target environment."
+    }
+  }
+}

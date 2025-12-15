@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/core/mova/ds.episode_policy_v1.schema.json",
+  "title": "Episode Policy v1",
+  "description": "Policy describing when episodes should be recorded for a skill.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["mode"],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "description": "Controls when episodes are recorded.",
+      "enum": ["none", "on_error", "sampled", "full"]
+    },
+    "sample_rate": {
+      "type": "number",
+      "description": "Optional sampling rate in [0,1] for 'sampled' mode.",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional human-readable notes about this policy."
+    }
+  }
+}
+

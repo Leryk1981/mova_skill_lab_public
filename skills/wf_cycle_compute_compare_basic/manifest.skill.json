@@ -1,0 +1,33 @@
+{
+  "skill_id": "skill.wf_cycle_compute_compare_basic",
+  "title": "WF cycle compute+compare (basic)",
+  "description": "Deterministically compare two wf_cycle v1.1 runs (IDE vs CLI): compute metrics, compute score, pick winner, and write a compare folder with canonical artifacts.",
+  "mova_core_version": "4.0.0-core-draft-1",
+  "uses_ds": [
+    "ds.episode_v1",
+    "ds.wf_cycle_compare_request_v1",
+    "ds.wf_cycle_compare_result_v1"
+  ],
+  "uses_env": [],
+  "tags": [
+    "infra",
+    "workflow",
+    "wf_cycle",
+    "compare",
+    "metrics"
+  ],
+  "state": "draft",
+  "resources": [
+    "wf_cycle_compare"
+  ],
+  "verbs": [
+    "transform"
+  ],
+  "episode_policy": {
+    "mode": "none",
+    "notes": "This skill is purely deterministic and must not write to lab/memory/**."
+  },
+  "created_at": "2025-12-14T00:00:00Z",
+  "updated_at": "2025-12-14T00:00:00Z"
+}
+

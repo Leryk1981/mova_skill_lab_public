@@ -1,0 +1,44 @@
+{
+  "experiment_id": "WF_EX_001_repo_change_plan_vs_agents_v1",
+  "summary": "Baseline-only result for WF-EX-001: repo_change_plan workflow, 1 reference run, no alternative variants yet.",
+  "variants": [
+    {
+      "procedure_id": "WF_EX_001_baseline_repo_change_plan_v1",
+      "agent_id": "baseline_human_plus_codex",
+      "profile_id": "operator_plus_codex_v1",
+      "runs_count": 1,
+      "metrics": [
+        {
+          "metric_id": "time_to_solution",
+          "value": 45,
+          "unit": "minutes"
+        },
+        {
+          "metric_id": "files_touched",
+          "value": 19,
+          "unit": "files"
+        },
+        {
+          "metric_id": "subjective_quality",
+          "value": 4,
+          "unit": "score_1_5"
+        }
+      ],
+      "pros": [
+        "Reference workflow used in day-to-day work",
+        "High predictability and operator control"
+      ],
+      "cons": [
+        "Relatively high time_to_solution",
+        "Strong dependence on human operator attention"
+      ]
+    }
+  ],
+  "recommended_procedure_id": "WF_EX_001_baseline_repo_change_plan_v1",
+  "notes": [
+    "This is the initial baseline-only result for WF-EX-001.",
+    "Future variants will be compared against these metrics."
+  ],
+  "meta": {},
+  "ext": {}
+}

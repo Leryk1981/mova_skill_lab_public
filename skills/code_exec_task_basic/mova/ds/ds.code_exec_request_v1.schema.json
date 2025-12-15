@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.code_exec_request_v1.schema.json",
+  "title": "Code Execution Request v1",
+  "description": "Request to execute a single CLI command in a repository with standardized parameters.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "working_dir",
+    "command_argv"
+  ],
+  "properties": {
+    "working_dir": {
+      "type": "string",
+      "description": "Relative path from repository root where the command should be executed, e.g. '.', 'packages/smartlink_worker', 'apps/web'."
+    },
+    "command_argv": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Command arguments without shell wrapper, e.g. ['npm', 'test'], ['npm', 'run', 'validate'], ['npx', 'wrangler', 'deploy'].",
+      "items": {
+        "type": "string"
+      }
+    },
+    "timeout_ms": {
+      "type": "integer",
+      "description": "Maximum execution duration in milliseconds. The runtime should interrupt the command after this timeout.",
+      "minimum": 1
+    },
+    "allow_nonzero_exit": {
+      "type": "boolean",
+      "default": false,
+      "description": "If true, exit_code != 0 is not considered a fatal error, but goes as status: 'error' without crashing the entire process."
+    },
+    "capture_max_kb": {
+      "type": "integer",
+      "description": "Limit on total size of stdout/stderr to be stored in the result (for truncating overly large logs).",
+      "minimum": 1
+    },
+    "env_overrides": {
+      "type": "object",
+      "description": "Dictionary of NAME: VALUE environment variable overrides to be applied by the runtime binding.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "notes_for_human": {
+      "type": "string",
+      "description": "Short explanation of why this command is being executed, e.g. 'check if all tests pass before deploying smartlink'."
+    }
+  }
+}
+

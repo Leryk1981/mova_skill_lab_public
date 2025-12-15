@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.connector_scaffold_result_v1.schema.json",
+  "title": "Connector Scaffold Result v1",
+  "description": "Result of connector scaffold generation: complete file plan for a new MOVA connector skill.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "connector_id",
+    "connector_dir",
+    "files"
+  ],
+  "properties": {
+    "connector_id": {
+      "type": "string",
+      "description": "Echo from the request: identifier of the connector skill."
+    },
+    "connector_dir": {
+      "type": "string",
+      "description": "Echo from the request: directory name for the connector."
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "description": "List of files to create/overwrite in the repository for the new connector.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "relative_path",
+          "content"
+        ],
+        "properties": {
+          "relative_path": {
+            "type": "string",
+            "description": "Path relative to repository root, e.g. 'skills/connectors_cloudflare_queues/manifest.skill.json', 'skills/connectors_cloudflare_queues/mova/ds/ds.cloudflare_queue_create_request_v1.schema.json'."
+          },
+          "content": {
+            "type": "string",
+            "description": "Full content of the file (markdown/JSON/TypeScript/etc. as text)."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "ds_schema",
+              "env_schema",
+              "manifest",
+              "prompt_profile",
+              "binding",
+              "case",
+              "doc",
+              "other"
+            ],
+            "description": "Type of file for operator convenience."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short comment if needed, e.g. 'review this binding manually'."
+          }
+        }
+      }
+    },
+    "registry_snippet": {
+      "type": "object",
+      "description": "Optional JSON fragment for insertion into lab/skills_registry_v1.json (in the format already accepted by the registry)."
+    },
+    "docs_snippet": {
+      "type": "string",
+      "description": "Optional markdown fragment for docs/10_SKILLS_OVERVIEW.md."
+    }
+  }
+}
+

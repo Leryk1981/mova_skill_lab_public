@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.skill_descriptor_v1.schema.json",
+  "title": "MOVA Skill Descriptor v1",
+  "description": "Shared schema describing a MOVA skill in the Skills Lab.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "skill_id",
+    "title",
+    "description",
+    "mova_core_version",
+    "uses_ds",
+    "uses_env"
+  ],
+  "properties": {
+    "skill_id": {
+      "type": "string",
+      "description": "Stable identifier of the skill (e.g. `skill.mova_template`)."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title of the skill."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of what the skill does."
+    },
+    "mova_core_version": {
+      "type": "string",
+      "description": "Version of the MOVA core this skill is compatible with."
+    },
+    "uses_ds": {
+      "type": "array",
+      "description": "List of ds.* schemas this skill relies on.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "uses_env": {
+      "type": "array",
+      "description": "List of env.* envelopes this skill relies on.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Optional free-form tags for search and grouping.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "state": {
+      "type": "string",
+      "description": "Lifecycle state of the skill (from the global states vocabulary).",
+      "enum": [
+        "draft",
+        "planned",
+        "running",
+        "succeeded",
+        "failed",
+        "cancelled",
+        "archived"
+      ]
+    },
+    "resources": {
+      "type": "array",
+      "description": "List of main resource types this skill operates on (from the global resources vocabulary).",
+      "items": {
+        "type": "string"
+      }
+    },
+    "verbs": {
+      "type": "array",
+      "description": "List of verbs this skill primarily uses (from the global verbs vocabulary).",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this skill descriptor was first created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this skill descriptor was last updated."
+    },
+    "episode_policy": {
+      "$ref": "https://mova.dev/schemas/core/mova/ds.episode_policy_v1.schema.json",
+      "description": "Episode recording policy for this skill."
+    }
+  }
+}
+

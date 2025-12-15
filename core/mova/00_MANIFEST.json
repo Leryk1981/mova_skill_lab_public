@@ -1,0 +1,7 @@
+{
+  "mova_core_version": "4.0.0-core-draft-1",
+  "mova_core_catalog_schema_id": "https://mova.dev/schemas/ds.mova4_core_catalog_v1.schema.json",
+  "mova_core_catalog_envelope_id": "env.mova4_core_catalog_publish_v1",
+  "description": "MOVA Skills Lab – red core manifest (bootstrap)."
+}
+

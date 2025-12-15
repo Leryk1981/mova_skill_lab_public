@@ -1,0 +1,67 @@
+{
+  "procedure_id": "WF_EX_002_candidate_codex_from_description_smartlink_v1",
+  "title": "WF-EX-002 candidate: SmartLink worker built by Codex from textual description",
+  "description": "Codex-only build of SmartLink worker from a textual brief without looking at existing code; independent design and implementation.",
+  "domain": "smartlink_edge_routing",
+  "version": "1.0.0",
+  "origin_type": "candidate",
+  "origin_ref": "feature/lab-workflow-experiments-v1:WF_LAB_06",
+  "steps": [
+    {
+      "step_id": "step_01_operator_describes_smartlink",
+      "name": "Operator describes SmartLink",
+      "description": "Operator provides textual brief covering routing goals, click handling, UTM rules, logging, and error cases.",
+      "actor_role": "human_operator",
+      "inputs": ["smartlink_text_brief_v1"],
+      "outputs": ["codex_prompt_smartlink_v1"],
+      "tools": []
+    },
+    {
+      "step_id": "step_02_codex_designs_architecture",
+      "name": "Codex designs architecture",
+      "description": "Codex proposes architecture, file structure, routing functions, and config approach based solely on the textual brief.",
+      "actor_role": "agent_codex",
+      "inputs": ["codex_prompt_smartlink_v1"],
+      "outputs": ["smartlink_architecture_draft", "worker_plan"],
+      "tools": ["editor"]
+    },
+    {
+      "step_id": "step_03_codex_implements_worker",
+      "name": "Codex implements worker",
+      "description": "Codex implements Cloudflare Worker logic per plan, without referencing existing SmartLink code.",
+      "actor_role": "agent_codex",
+      "inputs": ["worker_plan"],
+      "outputs": ["smartlink_worker_code"],
+      "tools": ["editor", "git"]
+    },
+    {
+      "step_id": "step_04_codex_adds_tests",
+      "name": "Codex adds tests",
+      "description": "Codex writes tests/fixtures for click scenarios derived from the brief.",
+      "actor_role": "agent_codex",
+      "inputs": ["smartlink_worker_code"],
+      "outputs": ["smartlink_tests"],
+      "tools": ["editor", "git"]
+    },
+    {
+      "step_id": "step_05_run_tests_and_fix",
+      "name": "Run tests and fix",
+      "description": "Codex runs tests, fixes issues, iterates until passing.",
+      "actor_role": "agent_codex",
+      "inputs": ["smartlink_tests", "smartlink_worker_code"],
+      "outputs": ["test_results", "fixed_worker_code"],
+      "tools": ["npm test"]
+    },
+    {
+      "step_id": "step_06_operator_final_review",
+      "name": "Operator final review",
+      "description": "Operator reviews code, tests, and subjective quality; provides score and notes.",
+      "actor_role": "human_operator",
+      "inputs": ["fixed_worker_code", "test_results"],
+      "outputs": ["subjective_quality_score", "review_notes"],
+      "tools": []
+    }
+  ],
+  "meta": {},
+  "ext": {}
+}

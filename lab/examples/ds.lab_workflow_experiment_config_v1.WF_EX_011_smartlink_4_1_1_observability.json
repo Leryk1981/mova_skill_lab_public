@@ -1,0 +1,100 @@
+{
+  "experiment_id": "WF_EX_011_smartlink_4_1_1_observability",
+  "title": "WF-EX-011: SmartLink 4.1.1 observability (redirect event)",
+  "description": "Порівняти ChatGPT baseline vs Codex-candidate для спостережуваності SmartLink (redirect event ds/env + мінімальні доповнення до global/meta).",
+  "baseline_procedure_id": "WF_EX_011_baseline_chatgpt_v1",
+  "domain": "smartlink_observability",
+  "agent_profiles": [
+    {
+      "agent_id": "baseline_chatgpt",
+      "model_family": "chatgpt",
+      "profile_id": "chatgpt_baseline_v1"
+    },
+    {
+      "agent_id": "candidate_codex",
+      "model_family": "codex",
+      "profile_id": "codex_vscode_main"
+    }
+  ],
+  "metrics": [
+    {
+      "metric_id": "readability",
+      "name": "Payload readability",
+      "description": "Наскільки зрозуміла структура події/енвелопу для людини-оператора.",
+      "direction": "maximize"
+    },
+    {
+      "metric_id": "spec_alignment",
+      "name": "Spec alignment",
+      "description": "Відповідність MOVA 4.1.1 (ds/env/global/meta, text channel).",
+      "direction": "maximize"
+    },
+    {
+      "metric_id": "analytics_sufficiency",
+      "name": "Analytics sufficiency",
+      "description": "Достатність даних для аналітики без PII-звалища; чітке відділення core та debug.",
+      "direction": "maximize"
+    },
+    {
+      "metric_id": "scope_isolation",
+      "name": "Scope isolation",
+      "description": "Чітке обмеження на observability-шар без втручання в worker/infra.",
+      "direction": "maximize"
+    }
+  ],
+  "constraints": [
+    "Не змінювати rules/env.default/global/meta ядро WF_EX_010, окрім мінімальних доповнень для observability.",
+    "Не додавати worker/infra деталі в ds/env/global/meta.",
+    "Нові ds/env мають бути валідними щодо MOVA 4.1.1 і core schemas.",
+    "Scope: лише redirect event (ds/env) та відповідні доповнення до global/meta."
+  ],
+  "meta": {
+    "labels": [
+      "WF_EX_011",
+      "smartlink",
+      "observability",
+      "mova_4_1_1"
+    ]
+  },
+  "ext": {
+    "objects_in_scope": [
+      {
+        "id": "ds.smartlink.redirect_event.v1",
+        "baseline": "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/ds.smartlink_redirect_event_v1.schema.json",
+        "candidate": "lab/experiments/smartlink_4_1_1_candidate_ex011_codex/schemas/ds.smartlink_redirect_event_v1.schema.json"
+      },
+      {
+        "id": "env.smartlink.redirect_event.v1",
+        "baseline": "lab/experiments/smartlink_4_1_1_candidate_ex010/envelopes/env.smartlink_redirect_event_v1.json",
+        "candidate": "lab/experiments/smartlink_4_1_1_candidate_ex011_codex/envelopes/env.smartlink_redirect_event_v1.json"
+      },
+      {
+        "id": "global.smartlink.v1",
+        "baseline": "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/global.smartlink_v1.json",
+        "candidate": "lab/experiments/smartlink_4_1_1_candidate_ex011_codex/schemas/global.smartlink_v1.json"
+      },
+      {
+        "id": "meta.smartlink.v1",
+        "baseline": "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/meta.smartlink_v1.json",
+        "candidate": "lab/experiments/smartlink_4_1_1_candidate_ex011_codex/schemas/meta.smartlink_v1.json"
+      }
+    ],
+    "variants": {
+      "baseline_variant": "chatgpt",
+      "candidate_variant": "codex"
+    },
+    "plan_scope": {
+      "scenarios": [
+        "Формування події redirect з рішення SmartLink.",
+        "Запис у text channel smartlink.redirected.",
+        "Debug/score details у опціональному блоці без PII."
+      ],
+      "outputs_expected": [
+        "Чіткий payload ds.smartlink.redirect_event.v1 (core + debug).",
+        "Envelope для формування/відправки події.",
+        "Мінімальні доповнення global/meta під observability шар."
+      ]
+    },
+    "notes_from_operator": "ChatGPT baseline уже в candidate_ex010; Codex-candidate реалізовано в candidate_ex011_codex. Scope лише redirect event; worker/infra поза експериментом."
+  }
+}

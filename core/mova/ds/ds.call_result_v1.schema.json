@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/core/mova/ds/ds.call_result_v1.schema.json",
+  "title": "Call Result v1",
+  "description": "Result of invoking another envelope via call-envelope.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "target_envelope_id",
+    "status"
+  ],
+  "properties": {
+    "target_envelope_id": {
+      "type": "string",
+      "description": "Echo from the request: the envelope id that was invoked."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "error"],
+      "description": "Status of the call: 'success' if the target envelope executed successfully, 'error' if it failed."
+    },
+    "output": {
+      "type": "object",
+      "description": "If status is 'success', contains the data.output from the target envelope.",
+      "additionalProperties": true
+    },
+    "error": {
+      "type": "object",
+      "description": "If status is 'error', contains structured error information.",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Error code (e.g., 'ENVELOPE_NOT_FOUND', 'VALIDATION_ERROR', 'EXECUTION_ERROR')."
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable error message."
+        },
+        "details": {
+          "description": "Optional additional error details (structure depends on error type).",
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}
+

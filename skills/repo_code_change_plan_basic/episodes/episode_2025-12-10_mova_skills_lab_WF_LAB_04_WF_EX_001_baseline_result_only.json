@@ -1,0 +1,25 @@
+{
+  "episode_id": "episode_2025-12-10_repo_change_plan_WF_LAB_04_WF_EX_001_baseline_result_only",
+  "skill_id": "skill.repo_code_change_plan_basic",
+  "envelope_id": "env.repo_change_plan_run_v1",
+  "status": "planned",
+  "actor": {
+    "role": "agent",
+    "id": "codex_cli"
+  },
+  "started_at": "2025-12-10T13:00:00Z",
+  "finished_at": null,
+  "input": {
+    "$ref": "lab/skill_runs/repo_code_change_plan.mova_skills_lab.WF_LAB_04_WF_EX_001_baseline_result_only.json"
+  },
+  "output": null,
+  "error": null,
+  "meta": {
+    "labels": [
+      "WF_LAB_04",
+      "WF_EX_001",
+      "lab_workflow"
+    ],
+    "note": "Planning envelope for WF_LAB_04 baseline result work."
+  }
+}

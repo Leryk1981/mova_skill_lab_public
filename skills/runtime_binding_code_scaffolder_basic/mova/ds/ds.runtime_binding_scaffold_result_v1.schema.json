@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.runtime_binding_scaffold_result_v1.schema.json",
+  "title": "Runtime Binding Scaffold Result v1",
+  "description": "Result of runtime binding scaffold generation: code skeleton files and optional binding JSON files.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "skill_id",
+    "skill_dir",
+    "code_entry_path",
+    "files"
+  ],
+  "properties": {
+    "skill_id": {
+      "type": "string",
+      "description": "Echo from the request: identifier of the target skill."
+    },
+    "skill_dir": {
+      "type": "string",
+      "description": "Echo from the request: directory name of the target skill."
+    },
+    "code_entry_path": {
+      "type": "string",
+      "description": "Echo from the request: path to the code entry file."
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "description": "List of files to create/overwrite in the repository for the runtime binding implementation.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "relative_path",
+          "content"
+        ],
+        "properties": {
+          "relative_path": {
+            "type": "string",
+            "description": "Path relative to repository root, e.g. 'src/skills/connectors_cloudflare_queues/index.ts', 'skills/connectors_cloudflare_queues/impl/bindings/connector_binding_v1.json'."
+          },
+          "content": {
+            "type": "string",
+            "description": "Full content of the file (code/JSON/markdown as text)."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "runtime_code",
+              "binding_json",
+              "doc",
+              "other"
+            ],
+            "description": "Type of file for operator convenience."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Short comment if needed, e.g. 'review TODOs before first run'."
+          }
+        }
+      }
+    },
+    "design_notes_md": {
+      "type": "string",
+      "description": "Optional markdown notes explaining how the generated code is structured, what assumptions were made (e.g. about errors, retries, auth)."
+    },
+    "checklist_for_human": {
+      "type": "array",
+      "description": "Optional list of steps for the human to follow, e.g. 'Review the generated code and TODO sections', 'Inject real secrets via environment variables / KV', 'Add tests for each envelope function'.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
+

@@ -1,0 +1,31 @@
+{
+  "skill_id": "skill.file_cleanup_snapshot_node_basic",
+  "title": "File cleanup snapshot (Node, basic)",
+  "description": "Scans a filesystem target and produces ds.file_cleanup_snapshot_v1 (no deletions). Input: env.file_cleanup_snapshot_request_v1.",
+  "mova_core_version": "4.0.0-core-draft-1",
+  "uses_ds": [
+    "ds.file_cleanup_target_v1",
+    "ds.file_cleanup_snapshot_v1"
+  ],
+  "uses_env": [
+    "env.file_cleanup_snapshot_request_v1"
+  ],
+  "tags": [
+    "file_cleanup",
+    "snapshot",
+    "filesystem"
+  ],
+  "state": "draft",
+  "resources": [
+    "note"
+  ],
+  "verbs": [
+    "scan"
+  ],
+  "episode_policy": {
+    "mode": "none",
+    "notes": "Snapshot only; no mutations."
+  },
+  "created_at": "2025-12-05T00:00:00Z",
+  "updated_at": "2025-12-05T00:00:00Z"
+}

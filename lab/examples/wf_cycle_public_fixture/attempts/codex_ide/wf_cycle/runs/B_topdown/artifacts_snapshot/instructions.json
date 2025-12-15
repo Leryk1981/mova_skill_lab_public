@@ -1,0 +1,64 @@
+{
+  "id": "instructions.wf_formalization.v1",
+  "type": "instructions_catalog",
+  "version": "1.0.0",
+  "pack_id": "wf_formalization_cycle_v1::f9153e2d-5627-4d67-a20b-040b57845b3c",
+  "items": [
+    {
+      "instr_id": "instr.anchor0.frame.v1",
+      "title": "Anchor Point 0: Frame objective + skeleton",
+      "consistency_model": "best_effort",
+      "steps": [
+        {
+          "op_ref": "op.define_contract.v1",
+          "note": "Define contracts for at least 1 key op"
+        },
+        {
+          "op_ref": "op.smoke_test.v1",
+          "note": "Optional: quick feasibility check for riskiest op"
+        }
+      ],
+      "preconditions": [
+        "workflow_goal_present"
+      ],
+      "postconditions": [
+        "procedure_skeleton_present"
+      ]
+    },
+    {
+      "instr_id": "instr.spike.red_nodes.v1",
+      "title": "Spike risky nodes (Red Nodes)",
+      "consistency_model": "none",
+      "steps": [
+        {
+          "op_ref": "op.smoke_test.v1",
+          "note": "Run smoke tests for each red node op"
+        }
+      ],
+      "preconditions": [
+        "red_nodes_identified"
+      ],
+      "postconditions": [
+        "red_nodes_feasibility_known"
+      ]
+    },
+    {
+      "instr_id": "instr.measure.score.v1",
+      "title": "Compute metrics and scorecard",
+      "consistency_model": "best_effort",
+      "steps": [
+        {
+          "op_ref": "op.calc_metrics.v1",
+          "note": "Compute E/V/S/IC/TFR"
+        }
+      ],
+      "preconditions": [
+        "event_log_present"
+      ],
+      "postconditions": [
+        "metrics_present",
+        "scorecard_present"
+      ]
+    }
+  ]
+}

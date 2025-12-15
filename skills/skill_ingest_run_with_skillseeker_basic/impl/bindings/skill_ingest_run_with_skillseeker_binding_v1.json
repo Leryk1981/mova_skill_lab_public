@@ -1,0 +1,18 @@
+{
+  "binding_id": "skill_ingest_run_with_skillseeker_binding_v1",
+  "skill_id": "skill.skill_ingest_run_with_skillseeker_basic",
+  "runtime_type": "local_script",
+  "entrypoint": {
+    "command": "node",
+    "path": "skills/skill_ingest_run_with_skillseeker_basic/impl/code/run_ingest.js",
+    "notes": "Запускает Skill Seeker CLI с временным конфигом, собирая результат в ds.skill_ingest_run_result_v1."
+  },
+  "verbs": [
+    "run"
+  ],
+  "meta": {
+    "note": "Ожидает, что CLI skill-seekers доступен в PATH. При необходимости добавьте env_overrides в вызывающем рантайме."
+  },
+  "created_at": "2025-12-05T00:00:00Z",
+  "updated_at": "2025-12-05T00:00:00Z"
+}

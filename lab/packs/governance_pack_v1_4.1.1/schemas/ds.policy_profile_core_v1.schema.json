@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.policy_profile_core_v1.schema.json",
+  "title": "ds.policy_profile_core_v1",
+  "description": "Governance Pack v1: Policy profile (policy-as-code) describing allowed/denied actions, confirmation rules, limits, and scope. Designed to align with global.security_catalog_v1 security_policy_profile ids.",
+  "allOf": [
+    {
+      "$ref": "https://mova.dev/schemas/ds.mova_schema_core_v1.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "policy_profile_id": {
+          "type": "string",
+          "description": "Policy profile id. SHOULD match an id from global.security_catalog_v1.security_policy_profile[*].id (e.g. mova_security_default_v1)."
+        },
+        "security_model_version": {
+          "type": "string",
+          "description": "Security model version for non-breaking evolution. SHOULD match the versioning used in the security layer (e.g. 1.0.0)."
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable policy name."
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable policy description."
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "read_only",
+            "allowlisted",
+            "supervised"
+          ],
+          "description": "High-level governance mode."
+        },
+        "scope": {
+          "type": "array",
+          "description": "Where this policy applies (repo/path/env/resource scopes).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "repo",
+                  "path",
+                  "env",
+                  "resource"
+                ],
+                "description": "Scope type."
+              },
+              "value": {
+                "type": "string",
+                "description": "Scope value, e.g. github:mova-spec or schemas/**."
+              }
+            },
+            "required": [
+              "type",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "allowed_actions": {
+          "type": "array",
+          "description": "Allowlist rules for tools/actions.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tool_id": {
+                "type": "string",
+                "description": "Tool/command identifier (transport-specific)."
+              },
+              "resource": {
+                "type": "string",
+                "description": "Optional resource class (file/repo/db/http/etc.)."
+              },
+              "action_type": {
+                "type": "string",
+                "description": "Action type id (may align with global.security_catalog_v1.security_action_type[*].id)."
+              },
+              "constraints": {
+                "type": "object",
+                "description": "Optional constraints (paths, rate limits, budgets).",
+                "additionalProperties": true
+              }
+            },
+            "required": [
+              "tool_id",
+              "action_type"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "denied_actions": {
+          "type": "array",
+          "description": "Deny rules for tools/actions.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tool_id": {
+                "type": "string"
+              },
+              "resource": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "tool_id"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "confirmation_rules": {
+          "type": "array",
+          "description": "Rules requiring explicit confirmation (human-in-the-loop).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tool_id": {
+                "type": "string"
+              },
+              "condition": {
+                "type": "string",
+                "description": "Human-readable condition or small DSL string."
+              },
+              "required_level": {
+                "type": "string",
+                "enum": [
+                  "user",
+                  "owner",
+                  "admin"
+                ],
+                "description": "Who must confirm."
+              }
+            },
+            "required": [
+              "tool_id",
+              "required_level"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "limits": {
+          "type": "object",
+          "description": "Optional execution limits for a run/batch.",
+          "properties": {
+            "max_budget_per_run": {
+              "type": "number"
+            },
+            "max_runtime_seconds": {
+              "type": "number"
+            },
+            "max_tool_calls": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "policy_profile_id",
+        "name",
+        "mode",
+        "security_model_version"
+      ]
+    }
+  ]
+}

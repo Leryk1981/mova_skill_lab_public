@@ -1,0 +1,23 @@
+{
+  "episode_id": "episode_2025-12-10_WF_LAB_08_smartlink_mova_schemas",
+  "skill_id": "skill.mova_check_basic",
+  "envelope_id": "env.mova_check_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_cli"
+  },
+  "started_at": "2025-12-10T15:28:00Z",
+  "finished_at": "2025-12-10T15:30:00Z",
+  "input": {
+    "$ref": "lab/examples/env.mova_check_run_v1.WF_LAB_08_smartlink_mova_schemas.json"
+  },
+  "output": {
+    "$ref": "lab/skill_runs/mova_check_basic.WF_LAB_08_smartlink_mova_schemas_result.json"
+  },
+  "error": null,
+  "meta": {
+    "labels": ["WF_LAB_08", "smartlink", "mova_schemas"],
+    "note": "Validation of SmartLink MOVA pack schemas and examples."
+  }
+}

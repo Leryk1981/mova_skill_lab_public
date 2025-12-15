@@ -1,0 +1,62 @@
+{
+  "experiment_id": "WF_EX_002_smartlink_worker_vs_codex_v1",
+  "summary": "Pilot comparison of existing SmartLink worker baseline vs Codex-only worker candidate built from textual brief (one run for Codex, baseline metrics not yet measured).",
+  "variants": [
+    {
+      "procedure_id": "WF_EX_002_baseline_smartlink_worker_v1",
+      "agent_id": "baseline_existing_worker",
+      "profile_id": "human_plus_existing_stack",
+      "runs_count": 0,
+      "metrics": [],
+      "pros": [
+        "Production-ready monorepo structure with CI/CD and schemas",
+        "Better observability and likely stronger validation tooling"
+      ],
+      "cons": [
+        "Heavier dependency stack and cognitive load",
+        "Less lightweight for quick experiments"
+      ]
+    },
+    {
+      "procedure_id": "WF_EX_002_candidate_codex_from_description_smartlink_v1",
+      "agent_id": "codex_only",
+      "profile_id": "codex_vscode_main",
+      "runs_count": 1,
+      "metrics": [
+        {
+          "metric_id": "time_to_solution",
+          "value": 120,
+          "unit": "minutes"
+        },
+        {
+          "metric_id": "files_touched",
+          "value": 5,
+          "unit": "files"
+        },
+        {
+          "metric_id": "subjective_quality",
+          "value": 4,
+          "unit": "score_1_5"
+        }
+      ],
+      "pros": [
+        "Small footprint; easy to reason about routing logic",
+        "Deterministic matching with support for weights and fallback",
+        "Quick local simulation with simple Node script"
+      ],
+      "cons": [
+        "No real observability/metrics pipeline (stdout only)",
+        "No admin/config lifecycle or deployment wiring yet",
+        "Limited condition set and no deep inspection of baseline"
+      ]
+    }
+  ],
+  "recommended_procedure_id": "WF_EX_002_baseline_smartlink_worker_v1",
+  "notes": [
+    "Worker-level pilot: only Codex candidate metrics were measured in run 01; baseline metrics remain TODO.",
+    "Candidate looks promising for a lightweight SmartLink worker but lacks production tooling and observability.",
+    "This result should be considered a preliminary comparison focused on architecture rather than full-stack product."
+  ],
+  "meta": {},
+  "ext": {}
+}

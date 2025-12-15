@@ -1,0 +1,56 @@
+{
+  "id": "operations.wf_formalization.v1",
+  "type": "operations_catalog",
+  "version": "1.0.0",
+  "pack_id": "wf_formalization_cycle_v1::f9153e2d-5627-4d67-a20b-040b57845b3c",
+  "items": [
+    {
+      "op_id": "op.define_contract.v1",
+      "title": "Define operation contract (In -> Out/Err)",
+      "inputs_schema_ref": "schema://op_input",
+      "outputs_schema_ref": "schema://op_output",
+      "errors": [
+        {
+          "code": "E_CONTRACT_INVALID",
+          "description": "Contract missing or inconsistent"
+        }
+      ],
+      "test": {
+        "type": "contract_test",
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "op_id": "op.smoke_test.v1",
+      "title": "Run smoke test of a risky operation",
+      "inputs_schema_ref": "schema://smoke_input",
+      "outputs_schema_ref": "schema://smoke_output",
+      "errors": [
+        {
+          "code": "E_SMOKE_FAIL",
+          "description": "Smoke test failed"
+        }
+      ],
+      "test": {
+        "type": "unit_or_stub",
+        "timeout_ms": 10000
+      }
+    },
+    {
+      "op_id": "op.calc_metrics.v1",
+      "title": "Calculate metrics E/V/S/IC/TFR from artifacts + event_log",
+      "inputs_schema_ref": "schema://metrics_input",
+      "outputs_schema_ref": "schema://metrics_output",
+      "errors": [
+        {
+          "code": "E_METRICS_PARSE",
+          "description": "Cannot parse artifacts/log"
+        }
+      ],
+      "test": {
+        "type": "unit_test",
+        "timeout_ms": 5000
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/lab/schemas/ds.smartlink_meta_v1.schema.json",
+  "title": "SmartLink Meta v1",
+  "description": "Metadata describing the SmartLink pack (schemas, envelopes, examples).",
+  "$comment": "LAB-EXPERIMENTAL. SmartLink pack metadata schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the template set or pack (e.g., template_set:smartlink_v1_lab)."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-friendly name of the SmartLink pack."
+    },
+    "summary": {
+      "type": "string",
+      "description": "Short summary of what this SmartLink pack covers."
+    },
+    "version": {
+      "type": "string",
+      "description": "Version label for this pack."
+    },
+    "artifacts": {
+      "type": "object",
+      "description": "Referenced artifacts that belong to this pack.",
+      "additionalProperties": false,
+      "properties": {
+        "dataSchemas": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of SmartLink data schema ids/refs."
+        },
+        "envelopes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of SmartLink envelope ids/refs."
+        },
+        "instances": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Example instance refs bundled with the pack."
+        },
+        "globals": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Global resources/roles definitions relevant to SmartLink."
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tags for discovery."
+    },
+    "meta": {
+      "type": "object",
+      "description": "Optional technical metadata.",
+      "additionalProperties": true
+    },
+    "ext": {
+      "type": "object",
+      "description": "Optional extension block.",
+      "additionalProperties": true
+    }
+  },
+  "required": ["id", "name", "summary", "artifacts"]
+}

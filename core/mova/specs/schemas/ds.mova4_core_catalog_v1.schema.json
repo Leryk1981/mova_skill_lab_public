@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.mova4_core_catalog_v1.schema.json",
+  "title": "MOVA 4.0.0 Core Catalog",
+  "description": "Meta-schema for describing MOVA data types, verbs, envelopes and episodes in a single catalog document.",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Version of this MOVA core catalog document."
+    },
+    "data_types": {
+      "type": "array",
+      "description": "List of MOVA data type definitions (ds.*).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Canonical id, e.g. ds.smartlink_config_v1"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "schema_ref": {
+            "type": "string",
+            "description": "URL or path to the JSON Schema implementing this data type."
+          }
+        },
+        "required": [
+          "id",
+          "schema_ref"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "verbs": {
+      "type": "array",
+      "description": "Canonical verb definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Verb id, e.g. create, update, route"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "envelopes": {
+      "type": "array",
+      "description": "Envelope definitions (env.*).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Canonical id, e.g. env.smartlink_route_decision_v1"
+          },
+          "verb": {
+            "type": "string",
+            "description": "Referenced verb id."
+          },
+          "description": {
+            "type": "string"
+          },
+          "input_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Referenced data type ids used as inputs."
+          },
+          "output_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Referenced data type ids used as outputs."
+          }
+        },
+        "required": [
+          "id",
+          "verb"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "episode_types": {
+      "type": "array",
+      "description": "Episode type definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Canonical id, e.g. ds.pattern_memory_episode_smartlink_v1"
+          },
+          "description": {
+            "type": "string"
+          },
+          "schema_ref": {
+            "type": "string",
+            "description": "URL or path to the JSON Schema implementing this episode type."
+          }
+        },
+        "required": [
+          "id",
+          "schema_ref"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  "required": [
+    "version"
+  ],
+  "additionalProperties": false
+}
+

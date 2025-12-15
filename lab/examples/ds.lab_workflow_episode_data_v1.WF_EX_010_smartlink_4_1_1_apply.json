@@ -1,0 +1,47 @@
+{
+  "experiment_id": "WF_EX_010_smartlink_4_1_1_baseline_vs_mova",
+  "procedure_id": "WF_EX_010_apply_v1",
+  "agent_id": "operator_codex",
+  "profile_id": "codex_vscode_main",
+  "run_index": 1,
+  "metrics_snapshot": [],
+  "ext": {
+    "phase": "apply_plan",
+    "status": "completed",
+    "inputs": {
+      "config_ref": "lab/examples/ds.lab_workflow_experiment_config_v1.WF_EX_010_smartlink_4_1_1_baseline_vs_mova.json",
+      "plan_result_ref": "lab/examples/env.lab_workflow_experiment_plan_result_v1.WF_EX_010_smartlink_4_1_1_baseline_vs_mova.json",
+      "baseline_refs": [
+        "lab/experiments/smartlink_baseline/mova_smartlink/schemas/ds.smartlink_rules_v1.schema.json",
+        "lab/experiments/smartlink_baseline/mova_smartlink/schemas/env.smartlink_default_v1.json",
+        "lab/experiments/smartlink_baseline/mova_smartlink/schemas/global.smartlink_v1.json",
+        "lab/experiments/smartlink_baseline/mova_smartlink/schemas/meta.smartlink_v1.json"
+      ],
+      "candidate_refs": [
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/ds.smartlink_rules_v1.schema.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/envelopes/env.smartlink_default_v1.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/global.smartlink_v1.json",
+        "lab/experiments/smartlink_4_1_1_candidate_ex010/schemas/meta.smartlink_v1.json"
+      ]
+    },
+    "changes_summary": {
+      "ds.smartlink.rules.v1": [
+        "Додано підтримку referrer, debug-флага та $comment з mova_spec_version 4.1.1.",
+        "Уточнено meta.spec_alignment для вимог security/text."
+      ],
+      "env.smartlink.default.v1": [
+        "Оновлено mova_version до 4.1.1, додано decision/debug виходи.",
+        "Явні посилання на rules/global/meta і text channel smartlink.redirected."
+      ],
+      "global.smartlink.v1": [
+        "Скорочено до ролей/resources/text_channels, що реально потрібні rules/env.",
+        "Додано text_channels smartlink.redirected із ключовими полями."
+      ],
+      "meta.smartlink.v1": [
+        "Опис пакета під MOVA 4.1.1, посилання на артефакти candidate.",
+        "Явно зафіксовано scope (4 JSON) та out-of-scope (worker/infra)."
+      ]
+    },
+    "notes_from_operator": "План WF_EX_010 застосовано до 4 JSON-артефактів кандидата. Будь-які кроки про worker/деплой були поза scope і не виконувались."
+  }
+}

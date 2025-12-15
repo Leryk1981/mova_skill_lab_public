@@ -1,0 +1,33 @@
+{
+  "envelope_id": "env.policy_check_request_v1",
+  "verb": "validate",
+  "roles": {
+    "producer": "ide:vscode",
+    "policy_engine": "governance:local"
+  },
+  "policy_profile_id": "mova_security_default_v1",
+  "security_model_version": "1.0.0",
+  "instruction_profile_id": "instr_profile:dev_default",
+  "candidate_actions": [
+    {
+      "schema_id": "ds.tool_call_provenance_core_v1",
+      "schema_version": "1.0.0",
+      "tool_call_id": "tc_001",
+      "tool_id": "git.push",
+      "args_hash": "sha256:7f9c...redacted",
+      "args_meta": {
+        "remote": "origin",
+        "branch": "main"
+      },
+      "invoked_by": "user",
+      "start_time": "2025-12-12T12:00:00Z"
+    }
+  ],
+  "context": {
+    "repo": "github:mova-spec",
+    "branch": "main"
+  },
+  "meta": {
+    "correlation_id": "run_2025-12-12_001"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.repo_snapshot_result_v1.schema.json",
+  "title": "Repository Snapshot Result v1",
+  "description": "Structured output produced by the repo snapshot skill: full markdown snapshot, condensed memory, and human checklist.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project_snapshot_md",
+    "global_memory_md",
+    "checklist_for_human"
+  ],
+  "properties": {
+    "project_snapshot_md": {
+      "type": "string",
+      "description": "Long markdown text with a fixed structure of sections describing the repository comprehensively."
+    },
+    "global_memory_md": {
+      "type": "string",
+      "description": "Short condensed summary (3-10 bullet points or 1-3 paragraphs) suitable for inserting into a new chat's global memory."
+    },
+    "checklist_for_human": {
+      "type": "string",
+      "description": "Markdown list of actions for the human: where to save the snapshot, which files to create/update."
+    }
+  }
+}
+

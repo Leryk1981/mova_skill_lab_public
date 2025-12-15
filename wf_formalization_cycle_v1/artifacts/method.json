@@ -1,0 +1,61 @@
+{
+  "id": "method.wf_formalization.v1",
+  "type": "method",
+  "version": "1.0.0",
+  "pack_id": "wf_formalization_cycle_v1::f9153e2d-5627-4d67-a20b-040b57845b3c",
+  "objective": {
+    "title": "Formalize workflow with measurable executability and verifiability",
+    "success_metrics": [
+      {
+        "name": "E",
+        "target": 0.8,
+        "phase": "prototype"
+      },
+      {
+        "name": "V",
+        "target": 0.9,
+        "phase": "prototype"
+      },
+      {
+        "name": "E",
+        "target": 0.95,
+        "phase": "production"
+      },
+      {
+        "name": "V",
+        "target": 1.0,
+        "phase": "production"
+      }
+    ]
+  },
+  "selection_rules": [
+    {
+      "when": {
+        "context.risk_class": "safety_critical"
+      },
+      "choose_procedure_id": "procedure.topdown.v1"
+    },
+    {
+      "when": {
+        "context.mode": "reverse_engineering"
+      },
+      "choose_procedure_id": "procedure.bottomup.v1"
+    },
+    {
+      "when": {
+        "default": true
+      },
+      "choose_procedure_id": "procedure.spiral.v1"
+    }
+  ],
+  "references": {
+    "anchors": [
+      "Boehm1988Spiral",
+      "Aalst2011ProcessMining",
+      "Nonaka1994SECI",
+      "ChikofskyCross1990Reverse",
+      "INCOSE2015SEH",
+      "OMGBPMN2011"
+    ]
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.skill_registry_v1.schema.json",
+  "title": "MOVA Skills Registry v1",
+  "description": "Registry of MOVA skills and their runtime bindings in the Skills Lab.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "registry_id",
+    "mova_core_version",
+    "skills"
+  ],
+  "properties": {
+    "registry_id": {
+      "type": "string",
+      "description": "Identifier of this registry instance."
+    },
+    "mova_core_version": {
+      "type": "string",
+      "description": "Version of the MOVA core this registry is built against."
+    },
+    "skills": {
+      "type": "array",
+      "description": "List of skills registered in the lab.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "skill_id",
+          "manifest_path"
+        ],
+        "properties": {
+          "skill_id": {
+            "type": "string",
+            "description": "Id of the skill (e.g. `skill.mova_template`)."
+          },
+          "manifest_path": {
+            "type": "string",
+            "description": "Path to the manifest file of the skill."
+          },
+          "state": {
+            "type": "string",
+            "description": "Lifecycle state of the skill (from global states).",
+            "enum": [
+              "draft",
+              "planned",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled",
+              "archived"
+            ]
+          },
+          "bindings": {
+            "type": "array",
+            "description": "Runtime bindings associated with this skill.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "binding_id",
+                "runtime_type",
+                "binding_path"
+              ],
+              "properties": {
+                "binding_id": {
+                  "type": "string",
+                  "description": "Id of the binding, as defined in the binding document."
+                },
+                "runtime_type": {
+                  "type": "string",
+                  "description": "Type of runtime for this binding.",
+                  "enum": [
+                    "local_script",
+                    "mcp",
+                    "cloudflare_worker",
+                    "claude_skill",
+                    "gemini_agent",
+                    "other"
+                  ]
+                },
+                "binding_path": {
+                  "type": "string",
+                  "description": "Path to the binding JSON file."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Optional metadata about this registry (environment, notes, etc.).",
+      "additionalProperties": true
+    }
+  }
+}
+

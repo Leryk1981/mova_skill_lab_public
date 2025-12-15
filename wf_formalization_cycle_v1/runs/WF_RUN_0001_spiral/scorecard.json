@@ -1,0 +1,10 @@
+{
+  "profile": "template",
+  "score": 0.0,
+  "gates": {
+    "META_present": true,
+    "METRICS_CALC_present": true,
+    "metrics_json_equals_METRICS_CALC": true
+  },
+  "notes": "Template values; in real runs compute deterministically and sync metrics.json + final METRICS_CALC."
+}

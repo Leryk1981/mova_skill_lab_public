@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/core/mova/ds/ds.file_cleanup_plan_v1.schema.json",
+  "title": "File Cleanup Plan v1",
+  "description": "Plan of actions for cleanup derived from a snapshot (no execution here).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mova_version",
+    "plan_id",
+    "snapshot_id",
+    "generated_at",
+    "items",
+    "summary"
+  ],
+  "properties": {
+    "mova_version": {
+      "type": "string",
+      "const": "4.0.0",
+      "description": "MOVA core version targeted by this schema."
+    },
+    "plan_id": {
+      "type": "string",
+      "description": "Identifier of this plan."
+    },
+    "snapshot_id": {
+      "type": "string",
+      "description": "Identifier of the snapshot used to create this plan."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the plan was generated."
+    },
+    "strategy": {
+      "type": "string",
+      "description": "Human description of strategy applied."
+    },
+    "items": {
+      "type": "array",
+      "description": "Planned actions for each path.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "action",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path to act upon."
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "keep",
+              "delete",
+              "archive",
+              "ask"
+            ],
+            "description": "Proposed action."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Short explanation for the action."
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "description": "Aggregated counts and estimates.",
+      "additionalProperties": false,
+      "required": [
+        "files_to_delete",
+        "files_to_archive",
+        "files_to_keep",
+        "estimated_bytes_freed"
+      ],
+      "properties": {
+        "files_to_delete": {
+          "type": "integer",
+          "description": "Count of files planned for deletion."
+        },
+        "files_to_archive": {
+          "type": "integer",
+          "description": "Count of files planned for archiving."
+        },
+        "files_to_keep": {
+          "type": "integer",
+          "description": "Count of files explicitly kept."
+        },
+        "estimated_bytes_freed": {
+          "type": "number",
+          "description": "Estimated bytes that would be freed."
+        }
+      }
+    }
+  }
+}

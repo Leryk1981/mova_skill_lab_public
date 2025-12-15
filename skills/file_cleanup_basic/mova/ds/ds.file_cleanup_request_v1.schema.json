@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.file_cleanup_request_v1.schema.json",
+  "title": "File Cleanup Request v1",
+  "description": "Request for generating a cleanup plan for a single disk or partition based on a snapshot of its structure.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "disk_label",
+    "disk_snapshot"
+  ],
+  "properties": {
+    "disk_label": {
+      "type": "string",
+      "description": "Label or identifier of the disk/partition (e.g., 'D:', 'C:', '/home')."
+    },
+    "disk_metrics": {
+      "type": "object",
+      "description": "Overall disk metrics.",
+      "properties": {
+        "total_size_gb": {
+          "type": "number",
+          "description": "Total disk size in GB."
+        },
+        "used_size_gb": {
+          "type": "number",
+          "description": "Used space in GB."
+        },
+        "free_size_gb": {
+          "type": "number",
+          "description": "Free space in GB."
+        }
+      }
+    },
+    "disk_snapshot": {
+      "type": "string",
+      "description": "Text dump of the folder structure with approximate sizes (e.g., output from 'tree', 'du', or similar tools)."
+    },
+    "folder_summaries": {
+      "type": "array",
+      "description": "Optional grouped summaries (e.g., top N largest folders, file type statistics).",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "user_preferences": {
+      "type": "object",
+      "description": "User preferences and constraints for the cleanup.",
+      "properties": {
+        "target_free_space_gb": {
+          "type": "number",
+          "description": "How much free space the user wants to reclaim (in GB)."
+        },
+        "must_not_delete": {
+          "type": "array",
+          "description": "List of paths or patterns that must never be deleted (e.g., ['Projects', 'Photos', 'Documents']).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "risk_tolerance": {
+          "type": "string",
+          "enum": ["conservative", "moderate", "aggressive"],
+          "description": "Risk tolerance level: conservative (only obvious junk), moderate (some optional deletions), aggressive (more aggressive cleanup).",
+          "default": "conservative"
+        },
+        "known_junk_areas": {
+          "type": "array",
+          "description": "Optional list of known junk areas or patterns (e.g., ['Temp', 'Cache', '*.tmp']).",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes or context about the disk or cleanup goals."
+    }
+  }
+}
+

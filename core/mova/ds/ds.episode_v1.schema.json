@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/ds.episode_v1.schema.json",
+  "title": "MOVA Episode v1",
+  "description": "Shared execution episode format for the MOVA Skills Lab.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "episode_id",
+    "envelope_id",
+    "status",
+    "actor",
+    "started_at"
+  ],
+  "properties": {
+    "episode_id": {
+      "type": "string",
+      "description": "Stable identifier of this episode (unique within the lab)."
+    },
+    "skill_id": {
+      "type": "string",
+      "description": "Optional id of the skill that owns this episode (e.g. `skill.file_cleanup`)."
+    },
+    "envelope_id": {
+      "type": "string",
+      "description": "Id of the envelope that was executed (e.g. `env.file_scan_v1`)."
+    },
+    "envelope_version": {
+      "type": "string",
+      "description": "Version tag of the envelope/schema, if relevant."
+    },
+    "status": {
+      "type": "string",
+      "description": "Final status of the episode.",
+      "enum": [
+        "planned",
+        "running",
+        "succeeded",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "actor": {
+      "type": "object",
+      "description": "Who actually executed the envelope.",
+      "additionalProperties": false,
+      "required": [
+        "role"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "description": "Role name from the global vocabulary (e.g. `human`, `agent`, `tool`)."
+        },
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Optional id of the actor (user id, agent id, tool name, etc.)."
+        }
+      }
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When execution of this episode started."
+    },
+    "finished_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time",
+      "description": "When execution finished (null if still running or not started)."
+    },
+    "input": {
+      "type": "object",
+      "description": "Input payload for the envelope. Shape is defined by the envelope schema.",
+      "additionalProperties": true
+    },
+    "output": {
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "Successful output payload, if any.",
+          "additionalProperties": true
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "error": {
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "Error information when `status = failed`.",
+          "additionalProperties": false,
+          "required": [
+            "message"
+          ],
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string",
+              "description": "Optional error code."
+            },
+            "details": {
+              "type": "object",
+              "description": "Optional structured error details.",
+              "additionalProperties": true
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "meta": {
+      "type": "object",
+      "description": "Free-form metadata about this episode (tags, environment, etc.).",
+      "additionalProperties": true
+    }
+  }
+}
+

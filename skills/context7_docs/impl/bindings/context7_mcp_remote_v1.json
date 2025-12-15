@@ -1,0 +1,24 @@
+{
+  "binding_id": "binding.context7_docs.mcp_remote_v1",
+  "skill_id": "skill.context7_docs",
+  "runtime_type": "mcp",
+  "entrypoint": {
+    "mcp_server": "context7",
+    "url": "https://mcp.context7.com/mcp",
+    "headers": {
+      "CONTEXT7_API_KEY": "YOUR_API_KEY"
+    },
+    "mcp_tool": "get-library-docs"
+  },
+  "verbs": [
+    "transform"
+  ],
+  "meta": {
+    "note": "Remote MCP binding to the official Context7 server. Uses get-library-docs; resolve-library-id may be added later.",
+    "environment": "dev",
+    "docs": "https://github.com/upstash/context7"
+  },
+  "created_at": "2025-12-03T10:40:00Z",
+  "updated_at": "2025-12-03T10:40:00Z"
+}
+

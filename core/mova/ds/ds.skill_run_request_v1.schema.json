@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/schemas/core/mova/ds/ds.skill_run_request_v1.schema.json",
+  "title": "Skill Run Request v1",
+  "description": "Control-plane request to run a skill with a given binding and envelope.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "skill_id"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "description": "Client-generated identifier of this run request."
+    },
+    "skill_id": {
+      "type": "string",
+      "description": "Id of the skill to run, e.g. 'skill.context7_docs'."
+    },
+    "binding_id": {
+      "type": "string",
+      "description": "Optional id of the runtime binding to use. If omitted, a default binding may be chosen."
+    },
+    "respect_episode_policy": {
+      "type": "boolean",
+      "description": "Whether the runner should respect the skill's episode_policy.",
+      "default": true
+    },
+    "force_episode_mode": {
+      "type": "string",
+      "description": "Optional override for episode recording mode, ignoring episode_policy if provided.",
+      "enum": ["none", "on_error", "sampled", "full"]
+    },
+    "envelope": {
+      "type": "object",
+      "description": "Optional envelope (env.*) instance that the skill is expected to execute.",
+      "additionalProperties": true
+    },
+    "meta": {
+      "type": "object",
+      "description": "Additional metadata for the runner (e.g. caller, environment, tags).",
+      "additionalProperties": true
+    }
+  }
+}
+

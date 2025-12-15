@@ -1,0 +1,27 @@
+{
+  "episode_id": "episode_2025-12-10_WF_LAB_02_lab_workflow_examples",
+  "skill_id": "skill.mova_check_basic",
+  "envelope_id": "env.mova_check_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_cli"
+  },
+  "started_at": "2025-12-10T10:20:00Z",
+  "finished_at": "2025-12-10T10:23:00Z",
+  "input": {
+    "$ref": "lab/examples/env.mova_check_run_v1.WF_LAB_02_lab_workflow_examples.json"
+  },
+  "output": {
+    "$ref": "lab/skill_runs/mova_check_basic.WF_LAB_02_lab_workflow_examples_result.json"
+  },
+  "error": null,
+  "meta": {
+    "labels": [
+      "lab_workflow",
+      "WF_LAB_02",
+      "WF_EX_001"
+    ],
+    "note": "Local AJV validation run for WF-EX-001 lab workflow artifacts."
+  }
+}

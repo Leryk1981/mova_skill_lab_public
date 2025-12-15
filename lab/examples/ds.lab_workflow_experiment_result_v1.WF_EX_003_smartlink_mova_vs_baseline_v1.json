@@ -1,0 +1,56 @@
+{
+  "experiment_id": "WF_EX_003_smartlink_mova_vs_baseline_v1",
+  "summary": "Comparison of baseline SmartLink Schemas vs MOVA SmartLink pack (WF_LAB_08) based on structure, clarity, runtime readiness, and extensibility.",
+  "variants": [
+    {
+      "procedure_id": "WF_EX_003_baseline_smartlink_schemas",
+      "agent_id": "baseline_schemas",
+      "profile_id": "smartlink_baseline_schemas_v1",
+      "runs_count": 1,
+      "metrics": [
+        { "metric_id": "workflow_coverage", "value": 0.9, "unit": "score_0_1" },
+        { "metric_id": "clarity_for_operator", "value": 0.75, "unit": "score_0_1" },
+        { "metric_id": "runtime_readiness", "value": 0.85, "unit": "score_0_1" },
+        { "metric_id": "evolution_flexibility", "value": 0.65, "unit": "score_0_1" }
+      ],
+      "pros": [
+        "End-to-end intent captured: normalization, evaluation, redirect, observability event.",
+        "Operational resources (KV, worker, queue) and roles explicitly listed."
+      ],
+      "cons": [
+        "Tightly coupled to a specific stack/plugins; less portable.",
+        "Observability event not formalized as a data schema."
+      ]
+    },
+    {
+      "procedure_id": "WF_EX_003_candidate_smartlink_mova_pack",
+      "agent_id": "candidate_mova_pack",
+      "profile_id": "smartlink_mova_pack_v1",
+      "runs_count": 1,
+      "metrics": [
+        { "metric_id": "workflow_coverage", "value": 0.75, "unit": "score_0_1" },
+        { "metric_id": "clarity_for_operator", "value": 0.8, "unit": "score_0_1" },
+        { "metric_id": "runtime_readiness", "value": 0.6, "unit": "score_0_1" },
+        { "metric_id": "evolution_flexibility", "value": 0.7, "unit": "score_0_1" }
+      ],
+      "pros": [
+        "Runtime-agnostic, clean lab-layer schemas with clear context fields and fallback handling.",
+        "Pack/meta/global structure is easy to extend and reason about."
+      ],
+      "cons": [
+        "Missing explicit observability/click event schema and routing decision output.",
+        "No normalization/decision step description; less ready for immediate runtime wiring."
+      ]
+    }
+  ],
+  "recommended_procedure_id": "WF_EX_003_baseline_smartlink_schemas",
+  "notes": [
+    "Baseline remains recommended until MOVA pack gains observability hooks and clearer normalization/decision representation.",
+    "MOVA pack is close for clarity/extensibility; adding event schema and decision/output contract should close the gap.",
+    "Metrics are qualitative scores (0-1) from comparative analysis run_01."
+  ],
+  "meta": {
+    "labels": ["WF_EX_003", "smartlink", "schema_comparison"]
+  },
+  "ext": {}
+}
