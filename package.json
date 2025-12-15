@@ -18,5 +18,10 @@
   "devDependencies": {
     "ajv": "^8.17.0",
     "ajv-formats": "^3.0.1"
+  },
+  "packageManager": "npm@11.6.2",
+  "engines": {
+    "node": ">=22.16.0 <23",
+    "npm": ">=11.6.2 <12"
   }
 }
