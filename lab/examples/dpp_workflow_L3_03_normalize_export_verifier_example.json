@@ -1,0 +1,35 @@
+{
+  "workflow_id": "dpp_lab_L3_03_normalize_export_verifier_example_01",
+  "meta": {
+    "domain": "dpp_lab",
+    "labels": [
+      "L3_03",
+      "normalize_export_verifier_workflow"
+    ]
+  },
+  "description": "End-to-end flow for a single battery passport: normalize input → export GS1 EPCIS → verifier reads passport.",
+  "steps": [
+    {
+      "step_id": "1",
+      "name": "Normalize manufacturer input to lab extended passport",
+      "kind": "normalize",
+      "skill_id": "skill.dpp_passport_normalize_basic",
+      "request_ref": "lab/skill_runs/dpp_passport_normalize_basic.L3_02_dpp_passport_normalize_run_request.json",
+      "result_ref": "lab/skill_runs/dpp_passport_normalize_basic.L3_02_dpp_passport_normalize_result.json"
+    },
+    {
+      "step_id": "2",
+      "name": "Export normalized passport to GS1 EPCIS format",
+      "kind": "export",
+      "envelope_id": "env.dpp_export_v1",
+      "envelope_ref": "lab/examples/env.dpp_export_v1.dpp_lab.from_normalize_example.json"
+    },
+    {
+      "step_id": "3",
+      "name": "Verifier reads the passport (verifier view)",
+      "kind": "read",
+      "envelope_id": "env.dpp_passport_read_v1",
+      "envelope_ref": "lab/examples/env.dpp_passport_read_v1.dpp_lab.verifier_from_normalize_example.json"
+    }
+  ]
+}

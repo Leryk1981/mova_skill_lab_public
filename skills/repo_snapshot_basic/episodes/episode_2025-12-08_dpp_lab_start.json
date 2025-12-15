@@ -1,0 +1,43 @@
+{
+  "episode_id": "episode_2025-12-08_dpp_lab_start",
+  "skill_id": "skill.repo_snapshot_basic",
+  "envelope_id": "env.repo_snapshot_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_vscode_main"
+  },
+  "started_at": "2025-12-08T10:00:00Z",
+  "finished_at": "2025-12-08T10:02:00Z",
+  "input": {
+    "envelope_id": "env.repo_snapshot_run_v1",
+    "verb": "transform",
+    "resource": "note",
+    "input": {
+      "repo_name": "mova_skills_lab",
+      "repo_kind": "mova_lab",
+      "preferred_language": "uk",
+      "raw_repo_tree": "mova_skills_lab/\\n├── core/mova/{00_MANIFEST.json, ds/, env/, episodes/, global/, specs/}\\n├── docs/{00_INDEX.md, 01_MOVA_CONSTITUTION.md, 02_LAYERS_RED_YELLOW_GREEN.md, 03_GLOBAL_VOCABULARY.md, 04_ENVELOPE_SPEC.md, 05_SCHEMA_SPEC.md, 06_EPISODES_GENETIC_LAYER.md, 07_RUNTIME_AND_ADAPTERS.md, 08_CONTEXT7_MCP_PROFILE.md, 09_IDE_AGENT_PROFILE.md, 10_SKILLS_OVERVIEW.md, 20_SKILLS_LAB_MANIFEST.md, 21_CALL_ENVELOPE_PRIMITIVE.md, 30_FILE_CLEANUP_RECIPE.md, dpp_tz.md, dpp_roadmup.md, PROJECT_MEMORY/...}\\n├── lab/{skills_registry_v1.json, examples/, generated/bootstrap/, skill_runs/, tmp/skill_seeker/, tools/}\\n├── skills/{code_exec_task_basic, connector_scaffolder_basic, context7_docs, file_cleanup_basic, mova_lab_operator, mova_template, repo_code_change_plan_basic, repo_snapshot_basic, runtime_binding_code_scaffolder_basic, skill_file_cleanup_plan_node_basic, skill_file_cleanup_snapshot_node_basic, skill_ingest_run_with_skillseeker_basic, skill_ingest_store_episode_basic, skill_mova_ai_bootstrap_generate_basic, skill_scaffolder_basic}\\n├── spec/mova-4.1.0-draft/{docs/, examples/, schemas/, tools/, package.json}\\n├── tools/{validate_lab.js, run_skill_plan.js, record_episode.js, README.md}\\n├── package.json\\n├── package-lock.json\\n└── .gitignore",
+      "raw_readme": "MOVA Skills Lab — лабораторія контрактів та скілів для MOVA 4.0.0. Жовтий шар містить інфраструктурні та службові скіли, зелений шар — registry, приклади запусків та утиліти, червоний — канонічні ds/env та словники. Виконання скілів делегується зовнішнім рантаймам, контракт-first підхід.",
+      "raw_notes_from_user": "Зробити снапшот перед початком DPP Base Pack у гілці feature/dpp-base-pack-v0.1. У репо доданий драфт MOVA 4.1.0 (spec/mova-4.1.0-draft) — використовувати як довідку, не як офіційний валідатор.",
+      "snapshot_purpose": "dpp_lab_start"
+    },
+    "meta": {
+      "root_path": "D:\\\\Projects_Clean\\\\mova_skills_lab",
+      "labels": [
+        "mova_skills_lab",
+        "dpp_lab_start"
+      ]
+    }
+  },
+  "output": {
+    "snapshot_path": "docs/PROJECT_MEMORY/PROJECT_SNAPSHOT_2025-12-08_mova_skills_lab_dpp_lab_start.json",
+    "global_memory_md": "- **Гілка**: feature/dpp-base-pack-v0.1; стартовий снапшот перед DPP роботою.\\n- **Спека**: офіційно MOVA 4.0.0 (core/mova), довідково — spec/mova-4.1.0-draft.\\n- **Шари**: core/mova (словники + ds/env), skills/ (інфраструктурні та службові скіли), lab/ (registry, приклади, інструменти).\\n- **Інструменти**: run_skill_plan.js, record_episode.js; валідація через npm run validate.\\n- **DPP примітка**: нові перевірки робити як підказки, не ломаючи 4.0.0 контракти.",
+    "checklist_for_human": "- [ ] Додати цей snapshot у docs/PROJECT_MEMORY/00_INDEX.md та, за потреби, у docs/00_INDEX.md.\\n- [ ] Поділитися snapshot та global memory з командою DPP як базовий контекст.\\n- [ ] Тримати spec/mova-4.1.0-draft у режимі довідки (без жорсткої валідації) під час майбутніх змін."
+  },
+  "meta": {
+    "domain": "dpp_lab",
+    "request_ref": "lab/skill_runs/repo_snapshot_dpp_start_request.json",
+    "snapshot_ref": "docs/PROJECT_MEMORY/PROJECT_SNAPSHOT_2025-12-08_mova_skills_lab_dpp_lab_start.json"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "episode_id": "episode_2025-12-09_dpp_lab_L2_02_dpp_export_envelope",
+  "skill_id": "skill.repo_code_change_plan_basic",
+  "envelope_id": "env.repo_change_plan_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_vscode_main"
+  },
+  "started_at": "2025-12-09T09:00:00Z",
+  "finished_at": "2025-12-09T09:00:00Z",
+  "input": {
+    "request_ref": "lab/examples/env.repo_change_plan_run_v1.dpp_lab.L2_02_dpp_export_envelope.json",
+    "run_ref": "lab/skill_runs/repo_code_change_plan.dpp_lab.L2_02_dpp_export_envelope.json"
+  },
+  "output": {
+    "plan_notes": "Plan for L2_02 to add env.dpp_export_v1 envelope, GS1 EPCIS example, mova_check run, snapshot, and memory refresh."
+  },
+  "meta": {
+    "domain": "dpp_lab",
+    "labels": [
+      "dpp_lab",
+      "L2_02",
+      "dpp_export_envelope"
+    ]
+  }
+}

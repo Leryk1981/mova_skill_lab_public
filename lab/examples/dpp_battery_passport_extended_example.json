@@ -1,0 +1,37 @@
+{
+  "$schema": "https://mova.dev/lab/schemas/ds.lab_battery_passport_extended_v1.schema.json",
+  "battery_id": "BAT-2025-EXT-001",
+  "manufacturer_name": "Example Battery GmbH",
+  "manufacturing_date": "2025-03-15",
+  "manufacturing_location": "Berlin, DE",
+  "carbon_footprint": {
+    "value_kg_co2e": 92.4,
+    "method": "CFF_v1.2_cradle_to_gate",
+    "verification_status": "third_party_verified"
+  },
+  "materials": {
+    "cobalt": {
+      "source": "Kamoto Mine, DRC",
+      "recycled_pct": 10.5,
+      "traceability": {
+        "known_pct": 18.0,
+        "unknown_pct": 82.0,
+        "method": "mass_balance",
+        "confidence": 0.72,
+        "notes": "Traceability coverage based on supplier declarations for Q1 2025."
+      }
+    }
+  },
+  "external_sources": [
+    {
+      "system": "SAP",
+      "source_id": "CO2_BALANCE_2025_Q1",
+      "import_time": "2025-12-08T09:00:00Z",
+      "record_count": 58,
+      "notes": "SAP table export used for carbon footprint and material sourcing."
+    }
+  ],
+  "regulation_tags": [
+    "EU_BATTERY_REG_2023.Annex_XIII.3b"
+  ]
+}

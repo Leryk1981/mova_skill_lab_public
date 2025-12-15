@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mova.dev/lab/schemas/ds.dpp_passport_normalize_input_v1.schema.json",
+  "title": "DPP Passport Normalize Input (lab)",
+  "description": "Input data for normalizing a single battery passport into the lab extended form. V1 mirrors ds.lab_battery_passport_extended_v1 so the engine can start as a near-identity transform.",
+  "type": "object",
+  "properties": {
+    "passport_id": {
+      "type": "string"
+    },
+    "manufacturer_name": {
+      "type": "string"
+    },
+    "manufacturing_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "manufacturing_location": {
+      "type": "string"
+    },
+    "carbon_footprint": {
+      "type": "object",
+      "properties": {
+        "value_kg_co2e": {
+          "type": "number"
+        },
+        "method": {
+          "type": "string"
+        },
+        "verification_status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value_kg_co2e",
+        "method",
+        "verification_status"
+      ],
+      "additionalProperties": false
+    },
+    "materials": {
+      "type": "object",
+      "properties": {
+        "cobalt": {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string"
+            },
+            "recycled_pct": {
+              "type": "number"
+            },
+            "traceability": {
+              "$ref": "https://mova.dev/lab/schemas/ds.lab_traceability_summary_v1.schema.json"
+            }
+          },
+          "required": [
+            "source",
+            "traceability"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "cobalt"
+      ],
+      "additionalProperties": false
+    },
+    "external_sources": {
+      "type": "array",
+      "items": {
+        "$ref": "https://mova.dev/lab/schemas/ds.lab_external_source_ref_v1.schema.json"
+      }
+    },
+    "regulation_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Free-form tags like 'EU_BATTERY_REG_2023.Annex_XIII.3b'."
+    }
+  },
+  "required": [
+    "passport_id",
+    "manufacturer_name",
+    "manufacturing_date",
+    "manufacturing_location",
+    "carbon_footprint",
+    "materials"
+  ],
+  "additionalProperties": false
+}

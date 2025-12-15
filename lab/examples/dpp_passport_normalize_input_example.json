@@ -1,0 +1,37 @@
+{
+  "$schema": "https://mova.dev/lab/schemas/ds.dpp_passport_normalize_input_v1.schema.json",
+  "passport_id": "BAT-2025-NORM-001",
+  "manufacturer_name": "Berlin Batteries GmbH",
+  "manufacturing_date": "2025-03-15",
+  "manufacturing_location": "Berlin, DE",
+  "carbon_footprint": {
+    "value_kg_co2e": 123.4,
+    "method": "CFF_v1.2_cradle_to_gate",
+    "verification_status": "third_party_verified"
+  },
+  "materials": {
+    "cobalt": {
+      "source": "Kamoto Mine, DRC",
+      "recycled_pct": 15,
+      "traceability": {
+        "known_pct": 80,
+        "unknown_pct": 20,
+        "method": "supplier_declarations_v1",
+        "confidence": 0.7,
+        "notes": "Supplier declarations for Q1 2025."
+      }
+    }
+  },
+  "external_sources": [
+    {
+      "system": "SAP",
+      "source_id": "CO2_BALANCE_2025_Q1",
+      "import_time": "2025-12-09T08:30:00Z",
+      "record_count": 120,
+      "notes": "Quarterly CO2 balance for Li-ion battery line (exported from SAP)."
+    }
+  ],
+  "regulation_tags": [
+    "EU_BATTERY_REG_2023.Annex_XIII.3b"
+  ]
+}

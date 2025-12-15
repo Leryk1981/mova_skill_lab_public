@@ -1,0 +1,27 @@
+{
+  "episode_id": "episode_2025-12-09_dpp_lab_L3_02_dpp_passport_normalize_basic",
+  "skill_id": "skill.dpp_passport_normalize_basic",
+  "envelope_id": "env.dpp_passport_normalize_run_v1",
+  "status": "succeeded",
+  "actor": {
+    "role": "agent",
+    "id": "codex_vscode_main"
+  },
+  "started_at": "2025-12-09T13:10:00Z",
+  "finished_at": "2025-12-09T13:10:00Z",
+  "input": {
+    "request_ref": "lab/skill_runs/dpp_passport_normalize_basic.L3_02_dpp_passport_normalize_run_request.json",
+    "envelope_ref": "lab/examples/env.dpp_passport_normalize_run_v1.dpp_lab.example.json"
+  },
+  "output": {
+    "result_ref": "lab/skill_runs/dpp_passport_normalize_basic.L3_02_dpp_passport_normalize_result.json"
+  },
+  "meta": {
+    "domain": "dpp_lab",
+    "labels": [
+      "dpp_lab",
+      "L3_02",
+      "dpp_passport_normalize_basic"
+    ]
+  }
+}
