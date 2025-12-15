@@ -69,6 +69,7 @@ function persistDatabase(db) {
 }
 
 function ensureSchema(db) {
+  // Create tables if they don't exist
   db.exec(
     `
     CREATE TABLE IF NOT EXISTS episodes (
@@ -89,9 +90,29 @@ function ensureSchema(db) {
       summary TEXT,
       ref_path TEXT
     );
+  `
+  );
+  
+  // Add search_text column if it doesn't exist (migration)
+  try {
+    db.exec("ALTER TABLE episodes ADD COLUMN search_text TEXT");
+  } catch (err) {
+    // Column already exists, ignore
+  }
+  try {
+    db.exec("ALTER TABLE decisions ADD COLUMN search_text TEXT");
+  } catch (err) {
+    // Column already exists, ignore
+  }
+  
+  // Create indexes
+  db.exec(
+    `
     CREATE INDEX IF NOT EXISTS idx_episodes_ts ON episodes(ts);
     CREATE INDEX IF NOT EXISTS idx_episodes_skill ON episodes(skill_id);
+    CREATE INDEX IF NOT EXISTS idx_episodes_search ON episodes(search_text);
     CREATE INDEX IF NOT EXISTS idx_decisions_ts ON decisions(ts);
+    CREATE INDEX IF NOT EXISTS idx_decisions_search ON decisions(search_text);
   `
   );
 }
@@ -243,6 +264,36 @@ function deriveTags(payload) {
   return null;
 }
 
+function deriveEnvelopeId(payload) {
+  return (
+    payload?.envelope_id ||
+    payload?.envelopeId ||
+    resolvePathValue(payload, "meta.envelope_id") ||
+    null
+  );
+}
+
+function deriveEnvelopeType(payload) {
+  return (
+    payload?.envelope_type ||
+    payload?.envelopeType ||
+    resolvePathValue(payload, "meta.envelope_type") ||
+    null
+  );
+}
+
+function buildSearchText(record) {
+  const parts = [];
+  if (record.skill_id) parts.push(record.skill_id);
+  const envelopeId = deriveEnvelopeId(record.data);
+  if (envelopeId) parts.push(envelopeId);
+  const envelopeType = deriveEnvelopeType(record.data);
+  if (envelopeType) parts.push(envelopeType);
+  if (record.tags) parts.push(record.tags);
+  if (record.ref_path) parts.push(record.ref_path);
+  return parts.join(" ").toLowerCase();
+}
+
 function computeId(payload, relPath, stats) {
   if (typeof payload?.id === "string" && payload.id.trim()) return payload.id.trim();
   if (typeof payload?.episode_id === "string" && payload.episode_id.trim()) {
@@ -257,13 +308,38 @@ function computeId(payload, relPath, stats) {
 }
 
 function buildEpisodes() {
-  const skillsDir = path.join(repoRoot, "skills");
-  if (!fs.existsSync(skillsDir)) return [];
   const episodes = [];
-  const skillDirs = fs.readdirSync(skillsDir, { withFileTypes: true }).filter((d) => d.isDirectory());
-  for (const skill of skillDirs) {
-    const epDir = path.join(skillsDir, skill.name, "episodes");
-    const files = collectJsonFiles(epDir);
+  
+  // Source 1: skills/**/episodes/**/*.json
+  const skillsDir = path.join(repoRoot, "skills");
+  if (fs.existsSync(skillsDir)) {
+    const skillDirs = fs.readdirSync(skillsDir, { withFileTypes: true }).filter((d) => d.isDirectory());
+    for (const skill of skillDirs) {
+      const epDir = path.join(skillsDir, skill.name, "episodes");
+      const files = collectJsonFiles(epDir);
+      for (const filePath of files) {
+        const payload = safeParseJson(filePath);
+        if (!payload) continue;
+        const relPath = toPosix(path.relative(repoRoot, filePath));
+        const stats = readStat(filePath);
+        episodes.push({
+          type: "episode",
+          relPath,
+          data: payload,
+          stats,
+          source: "skills"
+        });
+      }
+    }
+  }
+  
+  // Source 2: lab/experiments/**/episodes/**/*.json
+  const experimentsDir = path.join(repoRoot, "lab", "experiments");
+  if (fs.existsSync(experimentsDir)) {
+    const files = collectJsonFiles(experimentsDir).filter((filePath) => {
+      const relPath = toPosix(path.relative(repoRoot, filePath));
+      return relPath.includes("/episodes/") && relPath.endsWith(".json");
+    });
     for (const filePath of files) {
       const payload = safeParseJson(filePath);
       if (!payload) continue;
@@ -273,10 +349,34 @@ function buildEpisodes() {
         type: "episode",
         relPath,
         data: payload,
-        stats
+        stats,
+        source: "experiments"
       });
     }
   }
+  
+  // Source 3: lab/skill_runs/**/episode*.json
+  const skillRunsDir = path.join(repoRoot, "lab", "skill_runs");
+  if (fs.existsSync(skillRunsDir)) {
+    const files = collectJsonFiles(skillRunsDir).filter((filePath) => {
+      const fileName = path.basename(filePath).toLowerCase();
+      return fileName.startsWith("episode") && fileName.endsWith(".json");
+    });
+    for (const filePath of files) {
+      const payload = safeParseJson(filePath);
+      if (!payload) continue;
+      const relPath = toPosix(path.relative(repoRoot, filePath));
+      const stats = readStat(filePath);
+      episodes.push({
+        type: "episode",
+        relPath,
+        data: payload,
+        stats,
+        source: "skill_runs"
+      });
+    }
+  }
+  
   return episodes;
 }
 
@@ -297,7 +397,7 @@ function buildDecisions() {
 
 function mapRecord(entry) {
   const { data, relPath, stats, type } = entry;
-  return {
+  const record = {
     id: computeId(data, relPath, stats),
     ts: deriveTimestamp(data, stats),
     skill_id: type === "episode" ? deriveSkillId(relPath, data) : data?.skill_id || null,
@@ -307,6 +407,8 @@ function mapRecord(entry) {
     ref_path: relPath,
     type
   };
+  record.search_text = buildSearchText({ ...record, data });
+  return record;
 }
 
 async function handleInit() {
@@ -326,64 +428,399 @@ async function handleImport() {
     return;
   }
   const db = await openDatabase();
-  const episodeEntries = buildEpisodes().map(mapRecord);
-  const decisionEntries = buildDecisions().map(mapRecord);
+  
+  // Collect raw entries with source tracking
+  const rawEpisodes = buildEpisodes();
+  const rawDecisions = buildDecisions();
+  
+  // Map to records
+  const episodeEntries = rawEpisodes.map(mapRecord);
+  const decisionEntries = rawDecisions.map(mapRecord);
+  
+  // Track statistics
+  const stats = {
+    episodes: {
+      found: rawEpisodes.length,
+      imported: 0,
+      skipped: 0,
+      errors: []
+    },
+    decisions: {
+      found: rawDecisions.length,
+      imported: 0,
+      skipped: 0,
+      errors: []
+    },
+    sources: {
+      skills: rawEpisodes.filter((e) => e.source === "skills").length,
+      experiments: rawEpisodes.filter((e) => e.source === "experiments").length,
+      skill_runs: rawEpisodes.filter((e) => e.source === "skill_runs").length
+    }
+  };
 
   const insertEpisode = db.prepare(
     `
-    INSERT INTO episodes (id, ts, skill_id, title, tags, summary, ref_path)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO episodes (id, ts, skill_id, title, tags, summary, ref_path, search_text)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
       ts=excluded.ts,
       skill_id=excluded.skill_id,
       title=excluded.title,
       tags=excluded.tags,
       summary=excluded.summary,
-      ref_path=excluded.ref_path;
+      ref_path=excluded.ref_path,
+      search_text=excluded.search_text;
   `
   );
   for (const record of episodeEntries) {
-    insertEpisode.run([
-      record.id,
-      record.ts,
-      record.skill_id || null,
-      record.title || null,
-      record.tags || null,
-      record.summary || null,
-      record.ref_path
-    ]);
+    try {
+      insertEpisode.run([
+        record.id,
+        record.ts,
+        record.skill_id || null,
+        record.title || null,
+        record.tags || null,
+        record.summary || null,
+        record.ref_path,
+        record.search_text || null
+      ]);
+      stats.episodes.imported++;
+    } catch (err) {
+      stats.episodes.skipped++;
+      stats.episodes.errors.push({ ref_path: record.ref_path, error: err.message });
+    }
   }
   insertEpisode.free();
 
   const insertDecision = db.prepare(
     `
-    INSERT INTO decisions (id, ts, skill_id, title, tags, summary, ref_path)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO decisions (id, ts, skill_id, title, tags, summary, ref_path, search_text)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
       ts=excluded.ts,
       skill_id=excluded.skill_id,
       title=excluded.title,
       tags=excluded.tags,
       summary=excluded.summary,
-      ref_path=excluded.ref_path;
+      ref_path=excluded.ref_path,
+      search_text=excluded.search_text;
   `
   );
   for (const record of decisionEntries) {
-    insertDecision.run([
-      record.id,
-      record.ts,
-      record.skill_id || null,
-      record.title || null,
-      record.tags || null,
-      record.summary || null,
-      record.ref_path
-    ]);
+    try {
+      insertDecision.run([
+        record.id,
+        record.ts,
+        record.skill_id || null,
+        record.title || null,
+        record.tags || null,
+        record.summary || null,
+        record.ref_path,
+        record.search_text || null
+      ]);
+      stats.decisions.imported++;
+    } catch (err) {
+      stats.decisions.skipped++;
+      stats.decisions.errors.push({ ref_path: record.ref_path, error: err.message });
+    }
   }
   insertDecision.free();
 
   persistDatabase(db);
+  
+  // Get final counts
+  const episodeCount = db.exec("SELECT COUNT(*) as count FROM episodes")[0]?.values[0]?.[0] || 0;
+  const decisionCount = db.exec("SELECT COUNT(*) as count FROM decisions")[0]?.values[0]?.[0] || 0;
+  
   db.close();
-  log(`Import complete: ${episodeEntries.length} episodes, ${decisionEntries.length} decisions indexed.`);
+  
+  log(`Import complete: ${stats.episodes.imported} episodes, ${stats.decisions.imported} decisions indexed.`);
+  log(`Sources: skills=${stats.sources.skills}, experiments=${stats.sources.experiments}, skill_runs=${stats.sources.skill_runs}`);
+  log(`Database totals: ${episodeCount} episodes, ${decisionCount} decisions.`);
+  
+  return stats;
+}
+
+async function handleStats() {
+  if (publicMirror) {
+    log("SKIP: public mirror does not host SQLite memory.");
+    return;
+  }
+
+  if (!fs.existsSync(sqlitePath)) {
+    log("SKIP: lab/memory/lab_memory.sqlite not initialized.");
+    return;
+  }
+
+  const db = await openDatabase();
+  
+  // Collect file statistics
+  const rawEpisodes = buildEpisodes();
+  const rawDecisions = buildDecisions();
+  
+  // Track detailed statistics
+  const stats = {
+    sources: {
+      skills: {
+        pattern: "skills/**/episodes/**/*.json",
+        found: 0,
+        parse_errors: 0,
+        imported: 0,
+        skipped: 0
+      },
+      experiments: {
+        pattern: "lab/experiments/**/episodes/**/*.json",
+        found: 0,
+        parse_errors: 0,
+        imported: 0,
+        skipped: 0
+      },
+      skill_runs: {
+        pattern: "lab/skill_runs/**/episode*.json",
+        found: 0,
+        parse_errors: 0,
+        imported: 0,
+        skipped: 0
+      }
+    },
+    episodes: {
+      found: rawEpisodes.length,
+      parse_errors: 0,
+      invalid_shape: 0,
+      duplicates: 0,
+      imported: 0,
+      skipped: 0,
+      errors: []
+    },
+    decisions: {
+      found: rawDecisions.length,
+      parse_errors: 0,
+      invalid_shape: 0,
+      duplicates: 0,
+      imported: 0,
+      skipped: 0,
+      errors: []
+    },
+    database: {
+      episodes: 0,
+      decisions: 0
+    }
+  };
+
+  // Count by source and parse errors
+  for (const ep of rawEpisodes) {
+    const source = ep.source || "unknown";
+    if (stats.sources[source]) {
+      stats.sources[source].found++;
+      if (!ep.data) {
+        stats.sources[source].parse_errors++;
+        stats.episodes.parse_errors++;
+      }
+    }
+  }
+  for (const dec of rawDecisions) {
+    if (!dec.data) {
+      stats.decisions.parse_errors++;
+    }
+  }
+
+  // Get existing IDs from database to detect duplicates
+  const existingEpisodeIds = new Set();
+  const existingEpisodeQuery = db.exec("SELECT id FROM episodes");
+  if (existingEpisodeQuery.length > 0 && existingEpisodeQuery[0].values) {
+    for (const row of existingEpisodeQuery[0].values) {
+      existingEpisodeIds.add(row[0]);
+    }
+  }
+
+  const existingDecisionIds = new Set();
+  const existingDecisionQuery = db.exec("SELECT id FROM decisions");
+  if (existingDecisionQuery.length > 0 && existingDecisionQuery[0].values) {
+    for (const row of existingDecisionQuery[0].values) {
+      existingDecisionIds.add(row[0]);
+    }
+  }
+
+  // Map to records and check for issues
+  const episodeEntries = [];
+  const seenEpisodeIds = new Set();
+  for (const ep of rawEpisodes) {
+    if (!ep.data) continue; // Already counted as parse error
+    
+    try {
+      const record = mapRecord(ep);
+      const source = ep.source || "unknown";
+      
+      // Check for duplicates
+      if (seenEpisodeIds.has(record.id)) {
+        stats.episodes.duplicates++;
+        stats.sources[source].skipped++;
+        stats.episodes.errors.push({
+          ref_path: record.ref_path,
+          reason: "duplicate_id",
+          id: record.id
+        });
+        continue;
+      }
+      
+      // Check if already in database
+      if (existingEpisodeIds.has(record.id)) {
+        stats.episodes.duplicates++;
+        stats.sources[source].skipped++;
+        continue;
+      }
+      
+      // Validate shape (basic check)
+      if (!record.id || !record.ref_path) {
+        stats.episodes.invalid_shape++;
+        stats.sources[source].skipped++;
+        stats.episodes.errors.push({
+          ref_path: ep.relPath,
+          reason: "invalid_shape",
+          missing: !record.id ? "id" : "ref_path"
+        });
+        continue;
+      }
+      
+      episodeEntries.push(record);
+      seenEpisodeIds.add(record.id);
+      stats.sources[source].imported++;
+    } catch (err) {
+      const source = ep.source || "unknown";
+      stats.episodes.invalid_shape++;
+      stats.sources[source].skipped++;
+      stats.episodes.errors.push({
+        ref_path: ep.relPath,
+        reason: "mapping_error",
+        error: err.message
+      });
+    }
+  }
+
+  const decisionEntries = [];
+  const seenDecisionIds = new Set();
+  for (const dec of rawDecisions) {
+    if (!dec.data) continue; // Already counted as parse error
+    
+    try {
+      const record = mapRecord(dec);
+      
+      // Check for duplicates
+      if (seenDecisionIds.has(record.id)) {
+        stats.decisions.duplicates++;
+        stats.decisions.errors.push({
+          ref_path: record.ref_path,
+          reason: "duplicate_id",
+          id: record.id
+        });
+        continue;
+      }
+      
+      // Check if already in database
+      if (existingDecisionIds.has(record.id)) {
+        stats.decisions.duplicates++;
+        continue;
+      }
+      
+      // Validate shape
+      if (!record.id || !record.ref_path) {
+        stats.decisions.invalid_shape++;
+        stats.decisions.errors.push({
+          ref_path: dec.relPath,
+          reason: "invalid_shape",
+          missing: !record.id ? "id" : "ref_path"
+        });
+        continue;
+      }
+      
+      decisionEntries.push(record);
+      seenDecisionIds.add(record.id);
+    } catch (err) {
+      stats.decisions.invalid_shape++;
+      stats.decisions.errors.push({
+        ref_path: dec.relPath,
+        reason: "mapping_error",
+        error: err.message
+      });
+    }
+  }
+
+  stats.episodes.imported = episodeEntries.length;
+  stats.episodes.skipped = stats.episodes.found - stats.episodes.imported - stats.episodes.parse_errors;
+  stats.decisions.imported = decisionEntries.length;
+  stats.decisions.skipped = stats.decisions.found - stats.decisions.imported - stats.decisions.parse_errors;
+
+  // Get database counts
+  const episodeCount = db.exec("SELECT COUNT(*) as count FROM episodes");
+  const decisionCount = db.exec("SELECT COUNT(*) as count FROM decisions");
+  stats.database.episodes = episodeCount[0]?.values[0]?.[0] || 0;
+  stats.database.decisions = decisionCount[0]?.values[0]?.[0] || 0;
+
+  db.close();
+
+  // Output statistics
+  log("=== SQLite Memory Statistics (Doctor Mode) ===");
+  log("");
+  log("Sources:");
+  log(`  ${stats.sources.skills.pattern}`);
+  log(`    Found: ${stats.sources.skills.found} files`);
+  log(`    Parse errors: ${stats.sources.skills.parse_errors}`);
+  log(`    Imported: ${stats.sources.skills.imported}`);
+  log(`    Skipped: ${stats.sources.skills.skipped}`);
+  log("");
+  log(`  ${stats.sources.experiments.pattern}`);
+  log(`    Found: ${stats.sources.experiments.found} files`);
+  log(`    Parse errors: ${stats.sources.experiments.parse_errors}`);
+  log(`    Imported: ${stats.sources.experiments.imported}`);
+  log(`    Skipped: ${stats.sources.experiments.skipped}`);
+  log("");
+  log(`  ${stats.sources.skill_runs.pattern}`);
+  log(`    Found: ${stats.sources.skill_runs.found} files`);
+  log(`    Parse errors: ${stats.sources.skill_runs.parse_errors}`);
+  log(`    Imported: ${stats.sources.skill_runs.imported}`);
+  log(`    Skipped: ${stats.sources.skill_runs.skipped}`);
+  log("");
+  log("Episodes:");
+  log(`  Found: ${stats.episodes.found}`);
+  log(`  Imported: ${stats.episodes.imported}`);
+  log(`  Skipped: ${stats.episodes.skipped}`);
+  log(`    - Parse errors: ${stats.episodes.parse_errors}`);
+  log(`    - Invalid shape: ${stats.episodes.invalid_shape}`);
+  log(`    - Duplicates: ${stats.episodes.duplicates}`);
+  log("");
+  log("Decisions:");
+  log(`  Found: ${stats.decisions.found}`);
+  log(`  Imported: ${stats.decisions.imported}`);
+  log(`  Skipped: ${stats.decisions.skipped}`);
+  log(`    - Parse errors: ${stats.decisions.parse_errors}`);
+  log(`    - Invalid shape: ${stats.decisions.invalid_shape}`);
+  log(`    - Duplicates: ${stats.decisions.duplicates}`);
+  log("");
+  log("Database (after import):");
+  log(`  Episodes: ${stats.database.episodes}`);
+  log(`  Decisions: ${stats.database.decisions}`);
+  log("");
+
+  // Show sample errors if any
+  if (stats.episodes.errors.length > 0) {
+    log("Sample episode errors (first 5):");
+    for (const err of stats.episodes.errors.slice(0, 5)) {
+      log(`  ${err.ref_path}: ${err.reason}${err.error ? ` (${err.error})` : ""}`);
+    }
+    if (stats.episodes.errors.length > 5) {
+      log(`  ... and ${stats.episodes.errors.length - 5} more`);
+    }
+    log("");
+  }
+
+  // Write stats to file
+  const statsDir = path.join(repoRoot, "lab", "memory", "stats_runs");
+  ensureDir(statsDir);
+  const statsFile = path.join(statsDir, `${stamp()}_stats.json`);
+  fs.writeFileSync(statsFile, JSON.stringify(stats, null, 2));
+  log(`Statistics written to ${toPosix(path.relative(repoRoot, statsFile))}`);
+
+  return stats;
 }
 
 function writeSkipContext(outDir, reason) {
@@ -428,7 +865,7 @@ async function handleQuery(options) {
   const likeValue = `%${queryText.toLowerCase()}%`;
   const hasFilter = Boolean(queryText);
   const whereClause = hasFilter
-    ? "WHERE (LOWER(title) LIKE ? OR LOWER(summary) LIKE ? OR LOWER(tags) LIKE ? OR LOWER(skill_id) LIKE ?)"
+    ? "WHERE (LOWER(title) LIKE ? OR LOWER(summary) LIKE ? OR LOWER(tags) LIKE ? OR LOWER(skill_id) LIKE ? OR LOWER(search_text) LIKE ?)"
     : "";
   const sql = `
     SELECT 'episode' AS kind, id, ts, skill_id, title, tags, summary, ref_path
@@ -443,7 +880,7 @@ async function handleQuery(options) {
   `;
   const stmt = db.prepare(sql);
   if (hasFilter) {
-    stmt.bind([likeValue, likeValue, likeValue, likeValue, likeValue, likeValue, likeValue, likeValue]);
+    stmt.bind([likeValue, likeValue, likeValue, likeValue, likeValue, likeValue, likeValue, likeValue, likeValue, likeValue]);
   }
 
   const rows = [];
@@ -505,11 +942,13 @@ async function main() {
         "Usage:",
         "  node tools/lab_memory.mjs init",
         "  node tools/lab_memory.mjs import",
+        "  node tools/lab_memory.mjs stats",
         "  node tools/lab_memory.mjs query [--query <text>] [--limit 20] [--out <dir>]",
         "",
         "Commands:",
         "  init   Initialize lab/memory/lab_memory.sqlite with canonical schema.",
         "  import Scan tracked episodes/decisions and index them into SQLite.",
+        "  stats  Show import statistics and database counts.",
         "  query  Run LIKE search across memory and emit context_restore.{json,md}."
       ].join("\n")
     );
@@ -522,6 +961,10 @@ async function main() {
   }
   if (command === "import") {
     await handleImport();
+    return;
+  }
+  if (command === "stats") {
+    await handleStats();
     return;
   }
   if (command === "query") {
