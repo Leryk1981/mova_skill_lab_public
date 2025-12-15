@@ -115,13 +115,12 @@
     "outputs": ["skills/repo_snapshot_basic/episodes/*.json", "docs/PROJECT_MEMORY/PROJECT_SNAPSHOT_*.md"],
     "writes_episode": true,
     "runner": {
-      "mode": "manual",
-      "binding_path": "skills/repo_snapshot_basic/impl/bindings/repo_snapshot_llm_binding_v1.json",
-      "instructions": [
-        "Use the repo snapshot env JSON as request input for the binding.",
-        "Produce a markdown snapshot + ds.episode JSON and store under docs/PROJECT_MEMORY and skills/repo_snapshot_basic/episodes.",
-        "Attach references (request/run files) before marking PASS."
-      ],
+      "mode": "node",
+      "command": "node",
+      "script": "skills/repo_snapshot_basic/impl/bindings/node/cli.mjs",
+      "args": {
+        "env": ["--env", "{env_abs}"]
+      },
       "supported_inputs": ["env"]
     },
     "notes": "Use before/after major experiments."

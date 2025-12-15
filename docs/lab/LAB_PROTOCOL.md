@@ -45,6 +45,14 @@ Pattern: `env → tool → episode`.
 
 For package-driven runs (e.g., repo snapshot, DPP normalize), follow each skill’s README and case files.
 
+## LAB:INIT (NEW CHAT BOOTSTRAP)
+
+- Kick off new analysis with `npm run lab:init -- --query "<focus>"` (default query is `infra`).
+- The runner writes snapshot/context/baseline logs under `lab/init_runs/<YYYY-MM-DD_HH-mm-ss>/`.
+- Repo snapshot executes the node CLI for `skill.repo_snapshot_basic` (stores artifacts in `lab/repo_snapshot_runs/<ts>`).
+- Context restore inspects `lab/memory/*.sqlite` via `sql.js` when available; skips (and reports) when missing (public mirror).
+- Baseline gates always run `npm run validate` + `npm test`. `--public` (or CI+smoke script) also runs `npm run smoke:wf_cycle`.
+
 ## HOW TO RUN A SKILL
 
 - Use the unified runner: `npm run lab:run -- --case <path>` or `npm run lab:run -- --env <path>`.
