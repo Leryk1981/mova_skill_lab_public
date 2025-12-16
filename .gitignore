@@ -7,3 +7,8 @@ tmp/
 .cursor/
 skill_seekers_development/
 
+
+# local-only (do not commit)
+/lab/memory/**
+/spec/**
+
